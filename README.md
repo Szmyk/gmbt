@@ -48,7 +48,7 @@ The most important features of the tool are finalized, but of course you use it 
 
 | Latest release | Pre-release 		| Development [(dev)]
 |:-------------: | :-------------: 	| :-------------:
-[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)]() | [![GitHub (pre-)release](https://img.shields.io/github/release/szmyk/gmbt/all.svg)]()  |[![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
+[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) | [![GitHub (pre-)release](https://img.shields.io/github/release/szmyk/gmbt/all.svg)](https://github.com/Szmyk/gmbt/releases/latest)  |[![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
 
 # Installation & Requirements
 
@@ -146,7 +146,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 | Parameter 								| Description 																																| Default
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
-| `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `gmbt.yml` in working directory
+| `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
 | `--texturecompile=<normal\|quick>`		| Mode of textures compile.																													| _normal_
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
