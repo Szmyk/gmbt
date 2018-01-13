@@ -1,0 +1,3 @@
+[submodule "libs/csharp-utils"]
+	path = libs/csharp-utils
+	url = https://github.com/Szmyk/csharp-utils

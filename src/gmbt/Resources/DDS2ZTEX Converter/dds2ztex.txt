@@ -1,0 +1,66 @@
+
+DDS2ZTEX Converter, Version 1.0
+Copyright (c) 2005 Nico Bendlin
+
+Usage:
+
+  dds2ztex [options] [--] [ddsfile] [ztexfile]
+
+Options:
+
+  -h --help     Show this help screen
+  -i --stdin    Use stdin as ddsfile
+  -o --stdout   Use stdout as ztexfile
+  -q --shutup   Suppress all messages
+  -v --version  Copyright and version
+
+  --ignore-path  Don't look for hints in path
+  --force-nomip  Do not include lower mipmaps
+  --force-ref:X  Use ref size of X (4 - 1024)
+
+  --force-argb  Convert uncommon formats (e.g. BGRA) to ARGB
+  
+Samples:
+
+  Convert FOO.DDS to FOO-C.TEX
+
+    dds2ztex FOO.DDS
+
+  Convert FOO-C.DDS to FOO-C.TEX
+
+    dds2ztex FOO-C.DDS
+
+  Convert -FOO.DDS to -FOO-C.TEX
+  (-- signals end of options!) 
+
+    dds2ztex -- -FOO.DDS
+
+  Convert FOO.DDS to BAR.TEX
+
+    dds2ztex FOO.DDS BAR.TEX
+
+  Convert FOO.DDS to stdout
+
+    dds2ztex -o       FOO.DDS > BAR.TEX
+    dds2ztex --stdout FOO.DDS > BAR.TEX
+
+  Convert stdin to BAR.TEX
+
+    dds2ztex -i       BAR.TEX < FOO.DDS
+    dds2ztex --stdout BAR.TEX < FOO.DDS
+
+  Convert stdin to stdout
+
+    dds2ztex -io              < FOO.DDS > BAR.TEX
+    dds2ztex -i -o            < FOO.DDS > BAR.TEX
+    dds2ztex -i --stdout      < FOO.DDS > BAR.TEX
+    dds2ztex --stdin --stdout < FOO.DDS > BAR.TEX
+    dds2ztex --stdin -o       < FOO.DDS > BAR.TEX
+    ...
+
+Hints:
+
+  In scripts you should always use -- and quotes:
+
+    dds2ztex -... -- "..." "..."
+
