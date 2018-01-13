@@ -102,8 +102,6 @@ namespace GMBT
                 {
                     foreach (var file in files)
                     {
-                        Console.WriteLine(file);
-
                         string directoryPathWithoutRoot = Path.GetFullPath(file).Replace(Path.GetFullPath(directoryPath), string.Empty);
 
                         string destination = Path.GetFullPath(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)) + directoryPathWithoutRoot;
