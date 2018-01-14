@@ -20,6 +20,7 @@ This project was developed primarily for the purpose of assisting the SoulFire T
 * [License](#license)
 * [Used software](#used-software)
 * [Used libraries](#used-libraries)
+* [Special thanks](#special-thanks)
 * [Contributing / issues / questions / contact](#contributing)
 
 # How does it work?
@@ -249,7 +250,7 @@ SOFTWARE.
 # Used libraries 
 
 * [**YamlDotNet**](https://github.com/aaubry/YamlDotNet) Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013, 2014 Antoine Aubry and contributors
-* [**I18N-Portable8**](https://github.com/xleon/I18N-Portable) Copyright (c) 2016 Diego Ponce de León
+* [**I18N-Portable**](https://github.com/xleon/I18N-Portable) Copyright (c) 2016 Diego Ponce de León
 * [**NLog**](https://github.com/NLog/NLog) Copyright (c) 2004-2017 Jaroslaw Kowalski, Kim Christensen, Julian Verdurmen
 * [**CommandLineParser**](https://github.com/commandlineparser/commandline) Copyright (c) 2005 - 2015 Giacomo Stelluti Scala & Contributors
 
@@ -265,6 +266,13 @@ Licenses and disclaimers are in the [ThirdPartyNotices.md](https://github.com/Sz
 * **NSIS (Nullsoft Scriptable Install System)** Copyright (C) 1999-2018 Nullsoft and Contributors
 
 Licenses and disclaimers are in the [Resources] directory.
+
+# Special thanks
+
+Big thanks to: 
+
+* the whole SoulFire team, especially [Krystian 'oGon' Ogonowski](https://github.com/oGon991), ['Xardas49'](https://github.com/Xardas49), [Michal 'Komuch' Wisniewski](https://github.com/miwisniewski), [Radoslaw 'Revo' Rak](https://github.com/revo16pl) for testing on the very early stage of production
+* [Adam 'Avallach' Golebiowski](https://github.com/Avallach7) for idea of this tool and help on the very early stage of production
 
 <a id= "contributing"/>
 
