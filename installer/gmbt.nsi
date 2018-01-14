@@ -1,44 +1,29 @@
-SetCompressor lzma
-
 !include utils.nsi
 
 !include ..\.ver
 
-;--------------------------------
+XPStyle on
 
-Function .onInit
-  MessageBox MB_YESNO|MB_ICONQUESTION "Would you like to install/update Gothic Mod Build Tool v${GMBT_VERSION}?" \
-    /SD IDYES IDNO no IDYES yes
+RequestExecutionLevel user
 
-  yes:
-    SetSilent silent
-    Goto done
-  no:
-    Abort
-  done:
-FunctionEnd
+Page license
+Page instfiles
 
-;--------------------------------
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\English.nlf"
+LoadLanguageFile "${NSISDIR}\Contrib\Language files\Polish.nlf"
+
+LicenseLangString myLicenseData ${LANG_ENGLISH} "..\LICENSE"
+LicenseLangString myLicenseData ${LANG_POLISH} "..\LICENSE"
+
+LicenseData $(myLicenseData)
+
+LangString Name ${LANG_POLISH} "Polski"
+LangString Name ${LANG_ENGLISH} "English"
 
 Name "Gothic Mod Build Tool"
 OutFile "gmbt-${GMBT_VERSION}.exe"
 InstallDir $APPDATA\GMBT
 InstallDirRegKey HKCU "Software\GMBT" "Install_Dir"
-RequestExecutionLevel admin
-
-;--------------------------------
-; Pages
-;--------------------------------
-
-Page directory
-Page instfiles
-
-UninstPage uninstConfirm
-UninstPage instfiles
-
-;--------------------------------
-; Installer
-;--------------------------------
 
 !define APP_NAME "Gothic Mod Build Tool" 
 !define APP_COPY "Copyright © 2018 Szymon 'Szmyk' Zak" 
@@ -50,18 +35,48 @@ VIAddVersionKey "FileVersion"      "${VER_TEXT}"
 VIAddVersionKey "LegalCopyright"   "${APP_COPY}"
 VIAddVersionKey "FileDescription"  "${APP_NAME}"
 
-Section "" 
+Function .onInit
+  Call IsSilent
+  Pop $0
+  StrCmp $0 1 0 +2
+	goto end
+	
+	Push ""
+	Push ${LANG_POLISH}
+	Push Polski
+	Push ${LANG_ENGLISH}
+	Push English
+	Push A
+	LangDLL::LangDialog "Installer Language" "Please select the language of the installer"
 
+	Pop $LANGUAGE
+	StrCmp $LANGUAGE "cancel" 0 +2
+		Abort
+		
+	end:
+FunctionEnd
+
+Section "" 
+  SetOutPath "$INSTDIR"
+  File "..\README.md"
+  File "..\ThirdPartyNotices.md"
+  File "..\CHANGELOG.md"
+  File "..\LICENSE"
+ 
   SetOutPath "$INSTDIR\bin"
   File "..\src\gmbt\bin\Release\*.exe"
   File "..\src\gmbt\bin\Release\*.dll"
   
   SetOutPath "$INSTDIR\tools"
   File "..\src\gmbt\Resources\DDS2ZTEX Converter\dds2ztex.exe"
+  File "..\src\gmbt\Resources\DDS2ZTEX Converter\dds2ztex.txt"
   File "..\src\gmbt\Resources\GothicVDFS 2.6\GothicVDFS.exe"
+  File  /oname=GothicVDFS_ReadMe.txt "..\src\gmbt\Resources\GothicVDFS 2.6\ReadMe.txt"
   File "..\src\gmbt\Resources\nvDXT\nvdxt.exe"
+  File "..\src\gmbt\Resources\nvDXT\nvdxtLicense.pdf"
   File "..\src\gmbt\Resources\zSpy 2.05\zSpy.exe"
   File "..\src\gmbt\Resources\zSpy 2.05\zSPYdefault.cfg"
+  File /oname=zSpy_ReadMe.txt "..\src\gmbt\Resources\zSpy 2.05\ReadMe.txt" 
   
   WriteRegStr HKCU SOFTWARE\GMBT "Install_Dir" "$INSTDIR"
    
@@ -77,25 +92,10 @@ Section ""
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\GMBT" "DisplayVersion" "${GMBT_VERSION}"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\GMBT" "Comments" "Gothic Mod Build Tool is a simple tool designed to help in testing and building Gothic and Gothic 2 Night of the Raven mods."
   WriteUninstaller "uninstall.exe"
-     
-  Call IsSilent
-  Pop $0
-  StrCmp $0 1 0 +2
-    Abort
-	
-  MessageBox MB_OK "Done."
-  
-  ${OpenURL} "https://github.com/Szmyk/gmbt#gothic-mod-build-tool"
 	
 SectionEnd
 
-;--------------------------------
-; Uninstaller
-;--------------------------------
-
 Section "Uninstall"
-  
-  ; Remove registry keys
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\GMBT"
   DeleteRegKey HKCU "Software\GMBT"
 
