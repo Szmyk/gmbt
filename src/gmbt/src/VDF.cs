@@ -96,7 +96,7 @@ namespace GMBT
 
             ProcessStartInfo builder = new ProcessStartInfo
             {
-                FileName = Program.AppData.Tools + "GothicVDFS26.exe",
+                FileName = Program.AppData.GetTool("GothicVDFS.exe"),
                 UseShellExecute = false,
                 CreateNoWindow = true
             };

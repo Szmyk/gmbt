@@ -2,7 +2,7 @@ Done = Ukończono.
 UnknownError = Nieznany błąd
 ConvertingSubtitles = Konwertowanie napisów...
 CompilingTextures = Kompilowanie tekstur...
-CompletedIn = Ukończono w {0} {1}
+CompletedIn = Ukończono w {0} minuty {1} sekundy
 Compiled = Skompilowano
 Gothic2NotR = Gothic 2 Noc Kruka
 

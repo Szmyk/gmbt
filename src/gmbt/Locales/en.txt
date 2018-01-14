@@ -2,7 +2,7 @@ Done = Done.
 UnknownError = Unknown error
 ConvertingSubtitles = Converting subtitles...
 CompilingTextures = Compiling textures...
-CompletedIn = Completed in {0} {1}
+CompletedIn = Completed in {0} minutes {1} seconds
 Compiled = Compiled
 Gothic2NotR = Gothic 2 Night of the Raven
 
