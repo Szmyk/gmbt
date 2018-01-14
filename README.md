@@ -1,8 +1,40 @@
-# Gothic Mod Build Tool  
-[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Szmyk/gmbt/blob/master/LICENSE) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/12d93d0465b14dc284444a78062b5688)](https://www.codacy.com/app/Szmyk/gmbt?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Szmyk/gmbt&amp;utm_campaign=Badge_Grade) [![Github Releases](https://img.shields.io/github/downloads/szmyk/gmbt/total.svg)](https://github.com/Szmyk/gmbt/releases/latest)
-> *Gothic Mod Build Tool* is a simple tool designed to help in testing and building Gothic and Gothic 2 Night of the Raven mods.
+<h1 align="center">
+  Gothic Mod Build Tool  
+  <br>
+</h1>
 
-This project was developed primarily for the purpose of assisting the SoulFire Team with the development of [The History of Khorinis].
+<h4 align="center">A simple tool designed to help in testing and building Gothic and Gothic 2 Night of the Raven mods.</h4>
+
+<p align="center">
+  <a href="https://github.com/Szmyk/gmbt/releases/latest">
+    <img src="https://img.shields.io/github/release/szmyk/gmbt.svg" alt="Latest GitHub release">
+  </a>
+  
+  <a href="https://github.com/Szmyk/gmbt/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+  </a>
+  
+  <a href="https://github.com/Szmyk/gmbt/releases/latest">
+    <img src="https://img.shields.io/github/downloads/szmyk/gmbt/total.svg" alt="Downloads of Github Releases">
+  </a>
+  
+  <a href="https://www.codacy.com/app/Szmyk/gmbt">
+    <img src="https://api.codacy.com/project/badge/Grade/12d93d0465b14dc284444a78062b5688" alt="Codacy Badge">
+  </a>
+  
+  <a href="https://gitter.im/gothic-mod-build-tool">
+    <img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the Gitter chat">
+  </a>
+                                                             
+  <br>
+</p>
+ 
+    
+<p align="center">
+  <img src="http://g.recordit.co/5HeXXvuJTE.gif" alt="Demo">   
+</p>
+
+This project was developed primarily for the purpose of assisting the SoulFire team with the development of [The History of Khorinis].
 
 ## Table of Contents
 
@@ -18,16 +50,16 @@ This project was developed primarily for the purpose of assisting the SoulFire T
     *  [Examples](#examples)
 * [Example project](#example-project)
 * [License](#license)
+* [Build with](#build-with)
 * [Used software](#used-software)
-* [Used libraries](#used-libraries)
-* [Special thanks](#special-thanks)
-* [Contributing / issues / questions / contact](#contributing)
+* [Acknowledgments](#acknowledgments)
+* [Contributing / issues  / contact](#contributing--issues--contact)
 
 # How does it work?
 
 Let's start with some background: the Gothic Mod Build Tool is kind of a breakthrough in Gothic modding, because it is one of the few successful attempts to create a build system which fully automates the process that was previously done manually, every modder had to manually compile assets like textures, meshes and animations and send them to their co-modders. Now, working with version control systems is possible, because each modder has the same version of assets at the same time and at any time can launch the game without need to build a *.mod* and not run into errors or discrepancies due to a lack of or mismatching assets.
 
-This tool serves two very important purposes, to merge and to compile everything. It launches the Gothic game executable and compiles assets ingame.
+This tool serves two very important purposes, to merge and to compile everything. It uses external tools for compiling textures, updating dialogs subtitles but also launches the Gothic game executable and compiles assets like 3D models and animations ingame.
 
 ## Modes
 
@@ -39,7 +71,7 @@ There are 3 modes of use:
 
 ## Speed
 
-On a mid-range PC with an HDD, the VDF build of a huge addon [The History of Khorinis] with around 800 MB of textures, 50 MB of animations and 3D models and no sounds, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
+On a mid-range PC with an HDD, a no sounds VDF build of a huge addon [The History of Khorinis] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
 
 # Status
 
@@ -47,21 +79,25 @@ The most important features of the tool are finalized, but of course you use it 
 
 # Download
 
-| Latest release | Pre-release 		| Development [(dev)]
-|:-------------: | :-------------: 	| :-------------:
-[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) | [![GitHub (pre-)release](https://img.shields.io/github/release/szmyk/gmbt/all.svg)](https://github.com/Szmyk/gmbt/releases/latest)  |[![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
+| Latest stable release | Unstable development ([dev](https://github.com/Szmyk/gmbt/tree/dev) branch)
+|:-------------:| :-------------:
+[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) |[![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
 
 # Installation & Requirements
 
+* [Download](https://github.com/Szmyk/gmbt/releases/latest) latest version of the tool. The installer will install GMBT to `%APPDATA%\GMBT` and add this path to [`%PATH%`](https://en.wikipedia.org/wiki/PATH_(variable)) variable.
+
 * [.NET Framework 4.7](https://www.microsoft.com/en-us/download/details.aspx?id=55170) is required to run the tool.
 
-* A clean installation of vanilla Gothic or Gothic 2 NotR on your PC. You must have a **COMPLETELY** clean copy of game, with no mods, textures packs and other such.
+* A clean installation of vanilla *Gothic* or *Gothic 2 Night of the Raven* on your PC. You must have a **COMPLETELY** clean copy of game, with no mods, textures packs and other such.
 
-* [Gothic 1 Player Kit - v1.08k](https://www.worldofgothic.de/dl/download_34.htm) or [Gothic 2 Player Kit 2.6f](https://www.worldofgothic.de/dl/download_168.htm).
+* [Gothic Patch 1.08k](http://www.worldofgothic.de/dl/download_6.htm) or [Gothic II Report-Version 2.6f-rev2](https://www.worldofgothic.de/dl/download_278.htm) 
+
+* [Gothic Player Kit v1.08k](http://www.worldofgothic.de/dl/download_34.htm) or [Gothic 2 Player Kit 2.6f](https://www.worldofgothic.de/dl/download_168.htm).
 
 * Of course, you can also install [SystemPack](https://forum.worldofplayers.de/forum/threads/1340357-Release-Gothic-Ă‚Ëť-Ă‚â€”-SystemPack-%28ENG-DEU%29) if you have problems with the game on your PC.
 
-After installation, you can run Gothic **ONLY** via GMBT. Of course, you can use eg. Spacer, but you have to complete a full test before (the scripts have to be compiled because Spacer needs eg. `GOTHIC.DAT` and `CAMERA.DAT`).
+After installation, you can run the Gothic copy **ONLY** via GMBT. Of course, you can use eg. Spacer, but you have to complete a full test before (the scripts have to be compiled because Spacer needs eg. `GOTHIC.DAT` and `CAMERA.DAT`).
 
 Next you have to [configure paths](#configuration) and run the tool with the command you want ([usage guide](#usage)).
 
@@ -103,7 +139,7 @@ You have to configure a [YAML] config:
 
 ### Example
 
-Below is an example structure and configurations used in [The History of Khorinis] project. Also, the same structure you can see in the [example project](#example-project) I have prepared.
+Below is an example files structure and configuration used in [The History of Khorinis] project. Also, the same structure you can see in the [example project](#example-project).
 
 Our developers have to clone modification repository to `_Work` directory, so their local repository is located in `_Work/TheHistoryOfKhorinis`. We have a complex structure for our files. There are four directories:
 * **mdk** - there are eg. original scripts, animations (if needed eg. to compile some new animations)
@@ -111,7 +147,7 @@ Our developers have to clone modification repository to `_Work` directory, so th
 * **mod** - own new assets, scripts, music and so on. There are only completely new files. Overrides of originals are in the `mdk-overrides`
 * **thirdparty** - some resources from thirdparty libraries and projects on which we have license to use
 
-We have got this config in root of the local repository (`_Work/TheHistoryOfKhorinis/build.yml`).
+We have got this config in root of the local repository (`_Work/TheHistoryOfKhorinis/.gmbt.yml`).
 
 ```
 gothicRoot: ..\..
@@ -151,7 +187,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--texturecompile=<normal\|quick>`		| Mode of textures compile.																													| _normal_
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
-| `-L, --lang`								| Set language of console output.																											| Control Panel -> Regional Settings
+| `-L <en\|pl>, --lang=<en\|pl>`			| Set language of console output.																											| Control Panel -> Regional Settings
 | `--help`									| Print short descriptions of parameters.																									| N/A
 
 ## Verb commands
@@ -163,14 +199,13 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | Parameter 									| Description 																														| Default
 | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------
 | `-F, --full`                           		| Full test mode. Information about modes is [here](#modes). 																		| N/A
-| `--merge=<none\|all\|scripts\|worlds\|sounds>`| Merge option. <br/> Enter eg. `scripts` if you just want to debug scripts and you do not want to copy all assets every time. Also, nice option to use is `scripts, worlds` if you want to debug some changes only related to scripts and worlds | _all_
-| `-W, --world=<zen>` 					 		| Run game in a specific world. 																									| Set in [config file](#configuration)
+| `--merge=<none\|all\|scripts\|worlds\|sounds>`| Merge option. <br/> Enter eg. `scripts` if you just want to debug scripts and do not want to copy all assets every time. Also, nice option to use is `scripts,worlds` if you want to debug some changes only related to scripts and worlds. | _all_
+| `-W <zen>, --world=<zen>` 					| Run game in a specific world. 																									| Set in [config file](#configuration)
 | `--windowed` 						 			| Run game in window. 																												| N/A
 | `--noaudio` 					     			| Run game without any audio. 																										| N/A
 | `--zspy=<none\|low\|medium\|high>` 			| Level of zSpy logging.																											| _none_
-| `--maxfps=<number>` 				 			| Max frames per second.																											| _60_
-| `--ingametime=<hh:mm>`						| Ingame time. <br/>Syntax: **hour:minute**, eg. _15:59_. 																			| _08:00_
-| `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allow you to off this wrapper. 											| N/A
+| `--ingametime=<hh:mm>`						| Ingame time. <br/>Syntax: **hour:minute**, eg. _15:59_. 																			| N/A
+| `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allow you to temporarily disable this wrapper. 							| N/A
 | `--nomenu` 									| Run game without menu showing (start new game immediately). 																		| N/A
 | `-R, --reinstall`								| Reinstall before start.																											| N/A
 
@@ -178,16 +213,16 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 > Starts a *.mod* build.
 
-| Parameter 		| Description								    | Default
-| ----------------- | --------------------------------------------- | ------------------------------------
-|`-O, --output`  	| Path of VDF volume (`.mod`) output. 			| Set in [config file](#configuration)
-|`--nopacksounds`  	| Do not to pack sounds (WAVs) to mod package.  | N/A
+| Parameter 					| Description								    | Default
+| ---------------------------- 	| --------------------------------------------- | ------------------------------------
+|`-O <file>, --output=<file>`  	| Path of VDF volume (`.mod`) output. 			| Set in [config file](#configuration)
+|`--nopacksounds`  				| Do not to pack sounds (WAVs) to mod package.  | N/A
 
 ## Examples
 
-Example Batch scripts are in [example project].
+Example Batch scripts are also in [example project].
 
-Below are some examples I am using developing [The History of Khorinis] project:
+Below are some examples used developing [The History of Khorinis] project:
 
 * **GMBT_QuickTest.bat**
 
@@ -203,7 +238,7 @@ Below are some examples I am using developing [The History of Khorinis] project:
 
   Similar to previous with additional merging of worlds.
 
-    `gmbt test --windowed --noaudio --merge=scripts, worlds`
+    `gmbt test --windowed --noaudio --merge=scripts,worlds`
 
 * **GMBT_FullTest.bat**
 
@@ -219,14 +254,14 @@ Below are some examples I am using developing [The History of Khorinis] project:
 
 # Example project
 
-There is an [example repository] which uses this tool. There are some assets from [World of Gothic DE Modderdatenbank], just for the test. You could test some features there to get acquainted with the tool. The repository has the same structure of files as in [example configuration](#example).
+There is an [example project] which uses this tool. There are some assets from [World of Gothic DE Modderdatenbank] — just for the test. This repository is very nice sandbox which allows you to get acquainted with the tool. The repository has the same structure of files as in [example configuration](#example).
 
 # License
 
 ```
 MIT License
 
-Copyright (c) 2017 Szymon 'Szmyk' Zak <szymonszmykzak@gmail.com>
+Copyright (c) 2018 Szymon 'Szmyk' Zak <szymonszmykzak@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -247,7 +282,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-# Used libraries 
+# Build with
 
 * [**YamlDotNet**](https://github.com/aaubry/YamlDotNet) Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013, 2014 Antoine Aubry and contributors
 * [**I18N-Portable**](https://github.com/xleon/I18N-Portable) Copyright (c) 2016 Diego Ponce de León
@@ -265,16 +300,15 @@ Licenses and disclaimers are in the [ThirdPartyNotices.md](https://github.com/Sz
 * **zSpy 2.05** Copyright (c) 1997-2000 Bert Speckels, Mad Scientists 1997
 * **NSIS (Nullsoft Scriptable Install System)** Copyright (C) 1999-2018 Nullsoft and Contributors
 
-Licenses and disclaimers are in the [Resources] directory.
+Licenses and disclaimers are in the [Resources](https://github.com/Szmyk/gmbt/tree/master/src/gmbt/Resources) directory.
 
-# Special thanks
+# Acknowledgments
 
-Big thanks to: 
+Big thanks to:
 
-* the whole SoulFire team, especially [Krystian 'oGon' Ogonowski](https://github.com/oGon991), ['Xardas49'](https://github.com/Xardas49), [Michal 'Komuch' Wisniewski](https://github.com/miwisniewski), [Radoslaw 'Revo' Rak](https://github.com/revo16pl) for testing on the very early stage of production
+* the whole SoulFire team, especially ['oGon'](https://github.com/oGon991), ['Xardas49'](https://github.com/Xardas49), ['Komuch'](https://github.com/miwisniewski) and [Radoslaw 'Revo' Rak](https://github.com/revo16pl) for testing on the very early stage of production
 * [Adam 'Avallach' Golebiowski](https://github.com/Avallach7) for idea of this tool and help on the very early stage of production
-
-<a id= "contributing"/>
+* [Mikolaj 'Miko' Sitarek](mailto:Nikolajek@hotmail.com) for proofreading
 
 # Contributing / issues / contact
 
@@ -282,17 +316,8 @@ Big thanks to:
 * [![GitHub issues](https://img.shields.io/github/issues/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues) [![GitHub closed issues](https://img.shields.io/github/issues-closed/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues)
 * [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gothic-mod-build-tool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
-[Resources]: https://github.com/Szmyk/gmbt/tree/master/src/gmbt/Resources
-[Reporting issues]: https://github.com/Szmyk/gmbt/issues
-[Contributing]: https://github.com/Szmyk/gmbt/tree/master/.github/CONTRIBUTING.md
-[example project]: https://github.com/Szmyk/gmbt-example-mod/tree/master/tools/build-tool
 [The History of Khorinis]: http://thehistoryofkhorinis.com
 [D3D11-Renderer for Gothic]: https://forum.worldofplayers.de/forum/threads/1441897-D3D11-Renderer-fÄ‚Ä˝r-Gothic-2-(alpha)-15
-[(master)]: https://github.com/Szmyk/gmbt/tree/master
-[(dev)]: https://github.com/Szmyk/gmbt/tree/dev
 [YAML]: https://en.wikipedia.org/wiki/YAML
-[GothicVDFS 2.6]: http://www.bendlins.de/nico/gothic2/GothicVDFS.zip
-[tool made by Nico Bendlin]: http://www.bendlins.de/nico/gothic2/ztextools.zip
-[NVIDIA Legacy Texture Tools]: https://developer.nvidia.com/legacy-texture-tools
 [World of Gothic DE Modderdatenbank]: https://www.worldofgothic.de/?go=moddb
-[example repository]: https://github.com/Szmyk/gmbt-example-mod
+[example project]: https://github.com/Szmyk/gmbt-example-mod
