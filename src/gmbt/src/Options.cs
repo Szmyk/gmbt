@@ -80,6 +80,7 @@ namespace GMBT
     internal class BuildSubOptions : CommonOptions
     {
         [Option('O', "output",
+        MetaValue = "<file>",
         MutuallyExclusiveSet = "build",
         HelpText = "Path to VDF output. Default is set in config.")]
         public string Output { get; set; }
