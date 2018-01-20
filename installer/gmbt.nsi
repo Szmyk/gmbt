@@ -1,3 +1,5 @@
+SetCompressor lzma
+
 !include utils.nsi
 
 !include ..\.ver
