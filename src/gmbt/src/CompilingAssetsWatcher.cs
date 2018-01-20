@@ -56,7 +56,7 @@ namespace GMBT
                 return;
             }
 
-            if (Program.Options.Common.ShowCompilingAssets)
+            if (Program.Options.CommonTestBuild.ShowCompilingAssets)
             {
                 Console.WriteLine("\t" + "Compiled".Translate() + ": " + e.Name);
             }

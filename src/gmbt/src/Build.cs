@@ -31,7 +31,7 @@ namespace GMBT
 
             Merge.MergeAssets(gothic, Merge.MergeOptions.All);
 
-            if (Program.Options.Common.NoUpdateSubtitles == false)
+            if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
             {            
                 Console.Write("ConvertingSubtitles".Translate() + " ");
                 Program.Logger.Trace("ConvertingSubtitles".Translate());

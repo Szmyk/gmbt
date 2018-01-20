@@ -6,12 +6,15 @@ CompletedIn = Ukończono w {0} minuty {1} sekundy
 Compiled = Skompilowano
 Gothic2NotR = Gothic 2 Noc Kruka
 
-Update.Notification = Dostępna do pobrania jest aktualizacja (v{0}). Jeśli chcesz ją pobrać, uruchom
+Update.CheckingAvailableUpdate = Sprawdzanie dostępności aktualizacji...
+Update.FailedCheck = Nie udało się sprawdzić dostępności aktualizacji.
+Update.Notification = Dostępna do pobrania jest aktualizacja ({0}). Jeśli chcesz ją pobrać, uruchom
 Update.AlreadyUpdated = Gothic Mod Build Tool jest aktualny.
-Update.NewUpdateAvailable = Dostępna do pobrania jest najnowsza aktualizacji
+Update.NewUpdateAvailable = Dostępna do pobrania jest najnowsza aktualizacja
 Update.Version = Wersja
-Update.DoYouWantToUpdate = Czy chcesz pobrać tę aktualizację?
+Update.DoYouWantToUpdate = Czy chcesz pobrać ({0}) tę aktualizację?
 Update.Downloading = Pobieranie...
+Update.Ready = Zaktualizowano.
 
 Config.Error = Nieznany błąd konfiguracji: {0}
 Config.Error.DidNotFound = Błąd konfiguracji: nie znaleziono pliku konfiguracyjnego

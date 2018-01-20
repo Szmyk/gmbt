@@ -59,7 +59,7 @@ namespace GMBT
                 CreateNoWindow = true
             };
 
-            if (Program.Options.Common.TextureCompile == CompileMode.Quick)
+            if (Program.Options.CommonTestBuild.TextureCompile == CompileMode.Quick)
             {
                 tgaToDds.Arguments += " -quick";
             }

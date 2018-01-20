@@ -14,6 +14,7 @@ namespace GMBT
         public readonly static AppData AppData = new AppData();
         public readonly static Options Options = new Options();
         public readonly static Logger Logger = LogManager.GetLogger();
+        public readonly static Updater Updater = new Updater();
 
         public static Config Config;
 
@@ -29,7 +30,13 @@ namespace GMBT
             (verb, subOptions) =>
             {
                 Options.InvokedVerb = verb;
+
                 Options.Common = (CommonOptions)subOptions;
+
+                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build")
+                {
+                    Options.CommonTestBuild = (CommonTestBuildOptions)subOptions;
+                }     
             }))
             {
                 if ((Options.Common.Language == "en")
@@ -38,9 +45,41 @@ namespace GMBT
                     I18N.Current.Locale = Options.Common.Language;
                 }
 
-                Options.Common.ConfigFile = Path.GetFullPath(Options.Common.ConfigFile);
+                if (Options.InvokedVerb == "update")
+                {
+                    if (Options.UpdateVerb.Force == false)
+                    {
+                        Console.Write("Update.CheckingAvailableUpdate".Translate() + Environment.NewLine + Environment.NewLine);
+                    }
 
-                if (File.Exists(Options.Common.ConfigFile) == false)
+                    while (Updater.CheckLatestReleaseTask.Status == System.Threading.Tasks.TaskStatus.Running)
+                        ;            
+
+                    if (Updater.FailedCheck)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Update.FailedCheck".Translate());
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        return;
+                    }
+                    else if (Updater.IsUpdateAvailable || Options.UpdateVerb.Force)
+                    {
+                        Updater.PrintUpdateInfo();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Update.AlreadyUpdated".Translate());
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                    }
+
+                    return;
+                }
+
+                Options.CommonTestBuild.ConfigFile = Path.GetFullPath(Options.CommonTestBuild.ConfigFile);
+
+                if (File.Exists(Options.CommonTestBuild.ConfigFile) == false)
                 {
                     Logger.Fatal("Config.Error.DidNotFound".Translate());
                     return;
@@ -48,9 +87,9 @@ namespace GMBT
 
                 try
                 {
-                    Config = ConfigDeserializer.Deserialize(Options.Common.ConfigFile);
+                    Config = ConfigDeserializer.Deserialize(Options.CommonTestBuild.ConfigFile);
 
-                    Logger.Trace("Config (" + Options.Common.ConfigFile + "):\n" + File.ReadAllText(Options.Common.ConfigFile));
+                    Logger.Trace("Config (" + Options.CommonTestBuild.ConfigFile + "):\n" + File.ReadAllText(Options.CommonTestBuild.ConfigFile));
                 }
                 catch (YamlException e)
                 {
@@ -73,7 +112,7 @@ namespace GMBT
                     {
                         if (Options.InvokedVerb == "test")
                         {
-                            if ((string.Equals(gothic.GetLastUsedConfigPath(), Options.Common.ConfigFile, StringComparison.CurrentCultureIgnoreCase) == false)
+                            if ((string.Equals(gothic.GetLastUsedConfigPath(), Options.CommonTestBuild.ConfigFile, StringComparison.CurrentCultureIgnoreCase) == false)
                             || (Options.TestVerb.ReInstall))
                             {
                                 new Install(gothic).Start();
@@ -99,6 +138,11 @@ namespace GMBT
                         Logger.Fatal("UnknownError".Translate() + ": {0} {1}\n\n{2}", e.GetType(), e.Message, e.StackTrace);
                     }
                 }
+            }
+
+            if (Updater.IsUpdateAvailable)
+            {
+                Updater.PrintNotification();
             }
         }       
     }

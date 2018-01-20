@@ -11,6 +11,7 @@ namespace GMBT
         public string InvokedVerb { get; set; }
 
         public CommonOptions Common { get; set; }
+        public CommonTestBuildOptions CommonTestBuild { get; set; }
 
         [VerbOption("test",
         HelpText = "Starts a test.")]
@@ -20,12 +21,18 @@ namespace GMBT
         HelpText = "Starts a VDF build.")]
         public BuildSubOptions BuildVerb { get; set; }
 
+        [VerbOption("update",
+        HelpText = "Updates the tool.")]
+        public UpdateSubOption UpdateVerb { get; set; }
+
         public Options()
         {
             Common = new CommonOptions();
+            CommonTestBuild = new CommonTestBuildOptions();
 
             TestVerb = new TestSubOption();
             BuildVerb = new BuildSubOptions();
+            UpdateVerb = new UpdateSubOption();
         }
 
         [HelpVerbOption]
@@ -33,14 +40,14 @@ namespace GMBT
         {
             return HelpText.AutoBuild(this, verb).ToString()
                 .Replace(HeadingInfo.Default, string.Empty)
-                .Replace(CopyrightInfo.Default, string.Empty).Remove(0, 6);
+                .Replace(CopyrightInfo.Default, string.Empty).Remove(0, 6);         
         }
     }
 
     /// <summary> 
     /// Represents common arguments that can be used with both "test" and 'build" commands. 
     /// </summary>
-    internal class CommonOptions
+    internal class CommonTestBuildOptions : CommonOptions
     {
         [Option('C', "config",
         MetaValue = "<path>",
@@ -61,14 +68,20 @@ namespace GMBT
         [Option("show-compiling-assets",
         HelpText = "Print all compiling by game assets in the console.")]
         public bool ShowCompilingAssets { get; set; }
+    }
 
+    /// <summary> 
+    /// Represents common arguments that can be used with all commands. 
+    /// </summary>
+    internal class CommonOptions
+    {
         [Option('L', "lang",
         MetaValue = "<en|pl>",
         HelpText = "Set language of console output.")]
         public string Language { get; set; }
 
         [Option("help",
-        HelpText = "Show this screen.")]      
+        HelpText = "Show this screen.")]
 
         [ParserState]
         public IParserState LastParserState { get; set; }
@@ -77,7 +90,7 @@ namespace GMBT
     /// <summary> 
     /// Reperesent arguments that can be used with "build" command. 
     /// </summary>
-    internal class BuildSubOptions : CommonOptions
+    internal class BuildSubOptions : CommonTestBuildOptions
     {
         [Option('O', "output",
         MetaValue = "<file>",
@@ -85,7 +98,7 @@ namespace GMBT
         HelpText = "Path to VDF output. Default is set in config.")]
         public string Output { get; set; }
 
-        [Option("nopacksounds", 
+        [Option("nopacksounds",
         MutuallyExclusiveSet = "build",
         HelpText = "Do not pack any sounds (WAVs) to VDF.")]
         public bool NoPackSounds { get; set; }
@@ -94,13 +107,13 @@ namespace GMBT
     /// <summary> 
     /// Reperesent arguments that can be used with "test" command. 
     /// </summary>
-    internal class TestSubOption : CommonOptions
+    internal class TestSubOption : CommonTestBuildOptions
     {
         [Option('F', "full",
         HelpText = "Start full test.")]
         public bool Full { get; set; }
 
-        [Option('W', "world", 
+        [Option('W', "world",
         MetaValue = "<zen>",
         HelpText = "Name of world to start a game.")]
         public string World { get; set; }
@@ -119,18 +132,18 @@ namespace GMBT
         HelpText = "Run Gothic with no sounds and music.")]
         public bool NoAudio { get; set; }
 
-        [Option("zspy", 
+        [Option("zspy",
         DefaultValue = ZSpy.Mode.None,
         MetaValue = "<none|low|medium|high>",
         HelpText = "Logging level if zSpy.")]
         public ZSpy.Mode ZSpyLevel { get; set; }
 
-        [Option("ingametime", 
+        [Option("ingametime",
         MetaValue = "<hour:minute>",
         HelpText = "Ingame time.")]
         public string InGameTime { get; set; }
 
-        [Option("nodx11", 
+        [Option("nodx11",
         HelpText = "If D3D11-Renderer for Gothic is installed, turn off this wrapper.")]
         public bool NoDirectX11 { get; set; }
 
@@ -141,5 +154,19 @@ namespace GMBT
         [Option('R', "reinstall",
         HelpText = "Reinstall before test.")]
         public bool ReInstall { get; set; }
-    } 
+    }
+
+    /// <summary> 
+    /// Reperesent arguments that can be used with "update" command. 
+    /// </summary>
+    internal class UpdateSubOption : CommonOptions
+    {
+        [Option('F', "force",
+        HelpText = "Download and update even if it is up to date.")]
+        public bool Force { get; set; }
+
+        [Option("no-confirm",
+        HelpText = "Do not ask for download.")]
+        public bool NoConfirm { get; set; }
+    }
 }

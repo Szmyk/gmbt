@@ -21,7 +21,7 @@ namespace GMBT
 
             Config config = deserializer.Deserialize<Config>(configReader);
             
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(Program.Options.Common.ConfigFile));
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(Program.Options.CommonTestBuild.ConfigFile));
 
             if (Directory.Exists(config.GothicRoot) == false)
             {

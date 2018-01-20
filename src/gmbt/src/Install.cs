@@ -40,7 +40,7 @@ namespace GMBT
 
             MarkOriginalAssets();
 
-            gothic.GothicINI.Write("lastConfigPath", Path.GetFullPath(Program.Options.Common.ConfigFile), "GMBT");
+            gothic.GothicINI.Write("lastConfigPath", Path.GetFullPath(Program.Options.CommonTestBuild.ConfigFile), "GMBT");
             gothic.GothicINI.Write("gmbtVersion", Assembly.GetExecutingAssembly().GetName().Version.ToString(), "GMBT");
             gothic.GothicINI.Write("testStarts", "0", "GMBT");
             gothic.GothicINI.Write("buildStarts", "0", "GMBT");

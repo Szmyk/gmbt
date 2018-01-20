@@ -50,7 +50,7 @@ namespace GMBT
                 Merge.MergeAssets(gothic, Program.Options.TestVerb.Merge);
             }
 
-            if (Program.Options.Common.NoUpdateSubtitles == false)
+            if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
             {
                 Console.Write("ConvertingSubtitles".Translate() + " ");
                 Program.Logger.Trace("ConvertingSubtitles".Translate());

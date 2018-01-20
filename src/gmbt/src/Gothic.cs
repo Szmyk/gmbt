@@ -142,14 +142,14 @@ namespace GMBT
             };
 
             gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString();
-
+            
             Program.Logger.Trace("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
             Console.Write("Gothic.Running".Translate(GetGothicVersionName()) + " ");
 
             OnOffDirectX11Wrapper(Program.Options.TestVerb.NoDirectX11);
 
             gothicProcess = new Process();
-            gothicProcess.StartInfo = gothic;
+            gothicProcess.StartInfo = gothic;       
 
             gothicProcess.Start();
 
@@ -157,7 +157,7 @@ namespace GMBT
             Console.WriteLine("Done".Translate());
             Console.ForegroundColor = ConsoleColor.Gray;
 
-            Console.Write("Gothic.CompilingAssets".Translate() + (Program.Options.Common.ShowCompilingAssets ? "\n" : " "));
+            Console.Write("Gothic.CompilingAssets".Translate() + (Program.Options.CommonTestBuild.ShowCompilingAssets ? "\n" : " "));
 
             return gothicProcess;
         }

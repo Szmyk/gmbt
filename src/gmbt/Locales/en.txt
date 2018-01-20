@@ -6,12 +6,15 @@ CompletedIn = Completed in {0} minutes {1} seconds
 Compiled = Compiled
 Gothic2NotR = Gothic 2 Night of the Raven
 
-Update.Notification = There is an update (v{0}) available to download. If you want to update, run
+Update.CheckingAvailableUpdate = Checking for updates...
+Update.FailedCheck = Failed to check for updates.
+Update.Notification = There is an update ({0}) available to download. If you want to update, run
 Update.AlreadyUpdated = Gothic Mod Build Tool is updated to the newest version.
 Update.NewUpdateAvailable = There is an update available to download
 Update.Version = Version
-Update.DoYouWantToUpdate = Do you want to download this update?
+Update.DoYouWantToUpdate = Do you want to download ({0}) this update?
 Update.Downloading = Downloading...
+Update.Ready = Updated.
 
 Config.Error = Unknown config error: {0}
 Config.Error.DidNotFound = Config error: did not find a config
