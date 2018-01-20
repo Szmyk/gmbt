@@ -1,7 +1,5 @@
 ﻿using System;
 
-using I18NPortable;
-
 namespace GMBT
 {
     internal enum TestMode

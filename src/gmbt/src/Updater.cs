@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 using Szmyk.Utils.BytesHelper;
 
-using I18NPortable;
-
 using Newtonsoft.Json;
 
 namespace GMBT

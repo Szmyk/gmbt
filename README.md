@@ -285,7 +285,6 @@ SOFTWARE.
 # Build with
 
 * [**YamlDotNet**](https://github.com/aaubry/YamlDotNet) Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013, 2014 Antoine Aubry and contributors
-* [**I18N-Portable**](https://github.com/xleon/I18N-Portable) Copyright (c) 2016 Diego Ponce de León
 * [**NLog**](https://github.com/NLog/NLog) Copyright (c) 2004-2017 Jaroslaw Kowalski, Kim Christensen, Julian Verdurmen
 * [**CommandLineParser**](https://github.com/commandlineparser/commandline) Copyright (c) 2005 - 2015 Giacomo Stelluti Scala & Contributors
 * [**Newtonsoft.Json**](https://github.com/JamesNK/Newtonsoft.Json) Copyright (c) 2007 James Newton-King

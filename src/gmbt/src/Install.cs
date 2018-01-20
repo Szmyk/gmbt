@@ -6,8 +6,6 @@ using System.Diagnostics;
 using Szmyk.Utils.Paths;
 using Szmyk.Utils.Directory;
 
-using I18NPortable;
-
 namespace GMBT
 {
     internal class Install

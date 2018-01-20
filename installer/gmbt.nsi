@@ -63,6 +63,9 @@ Section ""
   File "..\CHANGELOG.md"
   File "..\LICENSE"
  
+  SetOutPath "$INSTDIR\lang"
+  File "..\lang\*.json"
+  
   SetOutPath "$INSTDIR\bin"
   File "..\src\gmbt\bin\Release\*.exe"
   File "..\src\gmbt\bin\Release\*.dll"

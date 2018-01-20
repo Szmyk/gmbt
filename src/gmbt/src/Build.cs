@@ -2,8 +2,6 @@
 
 using Szmyk.Utils.Time;
 
-using I18NPortable;
-
 namespace GMBT
 {   
     /// <summary>

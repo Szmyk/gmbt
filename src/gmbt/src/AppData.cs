@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 
-using I18NPortable;
-
 namespace GMBT
 {
     /// <summary>
@@ -13,6 +11,7 @@ namespace GMBT
         public string Path { get; set; }
         public string Tools { get; set; }
         public string Logs { get; set; }
+        public string Languages { get; set; }
 
         public AppData()
         {           
@@ -24,7 +23,8 @@ namespace GMBT
             }
 
             Tools = Path + "tools//";
-            Logs = Path + "logs//";           
+            Logs = Path + "logs//";
+            Languages = Path + "lang//";
         }
 
         /// <summary>

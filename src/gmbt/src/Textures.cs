@@ -3,8 +3,6 @@ using System.Diagnostics;
 
 using Szmyk.Utils.Files;
 
-using I18NPortable;
-
 namespace GMBT
 {
     /// <summary>

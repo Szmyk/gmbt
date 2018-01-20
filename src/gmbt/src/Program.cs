@@ -5,8 +5,6 @@ using NLog;
 
 using YamlDotNet.Core;
 
-using I18NPortable;
-
 namespace GMBT
 {
     static class Program
@@ -20,11 +18,9 @@ namespace GMBT
 
         static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) => Logger.Fatal("UnknownError".Translate() + e.ExceptionObject.ToString());
+            Internationalization.Init();
 
-            I18N.Current.
-                SetFallbackLocale("en").
-                Init(System.Reflection.Assembly.GetExecutingAssembly());
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) => Logger.Fatal("UnknownError".Translate() + e.ExceptionObject.ToString());
 
             if (CommandLine.Parser.Default.ParseArguments(args, Options,
             (verb, subOptions) =>
@@ -42,7 +38,7 @@ namespace GMBT
                 if ((Options.Common.Language == "en")
                 ||  (Options.Common.Language == "pl"))
                 {
-                    I18N.Current.Locale = Options.Common.Language;
+                    Internationalization.SetLanguage(Options.Common.Language);
                 }
 
                 if (Options.InvokedVerb == "update")

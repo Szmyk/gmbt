@@ -3,8 +3,6 @@ using System.Text;
 using System.Threading;
 using System.Collections.Generic;
 
-using I18NPortable;
-
 namespace GMBT
 {
     /// <summary> 

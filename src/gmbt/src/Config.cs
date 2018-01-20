@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-using I18NPortable;
-
 namespace GMBT
 {
     /// <summary>

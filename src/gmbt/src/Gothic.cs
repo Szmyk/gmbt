@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using Szmyk.Utils.INI;
 using Szmyk.Utils.Paths;
 
-using I18NPortable;
-
 namespace GMBT
 { 
     /// <summary>
