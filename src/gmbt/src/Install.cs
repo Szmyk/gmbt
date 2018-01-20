@@ -25,7 +25,9 @@ namespace GMBT
         /// Starts an installation. 
         /// </summary>
         public void Start()
-        {           
+        {
+            gothic.GothicINI.Write("lastConfigPath", string.Empty, "GMBT");
+
             MakeOriginalAssetsBackup();
 
             UnPackOriginalVDFs();
@@ -40,7 +42,7 @@ namespace GMBT
 
             MarkOriginalAssets();
 
-            gothic.GothicINI.Write("lastConfigPath", Path.GetFullPath(Program.Options.CommonTestBuild.ConfigFile), "GMBT");
+            gothic.GothicINI.Write("lastConfigPath", Program.Options.CommonTestBuild.ConfigFile, "GMBT");
             gothic.GothicINI.Write("gmbtVersion", Assembly.GetExecutingAssembly().GetName().Version.ToString(), "GMBT");
             gothic.GothicINI.Write("testStarts", "0", "GMBT");
             gothic.GothicINI.Write("buildStarts", "0", "GMBT");
