@@ -132,9 +132,6 @@ namespace GMBT
 
         public Process Start (GothicArguments arguments)
         {                   
-            GothicINI.Write("playLogoVideos", "0", "GAME");
-            GothicINI.Write("zSkyDome", "1", "SKY_OUTDOOR");
-
             createDirectoriesForCompiledAssets();
 
             ProcessStartInfo gothic = new ProcessStartInfo
