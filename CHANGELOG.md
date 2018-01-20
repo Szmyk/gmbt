@@ -1,3 +1,17 @@
+## [0.10] - 2018-01-20
+
+### Added
+
+- Simple in-app updater that checks and downloads releases from GitHub releases
+
+### Fixed
+
+- Setting config path in GOTHIC.INI. Now a config path is sets at the very beginning of installation to prevent errors when the assets do not unpack completely.
+
+### Removed
+
+- Unnecessary GOTHIC.INI overrides
+
 ## [0.9.3] - 2018-01-20
 
 ### Fixed
@@ -17,7 +31,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.9.2...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.10...HEAD
+[0.10]: https://github.com/szmyk/gmbt/compare/v0.9.3...v0.10
 [0.9.3]: https://github.com/szmyk/gmbt/compare/v0.9.2...v0.9.3
 [0.9.2]: https://github.com/szmyk/gmbt/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/szmyk/gmbt/compare/v0.9...v0.9.1
