@@ -46,7 +46,11 @@ This project was developed primarily for the purpose of assisting the SoulFire t
     * [Example](#example)
 * [Usage](#usage)
     *  [Common parameters](#common-parameters)
+    *  [Common parameters](#common-parameters-test--build)
     *  [Verb commands](#verb-commands)
+        * [`test`](#test)
+        * [`build`](#build)
+        * [`update`](#update)
     *  [Examples](#examples)
 * [Example project](#example-project)
 * [License](#license)
@@ -179,16 +183,21 @@ As you can see, there are only relative paths because this file is in our remote
 
 At this moment the only way to use the tool is command line interface. GUI application is planned, but [below](#examples) you can find simple examples of Windows Batch files.
 
-## Common parameters
+## Common parameters 
 
-| Parameter 								| Description 																																| Default
+| Parameter 								| Description 																																| Default value
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+| `-L <en\|pl>, --lang=<en\|pl>`			| Set language of console output.																											| Control Panel -> Regional Settings
+| `--help`								    | Print short descriptions of parameters.																									| N/A
+
+## Common parameters (`test` & `build`)
+
+| Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
 | `--texturecompile=<normal\|quick>`		| Mode of textures compile.																													| _normal_
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
-| `-L <en\|pl>, --lang=<en\|pl>`			| Set language of console output.																											| Control Panel -> Regional Settings
-| `--help`									| Print short descriptions of parameters.																									| N/A
 
 ## Verb commands
 
@@ -196,7 +205,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 > Starts test.
 
-| Parameter 									| Description 																														| Default
+| Parameter 									| Description 																														| Default value
 | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------
 | `-F, --full`                           		| Full test mode. Information about modes is [here](#modes). 																		| N/A
 | `--merge=<none\|all\|scripts\|worlds\|sounds>`| Merge option. <br/> Enter eg. `scripts` if you just want to debug scripts and do not want to copy all assets every time. Also, nice option to use is `scripts,worlds` if you want to debug some changes only related to scripts and worlds. | _all_
@@ -213,10 +222,19 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 > Starts a *.mod* build.
 
-| Parameter 					| Description								    | Default
+| Parameter 					| Description								    | Default value
 | ---------------------------- 	| --------------------------------------------- | ------------------------------------
 |`-O <file>, --output=<file>`  	| Path of VDF volume (`.mod`) output. 			| Set in [config file](#configuration)
 |`--nopacksounds`  				| Do not to pack sounds (WAVs) to mod package.  | N/A
+
+### `update`
+
+> Updates the tool.
+
+| Parameter 					| Description								    
+| ---------------------------- 	| ---------------------------------------------
+|`-F, --force`  				| Download and update even if it is up to date.
+|`--no-confirm`  				| Do not ask for download.
 
 ## Examples
 
