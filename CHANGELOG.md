@@ -1,3 +1,9 @@
+## [0.11] - 2018-01-24
+
+### New features
+
+- New internationalization system
+
 ## [0.10] - 2018-01-20
 
 ### Added
@@ -31,7 +37,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.10...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.11...HEAD
+[0.11]: https://github.com/szmyk/gmbt/compare/v0.10...v0.11
 [0.10]: https://github.com/szmyk/gmbt/compare/v0.9.3...v0.10
 [0.9.3]: https://github.com/szmyk/gmbt/compare/v0.9.2...v0.9.3
 [0.9.2]: https://github.com/szmyk/gmbt/compare/v0.9.1...v0.9.2
