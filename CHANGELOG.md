@@ -1,3 +1,10 @@
+## [0.11.1] - 2018-01-24
+
+### Fixed
+
+- Initializing of internationalization
+- Case sensitive in verb commands and `--lang` option
+
 ## [0.11] - 2018-01-24
 
 ### New features
@@ -37,7 +44,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.11...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.11.1...HEAD
+[0.11.1]: https://github.com/szmyk/gmbt/compare/v0.11...v0.11.1
 [0.11]: https://github.com/szmyk/gmbt/compare/v0.10...v0.11
 [0.10]: https://github.com/szmyk/gmbt/compare/v0.9.3...v0.10
 [0.9.3]: https://github.com/szmyk/gmbt/compare/v0.9.2...v0.9.3
