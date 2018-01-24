@@ -22,12 +22,19 @@ namespace GMBT
         static public void SetLanguage(string code)
         {
             lang = code;
+
+            Init(lang);
         }
 
         static public void Init()
         {
             lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
+            Init(lang);
+        }
+
+        static public void Init(string lang)
+        {           
             try
             {
                 var file = Program.AppData.Languages + lang + ".json";
