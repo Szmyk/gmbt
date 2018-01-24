@@ -25,7 +25,7 @@ namespace GMBT
             if (CommandLine.Parser.Default.ParseArguments(args, Options,
             (verb, subOptions) =>
             {
-                Options.InvokedVerb = verb;
+                Options.InvokedVerb = verb.ToLower();
 
                 Options.Common = (CommonOptions)subOptions;
 
@@ -35,8 +35,8 @@ namespace GMBT
                 }     
             }))
             {
-                if ((Options.Common.Language == "en")
-                ||  (Options.Common.Language == "pl"))
+                if ((Options.Common.Language?.ToLower() == "en")
+                ||  (Options.Common.Language?.ToLower() == "pl"))
                 {
                     Internationalization.SetLanguage(Options.Common.Language);
                 }
