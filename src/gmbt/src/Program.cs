@@ -45,7 +45,7 @@ namespace GMBT
                 {
                     if (Options.UpdateVerb.Force == false)
                     {
-                        Console.Write("Update.CheckingAvailableUpdate".Translate() + Environment.NewLine + Environment.NewLine);
+                        Console.WriteLine("Update.CheckingAvailableUpdate".Translate() + Environment.NewLine);
                     }
 
                     while (Updater.CheckLatestReleaseTask.Status == System.Threading.Tasks.TaskStatus.Running)

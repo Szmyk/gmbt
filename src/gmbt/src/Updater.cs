@@ -98,7 +98,7 @@ namespace GMBT
         {
             if (Program.Options.UpdateVerb.Force == false)
             {
-                Console.WriteLine(Environment.NewLine + Environment.NewLine + "Update.NewUpdateAvailable".Translate() + ":" + Environment.NewLine);
+                Console.WriteLine("Update.NewUpdateAvailable".Translate() + ":" + Environment.NewLine);
 
                 Console.WriteLine("\t" + "Update.Version".Translate() + ": " + LatestRelease.Version);
 
