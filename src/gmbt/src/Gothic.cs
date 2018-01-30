@@ -99,7 +99,7 @@ namespace GMBT
             }      
         }
 
-        public string GetLastUsedConfigPath () => GothicINI.Read("lastConfigPath", "GMBT");
+        public string GetLastUsedConfigHash () => GothicINI.Read("lastConfigFileHash", "GMBT");
 
         readonly List<IniTuple> backupKeys = new List<IniTuple>();
 

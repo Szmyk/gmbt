@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 using NLog;
 
 using YamlDotNet.Core;
+
+using System.Data.HashFunction;
 
 namespace GMBT
 {
@@ -108,7 +111,9 @@ namespace GMBT
                     {
                         if (Options.InvokedVerb == "test")
                         {
-                            if ((string.Equals(gothic.GetLastUsedConfigPath(), Options.CommonTestBuild.ConfigFile, StringComparison.CurrentCultureIgnoreCase) == false)
+                            var hash = Encoding.Default.GetString(new xxHash().ComputeHash(Encoding.UTF8.GetBytes(File.ReadAllText(Program.Options.CommonTestBuild.ConfigFile))));
+
+                            if ((gothic.GetLastUsedConfigHash() != hash)
                             || (Options.TestVerb.ReInstall))
                             {
                                 new Install(gothic).Start();

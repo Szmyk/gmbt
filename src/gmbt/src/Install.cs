@@ -1,10 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Reflection;
 using System.Diagnostics;
 
 using Szmyk.Utils.Paths;
 using Szmyk.Utils.Directory;
+
+using System.Data.HashFunction;
 
 namespace GMBT
 {
@@ -24,7 +27,7 @@ namespace GMBT
         /// </summary>
         public void Start()
         {
-            gothic.GothicINI.Write("lastConfigPath", string.Empty, "GMBT");
+            gothic.GothicINI.Write("lastConfigFileHash", string.Empty, "GMBT");
 
             MakeOriginalAssetsBackup();
 
@@ -40,7 +43,9 @@ namespace GMBT
 
             MarkOriginalAssets();
 
-            gothic.GothicINI.Write("lastConfigPath", Program.Options.CommonTestBuild.ConfigFile, "GMBT");
+            var hash = Encoding.Default.GetString(new xxHash().ComputeHash(Encoding.UTF8.GetBytes(File.ReadAllText(Program.Options.CommonTestBuild.ConfigFile))));
+
+            gothic.GothicINI.Write("lastConfigFileHash", hash, "GMBT");
             gothic.GothicINI.Write("gmbtVersion", Assembly.GetExecutingAssembly().GetName().Version.ToString(), "GMBT");
             gothic.GothicINI.Write("testStarts", "0", "GMBT");
             gothic.GothicINI.Write("buildStarts", "0", "GMBT");
