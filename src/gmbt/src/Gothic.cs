@@ -59,7 +59,7 @@ namespace GMBT
                 Program.Logger.Fatal(string.Format("Gothic.Error.WrongExeVersion".Translate(), GetGothicVersionName()));
             }
 
-            if (Process.GetProcessesByName(exeFile.Replace(".exe", string.Empty)).Length > 0)
+            if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exeFile)).Length > 0)
             {
                 Program.Logger.Fatal(string.Format("Gothic.Error.AlreadyRunning".Translate(), GetGothicVersionName()));
             }
