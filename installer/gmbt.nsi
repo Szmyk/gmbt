@@ -111,8 +111,13 @@ Section "Uninstall"
 
   Delete $INSTDIR\bin\*
   Delete $INSTDIR\tools\*
+  Delete $INSTDIR\updates\*
+  Delete $INSTDIR\lang\*
+  Delete $INSTDIR\*
   
   RMDir /R "$INSTDIR\bin"
   RMDir /R "$INSTDIR\tools"
+  RMDir /R "$INSTDIR\updates"
+  RMDir /R "$INSTDIR\lang"
 
 SectionEnd
