@@ -64,9 +64,7 @@ namespace GMBT
                 Program.Logger.Fatal(string.Format("Gothic.Error.AlreadyRunning".Translate(), GetGothicVersionName()));
             }
 
-            GothicINI = new IniFile(GetGameDirectory(GameDirectory.System) + "GOTHIC.INI");
-
-            OverrideGothicIniKeys();
+            GothicINI = new IniFile(GetGameDirectory(GameDirectory.System) + "GOTHIC.INI");           
         }
 
         private const uint gothic26FixHeaderSum = 0x008a3e89;
@@ -86,7 +84,6 @@ namespace GMBT
         public void Dispose()
         {
             EndProcess();
-            OverrideGothicIniKeys();
         }
 
         private Process gothicProcess;
@@ -101,31 +98,27 @@ namespace GMBT
 
         public string GetLastUsedConfigHash () => GothicINI.Read("lastConfigFileHash", "GMBT");
 
-        readonly List<IniTuple> backupKeys = new List<IniTuple>();
+        private void overrideGothicIniKeys()
+        {
+            var gmbtIniPath = GetGameDirectory(GameDirectory.System) + "gmbt.ini";
 
-        public void OverrideGothicIniKeys()
-        {          
+            if (File.Exists(gmbtIniPath) == false)
+            {
+                File.Create(gmbtIniPath);
+            }
+
+            var gmbtIni = new IniFile(gmbtIniPath);
+
             if (Program.Config.GothicIniOverrides != null)
             {
                 foreach (var dictionary in Program.Config.GothicIniOverrides)
                 {
                     foreach (var tuple in dictionary)
                     {                     
-                        string[] splitedKey = tuple.Key.Split('.');
-
-                        IniTuple iniTuple = new IniTuple(splitedKey[1], tuple.Value, splitedKey[0]);
-
-                        backupKeys.Add(GothicINI.Get(iniTuple.Key, iniTuple.Section));
-             
-                        GothicINI.Write(iniTuple);
+                        gmbtIni.Write(tuple.Key, tuple.Value, "OVERRIDES");
                     }
                 }
             }
-        }
-
-        public void UnOverrideGothicIniKeys()
-        {
-            backupKeys.ForEach(x => GothicINI.Write(x));
         }
 
         public Process Start (GothicArguments arguments)
@@ -134,6 +127,8 @@ namespace GMBT
             {
                 ZSpy.Run();
             }
+
+            overrideGothicIniKeys();
 
             createDirectoriesForCompiledAssets();
 
