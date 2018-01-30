@@ -198,6 +198,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--texturecompile=<normal\|quick>`		| Mode of textures compile.																													| _normal_
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
+| `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
 
 ## Verb commands
 
@@ -212,7 +213,6 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `-W <zen>, --world=<zen>` 					| Run game in a specific world. 																									| Set in [config file](#configuration)
 | `--windowed` 						 			| Run game in window. 																												| N/A
 | `--noaudio` 					     			| Run game without any audio. 																										| N/A
-| `--zspy=<none\|low\|medium\|high>` 			| Level of zSpy logging.																											| _none_
 | `--ingametime=<hh:mm>`						| Ingame time. <br/>Syntax: **hour:minute**, eg. _15:59_. 																			| N/A
 | `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allow you to temporarily disable this wrapper. 							| N/A
 | `--nomenu` 									| Run game without menu showing (start new game immediately). 																		| N/A

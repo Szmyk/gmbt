@@ -129,7 +129,12 @@ namespace GMBT
         }
 
         public Process Start (GothicArguments arguments)
-        {                   
+        {
+            if (Program.Options.CommonTestBuild.ZSpyLevel != ZSpy.Mode.None)
+            {
+                ZSpy.Run();
+            }
+
             createDirectoriesForCompiledAssets();
 
             ProcessStartInfo gothic = new ProcessStartInfo

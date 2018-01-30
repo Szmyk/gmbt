@@ -68,6 +68,12 @@ namespace GMBT
         [Option("show-compiling-assets",
         HelpText = "Print all compiling by game assets in the console.")]
         public bool ShowCompilingAssets { get; set; }
+
+        [Option("zspy",
+        DefaultValue = ZSpy.Mode.None,
+        MetaValue = "<none|low|medium|high>",
+        HelpText = "Logging level if zSpy.")]
+        public ZSpy.Mode ZSpyLevel { get; set; }
     }
 
     /// <summary> 
@@ -131,12 +137,6 @@ namespace GMBT
         [Option("noaudio",
         HelpText = "Run Gothic with no sounds and music.")]
         public bool NoAudio { get; set; }
-
-        [Option("zspy",
-        DefaultValue = ZSpy.Mode.None,
-        MetaValue = "<none|low|medium|high>",
-        HelpText = "Logging level if zSpy.")]
-        public ZSpy.Mode ZSpyLevel { get; set; }
 
         [Option("ingametime",
         MetaValue = "<hour:minute>",

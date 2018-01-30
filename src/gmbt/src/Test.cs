@@ -65,12 +65,7 @@ namespace GMBT
             {
                 Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
                                          gothic.GetGameDirectory(Gothic.GameDirectory.TexturesCompiled));
-            }
-          
-            if (Program.Options.TestVerb.ZSpyLevel != ZSpy.Mode.None)
-            {
-                ZSpy.Run();
-            }
+            }        
 
             compilingAssetsWatcher.Start();
 
