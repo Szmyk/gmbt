@@ -72,15 +72,14 @@ namespace GMBT
                 }
 
                 string message = string.Format(logPattern + "... ", "(" + "Only".Translate() + " " + string.Join(", ", mergingOptions.ToArray()) + ")", directory.Path);
-
-                Console.Write(message);
+             
                 Program.Logger.Trace(message);
 
                 List<string> files = directory.GetFiles(mergingPatterns).ToList();
 
                 if (Program.Config.ModFiles.Exclude != null)
                 {
-                    foreach(string path in Program.Config.ModFiles.Exclude)
+                    foreach (string path in Program.Config.ModFiles.Exclude)
                     {
                         string pattern = path.Split("\\".ToCharArray()).Last();
 
@@ -93,11 +92,11 @@ namespace GMBT
                                 files.Remove(fi.FullName);
                             }
                         }
-                    }          
+                    }
                 }
 
-                using (ProgressBar mergeBar = new ProgressBar(files.Count))
-                {
+                using (ProgressBar mergeBar = new ProgressBar(message, files.Count))
+                {               
                     foreach (var file in files)
                     {
                         string directoryPathWithoutRoot = Path.GetFullPath(file).Replace(Path.GetFullPath(directoryPath), string.Empty);

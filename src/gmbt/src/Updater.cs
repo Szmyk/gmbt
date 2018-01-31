@@ -91,7 +91,6 @@ namespace GMBT
             }
 
             Console.WriteLine();
-            Console.WriteLine();
         }
 
         public void PrintUpdateInfo()
@@ -118,6 +117,7 @@ namespace GMBT
             {
                 ClearLastLine();
 
+                Console.WriteLine();
                 Console.Write("Update.DoYouWantToUpdate".Translate(BytesHelper.ToString(LatestRelease.Size)) + " [y/n] ");
 
                 key = Console.ReadKey().Key;
@@ -127,37 +127,28 @@ namespace GMBT
                 if (key == ConsoleKey.Y)
                 {
                     Console.WriteLine();
-
-                    try
-                    {
-                       DownloadLastRelease();
-                    }
-                    catch
-                    {
-
-                    }
+           
+                    DownloadLastRelease();                
                 }
             } while (key != ConsoleKey.Y && key != ConsoleKey.N);
         }
 
         public void PrintNotification()
         {
-            Console.Write(Environment.NewLine + "Update.Notification".Translate(FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion + " -> " + LatestRelease.Version) + " ");
+            var localVersion = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion;
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("gmbt update");
-            Console.ForegroundColor = ConsoleColor.Gray;
-
-            Console.WriteLine(".");
+            Console.WriteLine();
+            Console.WriteSecondInColor("Update.Notification".Translate(localVersion + " -> " + LatestRelease.Version) + " ", 
+                                       "gmbt update",
+                                       ".", 
+                                       ConsoleColor.Cyan);
         }
 
         public void DownloadLastRelease()
         {
-            Console.Write("Update.Downloading".Translate() + " ");
-
             string localPath = Path.GetTempFileName() + ".exe.";
 
-            ProgressBar downloadBar = new ProgressBar(100);
+            ProgressBar downloadBar = new ProgressBar("Update.Downloading".Translate(), 100);
 
             WebClient client = new WebClient();
 

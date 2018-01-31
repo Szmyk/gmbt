@@ -43,7 +43,7 @@ namespace GMBT
                     Options.CommonTestBuild = (CommonTestBuildOptions)subOptions;
                 }     
             }))
-            {
+            {               
                 if ((Options.Common.Language?.ToLower() == "en")
                 ||  (Options.Common.Language?.ToLower() == "pl"))
                 {
@@ -54,7 +54,7 @@ namespace GMBT
                 {
                     if (Options.UpdateVerb.Force == false)
                     {
-                        Console.WriteLine("Update.CheckingAvailableUpdate".Translate() + Environment.NewLine);
+                        Logger.Info("Update.CheckingAvailableUpdate".Translate() + Environment.NewLine);
                     }
 
                     while (Updater.CheckLatestReleaseTask.Status == System.Threading.Tasks.TaskStatus.Running)
@@ -62,9 +62,7 @@ namespace GMBT
 
                     if (Updater.FailedCheck)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Update.FailedCheck".Translate());
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Logger.Fatal("Update.FailedCheck".Translate());
 
                         return;
                     }
@@ -74,16 +72,14 @@ namespace GMBT
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Update.AlreadyUpdated".Translate());
-                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("Update.AlreadyUpdated".Translate(), ConsoleColor.Green);
                     }
 
                     return;
                 }
 
                 Options.CommonTestBuild.ConfigFile = Path.GetFullPath(Options.CommonTestBuild.ConfigFile);
-
+            
                 if (File.Exists(Options.CommonTestBuild.ConfigFile) == false)
                 {
                     Logger.Fatal("Config.Error.DidNotFound".Translate());
@@ -108,8 +104,6 @@ namespace GMBT
                 using (Gothic gothic = new Gothic(Config.GothicRoot))
                 {                   
                     LogManager.InitFileTarget();
-
-                    System.Windows.Forms.Application.ApplicationExit += new EventHandler((x, y) => gothic.EndProcess());
 
                     try
                     {
@@ -140,6 +134,8 @@ namespace GMBT
                     }
                     catch (Exception e)
                     {
+                        gothic.EndProcess();
+
                         Logger.Fatal("UnknownError".Translate() + ": {0} {1}\n\n{2}", e.GetType(), e.Message, e.StackTrace);
                     }
                 }

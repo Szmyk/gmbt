@@ -40,9 +40,12 @@ namespace GMBT
         [HelpVerbOption]
         public string GetUsage(string verb)
         {
-            return HelpText.AutoBuild(this, verb).ToString()
+            var helpText = HelpText.AutoBuild(this, verb).ToString();
+
+            return helpText.Remove(helpText.Length - 1)
                 .Replace(HeadingInfo.Default, string.Empty)
-                .Replace(CopyrightInfo.Default, string.Empty).Remove(0, 6);         
+                .Replace(CopyrightInfo.Default, string.Empty)
+                .Remove(0, 6);    
         }
     }
 

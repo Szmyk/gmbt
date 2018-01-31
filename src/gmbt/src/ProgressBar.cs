@@ -33,8 +33,10 @@ namespace GMBT
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressBar"/> class.
         /// </summary>
-        public ProgressBar(int total)
+        public ProgressBar(string text, int total)
         {
+            Console.Write(text + " ");
+
             this.total = total;
 
             timer = new Timer(timerHandler);
@@ -143,9 +145,7 @@ namespace GMBT
                 update(string.Empty);          
             }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Done".Translate());
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Done".Translate(), ConsoleColor.Green);
         }
     }
 }

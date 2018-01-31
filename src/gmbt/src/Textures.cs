@@ -35,10 +35,7 @@ namespace GMBT
             if (toCompile == 0)
             {
                 return;
-            }
-
-            Console.Write("CompilingTextures".Translate() + " ");
-            Program.Logger.Trace("CompilingTextures".Translate());
+            }           
 
             ProcessStartInfo tgaToDds = new ProcessStartInfo
             {
@@ -62,7 +59,9 @@ namespace GMBT
                 tgaToDds.Arguments += " -quick";
             }
 
-            using (ProgressBar bar = new ProgressBar(toCompile))
+            Program.Logger.Trace("CompilingTextures".Translate());
+
+            using (ProgressBar bar = new ProgressBar("CompilingTextures".Translate(), toCompile))
             {
                 foreach (string file in Directory.GetFiles(inputDirectory, "*.tga", searchOption))
                 {

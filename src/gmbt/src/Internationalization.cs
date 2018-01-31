@@ -55,7 +55,7 @@ namespace GMBT
             }
             catch
             {
-                Program.Logger.Fatal("No language file could be loaded. Reinstall application.");             
+                Program.Logger.Fatal("No language file could be loaded. Please reinstall application.");             
             }                  
         }
 

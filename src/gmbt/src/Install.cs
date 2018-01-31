@@ -56,26 +56,24 @@ namespace GMBT
         /// </summary>
         public void UnPackOriginalVDFs ()
         {
-            Console.Write("Install.UnpackingOriginalAssets".Translate() + " ");
-            Program.Logger.Trace("Install.UnpackingOriginalAssets".Translate());
+            var message = "Install.UnpackingOriginalAssets".Translate();
 
-            int filesCount = 0;
+            Program.Logger.Trace(message);
 
-            foreach (string file in Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "*", SearchOption.TopDirectoryOnly))
+            var files = Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "*", SearchOption.TopDirectoryOnly);
+
+            foreach (string file in files)
             {
                 File.Move(file, PathsUtils.ChangeExtension(file, ".vdf"));
-                filesCount = filesCount + 1;
             }
 
-            string gothicVdfsPath = Program.AppData.Tools + "GothicVDFS.exe";
-
-            using (ProgressBar unpackVDFs = new ProgressBar(filesCount))
+            using (ProgressBar unpackVDFs = new ProgressBar(message, files.Length))
             {
-                foreach (string vdfFile in Directory.EnumerateFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "*.vdf", SearchOption.TopDirectoryOnly))
+                foreach (string vdfFile in files)
                 {
                     ProcessStartInfo gothicVDFS = new ProcessStartInfo()
                     {
-                        FileName = gothicVdfsPath,
+                        FileName = Program.AppData.GetTool("GothicVDFS.exe"),
                         Arguments = "/X \"" + PathsUtils.ChangeExtension(vdfFile, ".vdf") + "\"",
                         WorkingDirectory = gothic.GetGameDirectory(Gothic.GameDirectory.Root),
                         WindowStyle = ProcessWindowStyle.Minimized
@@ -102,10 +100,11 @@ namespace GMBT
         /// </summary>
         public void CopyUserFiles()
         {
-            Console.Write("Install.CopyingFiles".Translate() + " ");
-            Program.Logger.Trace("Install.CopyingFiles".Translate());
+            var message = "Install.CopyingFiles".Translate();
 
-            using (ProgressBar userFiles = new ProgressBar(Program.Config.Install.Count))
+            Program.Logger.Trace(message);
+
+            using (ProgressBar userFiles = new ProgressBar(message, Program.Config.Install.Count))
             {
                 foreach (var dictionary in Program.Config.Install)
                 {
@@ -126,42 +125,50 @@ namespace GMBT
         /// </summary>
         public void MakeOriginalAssetsBackup ()
         {
-            Console.Write("Install.PreparingOriginalAssets".Translate() + " ");
-            Program.Logger.Trace("Install.PreparingOriginalAssets".Translate());
+            var message = "Install.PreparingOriginalAssets".Translate();
 
-            if (Directory.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg)))
+            Program.Logger.Trace(message);
+
+            using (ProgressBar originalAssets = new ProgressBar(message, 2))
             {
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)).Delete();
+                if (Directory.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg)))
+                {
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)).Delete();
 
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg))
-                            .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData));
-            }
-            else
-            {
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Video))
-                            .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Video");
+                    originalAssets.Increase();
 
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Presets))
-                            .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Presets");
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg))
+                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData));
 
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Music))
-                            .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Music");
+                    originalAssets.Increase();
+                }
+                else
+                {
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Video))
+                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Video");
 
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)).Delete();
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Presets))
+                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Presets");
 
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Video")
-                            .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Video));
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Music))
+                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Music");
 
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Presets")
-                            .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Presets));
+                    originalAssets.Increase();
 
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Music")
-                            .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Music));
-            }
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)).Delete();
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Done".Translate());
-            Console.ForegroundColor = ConsoleColor.Gray;
+                    originalAssets.Increase();
+
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Video")
+                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Video));
+
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Presets")
+                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Presets));
+
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Music")
+                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Music));
+                }
+            }               
         }
 
         /// <summary>
@@ -169,18 +176,22 @@ namespace GMBT
         /// </summary>
         public void MarkOriginalAssets ()
         {
-            Console.Write("Install.PreparingOriginalAssets".Translate() + " ");
-            Program.Logger.Trace("Install.PreparingOriginalAssets".Translate() );
+            var message = "Install.PreparingOriginalAssets".Translate();
 
-            foreach (string file in Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData), "*", SearchOption.AllDirectories))
+            Program.Logger.Trace(message);
+
+            var files = Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData), "*", SearchOption.AllDirectories);
+
+            using (ProgressBar originalAssets = new ProgressBar(message, files.Length))
             {
-                File.SetLastWriteTime(file, OriginalAssetsDateTime);
-                File.SetCreationTime(file, OriginalAssetsDateTime);
-            }
+                foreach (string file in files)
+                {
+                    File.SetLastWriteTime(file, OriginalAssetsDateTime);
+                    File.SetCreationTime(file, OriginalAssetsDateTime);
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Done".Translate());
-            Console.ForegroundColor = ConsoleColor.Gray;
+                    originalAssets.Increase();
+                }             
+            }
         }        
     }
 }

@@ -56,12 +56,12 @@ namespace GMBT
 
             if (CheckGothicExeCheckSum(exeFile) == false)
             {
-                Program.Logger.Fatal(string.Format("Gothic.Error.WrongExeVersion".Translate(), GetGothicVersionName()));
+                Program.Logger.Fatal("Gothic.Error.WrongExeVersion".Translate(GetGothicVersionName()));
             }
 
             if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exeFile)).Length > 0)
             {
-                Program.Logger.Fatal(string.Format("Gothic.Error.AlreadyRunning".Translate(), GetGothicVersionName()));
+                Program.Logger.Fatal("Gothic.Error.AlreadyRunning".Translate(GetGothicVersionName()));
             }
 
             GothicINI = new IniFile(GetGameDirectory(GameDirectory.System) + "GOTHIC.INI");           
@@ -142,18 +142,18 @@ namespace GMBT
             gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString();
             
             Program.Logger.Trace("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
-            Console.Write("Gothic.Running".Translate(GetGothicVersionName()) + " ");
 
-            OnOffDirectX11Wrapper(Program.Options.TestVerb.NoDirectX11);
+            using (ProgressBar bar = new ProgressBar("Gothic.Running".Translate(GetGothicVersionName()), 1))
+            {
+                OnOffDirectX11Wrapper(Program.Options.TestVerb.NoDirectX11);
 
-            gothicProcess = new Process();
-            gothicProcess.StartInfo = gothic;       
+                gothicProcess = new Process();
+                gothicProcess.StartInfo = gothic;
 
-            gothicProcess.Start();
+                gothicProcess.Start();
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Done".Translate());
-            Console.ForegroundColor = ConsoleColor.Gray;
+                bar.Increase();
+            }
 
             Console.Write("Gothic.CompilingAssets".Translate() + (Program.Options.CommonTestBuild.ShowCompilingAssets ? "\n" : " "));
 

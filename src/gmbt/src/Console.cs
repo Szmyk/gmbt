@@ -25,7 +25,7 @@ namespace GMBT
             get => System.Console.CursorTop;            
             set => System.Console.CursorTop = value;         
         }
-      
+
         public static bool CursorVisible
         {
             get => System.Console.CursorVisible;            
@@ -85,7 +85,22 @@ namespace GMBT
 
             ForegroundColor = colorBackup;
         }
-    
+
+        public static void WriteSecondInColor(string first, string second, string third, ConsoleColor color)
+        {
+            Write(first);
+
+            var colorBackup = ForegroundColor;
+
+            ForegroundColor = color;
+
+            Write(second);
+
+            ForegroundColor = colorBackup;
+
+            Write(third);
+        }
+
         public static void Write(object value)
         {
             System.Console.Write(value);
@@ -100,15 +115,60 @@ namespace GMBT
         {
             System.Console.Write(format, arg0);
         }
-        
+
+        public static void Write(string value, ConsoleColor color)
+        {
+            var colorBackup = ForegroundColor;
+
+            ForegroundColor = color;
+
+            System.Console.Write(value);
+
+            ForegroundColor = colorBackup;
+        }
+
+        public static void Write(string format, object arg0, ConsoleColor color)
+        {
+            var colorBackup = ForegroundColor;
+
+            ForegroundColor = color;
+
+            System.Console.Write(format, arg0);
+
+            ForegroundColor = colorBackup;        
+        }
+
         public static void WriteLine()
         {
             System.Console.WriteLine();
-        }  
+        }
+
+        public static void WriteLineDouble()
+        {
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+        }
+
+        public static void WriteLine(string format, ConsoleColor color, params object[] args)
+        {
+            var colorBackup = ForegroundColor;
+
+            ForegroundColor = color;
+
+            System.Console.WriteLine(format, args);
+
+            ForegroundColor = colorBackup;           
+        }
 
         public static void WriteLine(string format, params object[] args)
         {
             System.Console.WriteLine(format, args);
+        }
+
+        public static void WriteLineDouble(string value, ConsoleColor color)
+        {
+            System.Console.WriteLine();
+            WriteLine(value, color);
         }
 
         public static ConsoleKeyInfo ReadKey()

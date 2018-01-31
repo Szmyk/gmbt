@@ -30,16 +30,16 @@ namespace GMBT
             Merge.MergeAssets(gothic, Merge.MergeOptions.All);
 
             if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
-            {            
-                Console.Write("ConvertingSubtitles".Translate() + " ");
-                Program.Logger.Trace("ConvertingSubtitles".Translate());
+            {
+                var message = "ConvertingSubtitles".Translate();
 
-                OutputUnitsUpdater.OutputUnitsUpdater.Update(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent),
-                                                             gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene) + "OU.csl");
+                Program.Logger.Trace(message);
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Done".Translate());
-                Console.ForegroundColor = ConsoleColor.Gray;
+                using (ProgressBar bar = new ProgressBar(message, 1))
+                {
+                    OutputUnitsUpdater.OutputUnitsUpdater.Update(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent),
+                                                                 gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene) + "OU.csl");
+                }
             }
 
             Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
@@ -57,7 +57,7 @@ namespace GMBT
             vdf.RunBuilder();
             vdf.ClearDirectoriesAfterMakingVDF();
 
-            Program.Logger.Info(string.Format("CompletedIn".Translate(), ( TimeHelper.Now - startTime ).Minutes, ( TimeHelper.Now - startTime ).Seconds));
+            Program.Logger.Info("CompletedIn".Translate((TimeHelper.Now - startTime).Minutes, (TimeHelper.Now - startTime).Seconds));
         }
 
         /// <summary>
