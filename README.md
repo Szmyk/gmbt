@@ -54,7 +54,7 @@ This project was developed primarily for the purpose of assisting the SoulFire t
     *  [Examples](#examples)
 * [Example project](#example-project)
 * [License](#license)
-* [Build with](#build-with)
+* [Built with](#built-with)
 * [Used software](#used-software)
 * [Acknowledgments](#acknowledgments)
 * [Contributing / issues  / contact](#contributing--issues--contact)
@@ -134,7 +134,7 @@ You have to configure a [YAML] config:
 *  **gothicIniOverrides**  - _dictionary_
     > Keys of GOTHIC.INI you want to override when running test or build.
     >
-    > Syntax: _['section.key', 'value']_ or _'section.key': 'target'_, np. '`GAME.playLogoVideos' : '0'`
+    > Syntax: _['section.key', 'value']_ or _'section.key': 'target'_, eg. '`GAME.playLogoVideos' : '0'`
 
 *  **install**  - _dictionary_
     > Optional files you want to install.
@@ -214,8 +214,8 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--windowed` 						 			| Run game in window. 																												| N/A
 | `--noaudio` 					     			| Run game without any audio. 																										| N/A
 | `--ingametime=<hh:mm>`						| Ingame time. <br/>Syntax: **hour:minute**, eg. _15:59_. 																			| N/A
-| `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allow you to temporarily disable this wrapper. 							| N/A
-| `--nomenu` 									| Run game without menu showing (start new game immediately). 																		| N/A
+| `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allows you to temporarily disable this wrapper. 						| N/A
+| `--nomenu` 									| Run game without menu showing (starts a new game immediately). 																	| N/A
 | `-R, --reinstall`								| Reinstall before start.																											| N/A
 
 ### `build`
@@ -300,7 +300,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-# Build with
+# Built with
 
 * [**YamlDotNet**](https://github.com/aaubry/YamlDotNet) Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013, 2014 Antoine Aubry and contributors
 * [**NLog**](https://github.com/NLog/NLog) Copyright (c) 2004-2017 Jaroslaw Kowalski, Kim Christensen, Julian Verdurmen
