@@ -153,34 +153,46 @@ namespace GMBT
 
         public void DownloadLastRelease()
         {
-            Directory.CreateDirectory(Program.AppData.Path + "updates\\" + LatestRelease.Version);
-            string localPath = Program.AppData.Path + "updates\\" + LatestRelease.Version + "\\" + LatestRelease.ArtifactName;
-
             Console.Write("Update.Downloading".Translate() + " ");
 
-            using (ProgressBar downloadBar = new ProgressBar(100))
+            string localPath = Path.GetTempFileName() + ".exe.";
+
+            ProgressBar downloadBar = new ProgressBar(100);
+
+            WebClient client = new WebClient();
+
+            Exception error = null;
+
+            client.DownloadFileCompleted += ((sender, args) =>
             {
-                using (WebClient client = new WebClient())
-                {
-                    client.DownloadProgressChanged += (o, e) => downloadBar.SetProgress(e.ProgressPercentage);
-
-                    client.DownloadFileAsync(LatestRelease.ArtifactDownloadUrl, localPath);
-
-                    while (client.IsBusy)
-                        ;
-                }
-            }
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(Environment.NewLine + "Update.Ready".Translate());
-            Console.ForegroundColor = ConsoleColor.Gray;
-
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler((x, y) =>
-            {
-                Process.Start(localPath, string.Format(@"/S /D //""{0}""//", Program.AppData.Path));
+                error = args.Error;              
             });
 
-            Environment.Exit(0);
-        }
+            client.DownloadProgressChanged += (o, e) => downloadBar.SetProgress(e.ProgressPercentage);
+
+            client.DownloadFileAsync(LatestRelease.ArtifactDownloadUrl, localPath);
+
+            while (client.IsBusy)
+                ;
+
+            if (error == null)
+            {
+                downloadBar.Dispose();
+
+                Console.WriteLine("Update.Ready".Translate(), ConsoleColor.Green);
+
+                AppDomain.CurrentDomain.ProcessExit += new EventHandler((x, y) =>
+                {
+                    Process.Start(localPath, string.Format(@"/S /D //""{0}""//", Program.AppData.Path));
+                });
+
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine(Environment.NewLine + "Update.FailedDownload".Translate(), ConsoleColor.Red);
+                Environment.Exit(-1);
+            }
+        }    
     }
 }
