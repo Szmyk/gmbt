@@ -1,3 +1,15 @@
+## [0.12] - 2018-01-31
+
+### New features
+
+- Add possibility to use zSpy in Build Mode
+- New config sameness checking method (xxHash algorithm)
+
+### Fixed
+
+- Fix checking of another running instances of Gothic game
+- Add download error handling in updater
+
 ## [0.11.1] - 2018-01-24
 
 ### Fixed
@@ -44,7 +56,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.11.1...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.12...HEAD
+[0.12]: https://github.com/szmyk/gmbt/compare/v0.11.1...v0.12
 [0.11.1]: https://github.com/szmyk/gmbt/compare/v0.11...v0.11.1
 [0.11]: https://github.com/szmyk/gmbt/compare/v0.10...v0.11
 [0.10]: https://github.com/szmyk/gmbt/compare/v0.9.3...v0.10
