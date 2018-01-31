@@ -13,17 +13,23 @@ namespace GMBT
     static class Program
     {
         public readonly static AppData AppData = new AppData();
-        public readonly static Options Options = new Options();
-        public readonly static Logger Logger = LogManager.GetLogger();
+        public readonly static Options Options = new Options();   
         public readonly static Updater Updater = new Updater();
 
         public static Config Config;
+        public static LogManager LogManager = new LogManager();
+        public static Logger Logger;
 
         static void Main(string[] args)
         {
+            LogManager.InitBasicTargets();
+            Logger = LogManager.GetLogger();
+          
             Internationalization.Init();
 
             AppDomain.CurrentDomain.UnhandledException += (sender, e) => Logger.Fatal("UnknownError".Translate() + e.ExceptionObject.ToString());
+
+            Options.Arguments = args;         
 
             if (CommandLine.Parser.Default.ParseArguments(args, Options,
             (verb, subOptions) =>
@@ -86,9 +92,7 @@ namespace GMBT
 
                 try
                 {
-                    Config = ConfigDeserializer.Deserialize(Options.CommonTestBuild.ConfigFile);
-
-                    Logger.Trace("Config (" + Options.CommonTestBuild.ConfigFile + "):\n" + File.ReadAllText(Options.CommonTestBuild.ConfigFile));
+                    Config = ConfigDeserializer.Deserialize(Options.CommonTestBuild.ConfigFile);                   
                 }
                 catch (YamlException e)
                 {
@@ -102,8 +106,8 @@ namespace GMBT
                 }
 
                 using (Gothic gothic = new Gothic(Config.GothicRoot))
-                {                 
-                    Logger.Trace("Console arguments: " + String.Join(" ", args));
+                {                   
+                    LogManager.InitFileTarget();
 
                     System.Windows.Forms.Application.ApplicationExit += new EventHandler((x, y) => gothic.EndProcess());
 

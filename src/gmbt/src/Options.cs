@@ -8,6 +8,8 @@ namespace GMBT
     /// </summary>
     internal class Options
     {
+        public string[] Arguments { get; set; }
+
         public string InvokedVerb { get; set; }
 
         public CommonOptions Common { get; set; }
