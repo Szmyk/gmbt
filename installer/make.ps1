@@ -8,7 +8,7 @@ echo "Installing NSIS 3.02.1..."
 
 echo "Building installer of GMBT"
 
-& $env:TEMP\"nsis\makensis" gmbt.nsi
+& makensis gmbt.nsi
 
 if ($LASTEXITCODE -like 0) {
 	write-host "Done without errors." -foregroundcolor "green"
