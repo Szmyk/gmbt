@@ -14,18 +14,18 @@ namespace GMBT.Tests
             var vdfsScript = new VDFScript(@"C:\ĄĆ\Gothic II Night of the Raven",
                                            @"C:\ĄĆ\Gothic II Night of the Raven\Data\ModVDF\MyMod.mod",
                                            "My amazing mod v1.0",
-                                           new List<string>()
+                                           new List<string>
                                            {
                                                 @"_work\data\Meshes\_compiled\*",
                                                 @"_work\data\Anims\_compiled\*",
                                                 @"_work\data\Sounds\SFX\*",
                                                 @"_work\data\Sounds\Speech\*"
                                            }, 
-                                           new List<string>()
+                                           new List<string>
                                            {
                                                
                                            }, 
-                                           new List<string>()
+                                           new List<string>
                                            {
                                                 @"_work\Data\Worlds\DK_SUBZENS\*"
                                            });

@@ -28,7 +28,7 @@ namespace GMBT
 
         private string currentText = string.Empty;
         private bool disposed;
-        private int animationIndex = 0;
+        private int animationIndex;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProgressBar"/> class.
@@ -75,7 +75,6 @@ namespace GMBT
                     return;
                 }
                 
-  
                 int progressBlockCount = Convert.ToInt16(blockCount * Convert.ToDouble(progress) / total);
 
                 string text = string.Format("[{0}{1}] {2,3}% {3}",

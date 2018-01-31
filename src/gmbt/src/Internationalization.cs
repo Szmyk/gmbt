@@ -10,7 +10,6 @@ namespace GMBT
     static class Internationalization
     {
         static Dictionary<string, string> keys;
-        static string lang;
 
         static Dictionary<string, string> readJson(string json)
         {
@@ -21,14 +20,14 @@ namespace GMBT
 
         static public void SetLanguage(string code)
         {
-            lang = code;
+            var lang = code;
 
             Init(lang);
         }
 
         static public void Init()
         {
-            lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            var lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
             Init(lang);
         }

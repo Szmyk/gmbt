@@ -15,13 +15,7 @@ namespace GMBT
     /// </summary>
     internal class LogManager
     {
-        private readonly Logger logger;
         private readonly LoggingConfiguration config = new LoggingConfiguration();
-
-        public LogManager()
-        {
-            logger = GetLogger();
-        }
 
         public Logger GetLogger()
         {
@@ -49,7 +43,7 @@ namespace GMBT
             config.LoggingRules.Add(new LoggingRule("*", logLevel, target));       
         }
 
-        public MethodCallTarget GetErrorTarget()
+        public static MethodCallTarget GetErrorTarget()
         {
             return new MethodCallTarget
             {
@@ -58,7 +52,7 @@ namespace GMBT
             };
         }
 
-        public ColoredConsoleTarget GetConsoleTarget()
+        public static ColoredConsoleTarget GetConsoleTarget()
         {
             var consoleTarget = new ColoredConsoleTarget
             {
@@ -75,7 +69,7 @@ namespace GMBT
             return consoleTarget;
         }
 
-        public FileTarget GetFileTarget()
+        public static FileTarget GetFileTarget()
         {
             string fileNameFormat = "${cached:cached=true:inner=${date:format=yyyy-MM-dd/HH-mm-ss}}.log";
 

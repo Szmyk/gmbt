@@ -71,7 +71,7 @@ namespace GMBT
             {
                 foreach (string vdfFile in files)
                 {
-                    ProcessStartInfo gothicVDFS = new ProcessStartInfo()
+                    ProcessStartInfo gothicVDFS = new ProcessStartInfo
                     {
                         FileName = Program.AppData.GetTool("GothicVDFS.exe"),
                         Arguments = "/X \"" + PathsUtils.ChangeExtension(vdfFile, ".vdf") + "\"",

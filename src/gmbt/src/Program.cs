@@ -15,9 +15,9 @@ namespace GMBT
         public readonly static AppData AppData = new AppData();
         public readonly static Options Options = new Options();   
         public readonly static Updater Updater = new Updater();
+        public readonly static LogManager LogManager = new LogManager();
 
-        public static Config Config;
-        public static LogManager LogManager = new LogManager();
+        public static Config Config;       
         public static Logger Logger;
 
         static void Main(string[] args)
