@@ -31,7 +31,7 @@
  
     
 <p align="center">
-  <img src="http://g.recordit.co/5HeXXvuJTE.gif" alt="Demo">   
+  <img src="https://g.recordit.co/5HeXXvuJTE.gif" alt="Demo">   
 </p>
 
 This project was developed primarily for the purpose of assisting the SoulFire team with the development of [The History of Khorinis].
