@@ -179,25 +179,12 @@ namespace GMBT
         {
             GothicArguments arguments = new GothicArguments();
 
-            arguments.Add("game", "gmbt.ini");
-
-            if (Program.Options.TestVerb.NoAudio)
+            if (Program.Options.CommonTestBuild.ZSpyLevel != ZSpy.Mode.None)
             {
-                if (File.Exists(GetGameDirectory(GameDirectory.ScriptsCompiled) + "MUSIC.DAT"))
-                {
-                    arguments.Add("znomusic");
-                }
-
-                if (File.Exists(GetGameDirectory(GameDirectory.ScriptsCompiled) + "SFX.DAT"))
-                {
-                    arguments.Add("znosound");
-                }
+                arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestBuild.ZSpyLevel) + ",s");
             }
 
-            if (Program.Options.TestVerb.NoMenu)
-            {
-                arguments.Add("nomenu");
-            }
+            arguments.Add("game", "gmbt.ini");         
 
             return arguments;
         }

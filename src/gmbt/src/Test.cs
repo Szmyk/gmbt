@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace GMBT
 {
@@ -88,11 +89,6 @@ namespace GMBT
 
             parameters.Add("zreparse");
 
-            if (Program.Options.TestVerb.ZSpyLevel != ZSpy.Mode.None)
-            {
-                parameters.Add("zlog", Convert.ToInt32(Program.Options.TestVerb.ZSpyLevel) + ",s");
-            }
-
             if (Program.Options.TestVerb.RunGothicWindowed
             || (Mode == TestMode.Full && assetsCompiled == false))
             {
@@ -113,6 +109,24 @@ namespace GMBT
             else
             {
                 parameters.Add("3d", Program.Options.TestVerb.World ?? Program.Config.ModFiles.DefaultWorld);
+            }
+
+            if (Program.Options.TestVerb.NoAudio)
+            {
+                if (File.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCompiled) + "MUSIC.DAT"))
+                {
+                    parameters.Add("znomusic");
+                }
+
+                if (File.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCompiled) + "SFX.DAT"))
+                {
+                    parameters.Add("znosound");
+                }
+            }
+
+            if (Program.Options.TestVerb.NoMenu)
+            {
+                parameters.Add("nomenu");
             }
 
             return parameters;
