@@ -14,10 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputUnitsUpdater", "src\O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputUnitsUpdater.Tests", "tests\OutputUnitsUpdater\OutputUnitsUpdater.Tests.csproj", "{09B8A434-6E3D-43BE-A2C3-688EC08F4147}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp-utils", "libs\csharp-utils\csharp-utils\csharp-utils.csproj", "{F5FFA7DD-825A-4C0E-B231-136400C659B0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hide", "Hide", "{8DA0ACDB-3E0C-48C6-9045-EF66BD646FBD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,9 +43,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F5FFA7DD-825A-4C0E-B231-136400C659B0} = {8DA0ACDB-3E0C-48C6-9045-EF66BD646FBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA0C1E8A-CC08-4452-A317-062A5B11B47B}

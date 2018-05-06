@@ -43,6 +43,9 @@
     <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="csharp-utils-dotnet-core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Szmyk.Utils.1.0.0\lib\net47\csharp-utils-dotnet-core.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -107,10 +110,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libs\csharp-utils\csharp-utils\csharp-utils.csproj">
-      <Project>{f5ffa7dd-825a-4c0e-b231-136400c659b0}</Project>
-      <Name>csharp-utils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OutputUnitsUpdater\OutputUnitsUpdater.csproj">
       <Project>{99c1e851-d3ad-4898-8ff7-39941e8b0938}</Project>
       <Name>OutputUnitsUpdater</Name>

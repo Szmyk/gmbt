@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Diagnostics;
 
-using Szmyk.Utils.Files;
+using Szmyk.Utils.File;
 
 namespace GMBT
 {
