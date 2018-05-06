@@ -1,3 +1,13 @@
+## [0.13] - 2018-05-06
+
+### New features
+
+- Add hooks system
+
+### Fixed
+
+- Fix "Could not create SSL/TLS secure channel" errors when checking if update is available
+
 ## [0.12] - 2018-01-31
 
 ### New features
@@ -56,7 +66,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.12...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.13...HEAD
+[0.13]: https://github.com/szmyk/gmbt/compare/v0.12...v0.13
 [0.12]: https://github.com/szmyk/gmbt/compare/v0.11.1...v0.12
 [0.11.1]: https://github.com/szmyk/gmbt/compare/v0.11...v0.11.1
 [0.11]: https://github.com/szmyk/gmbt/compare/v0.10...v0.11
