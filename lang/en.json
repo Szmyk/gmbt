@@ -7,6 +7,10 @@
 	"Compiled": "Compiled",
 	"Gothic2NotR": "Gothic 2 Night of the Raven",
 
+	"Hooks.Run": "Running hook: {0}",
+	"Hooks.Run.WaitingForEnd": "Waiting for the end...",
+	"Hooks.Run.Error": "Running hook error: {0}",
+	
 	"Update.CheckingAvailableUpdate": "Checking for updates...",
 	"Update.FailedCheck": "Failed to check for updates.  Check your Internet connection.",
 	"Update.FailedDownload": "Download error. Check your Internet connection.",

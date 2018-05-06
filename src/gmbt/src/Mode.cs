@@ -19,5 +19,7 @@
         public abstract GothicArguments GetGothicArguments();
 
         public abstract void Start();
+
+        protected abstract void runHooks(HookType hookType, HookEvent hookEvent);
     }
 }

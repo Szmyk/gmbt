@@ -47,6 +47,8 @@ This project was developed primarily for the purpose of assisting the SoulFire t
         * [`build`](#build)
         * [`update`](#update)
     *  [Examples](#examples)
+* [Advanced usage](#advanced-usage)
+	*  [Hooks](#hooks)
 * [Example project](#example-project)
 * [License](#license)
 * [Built with](#built-with)
@@ -268,6 +270,50 @@ Below are some examples used developing [The History of Khorinis] project:
 # Example project
 
 There is an [example project] which uses this tool. There are some assets from [World of Gothic DE Modderdatenbank] — just for the test. This repository is very nice sandbox which allows you to get acquainted with the tool. The repository has the same structure of files as in [example configuration](#example).
+
+# Advanced usage
+
+## Hooks
+
+Hooks are actions can be set in [config file](#configuration) to trigger actions at certain points in the tool execution.
+
+#### Modes
+
+* `common` - executes in every instance
+* `test` - executes when test (quick or full) is executing.
+* `quickTest` - executes when quick test is executing
+* `fullTest` - executes when full test is executing
+* `build` - executes when build is executing
+
+#### Types
+
+* `pre` - before an event
+* `post` - after an event
+
+#### Events
+
+* `assetsMerge`
+* `subtitlesUpdate`
+* `texturesCompile`
+
+Hooks have to be set in config file. Example:
+
+```yaml
+hooks: 
+    common: 
+        post:
+            - assetsMerge: "tools/script.bat"
+        pre:
+            - texturesCompile: "tools/tool.exe"
+            - texturesCompile: "tools/tool2.exe"
+    test: 
+        post:
+            - subtitlesUpdate: "tools/script2.bat"
+```
+
+To better understand the entire process of tool execution, you should look at the diagram:
+
+![](https://i.imgur.com/NvOwLlM.png)
 
 # License
 

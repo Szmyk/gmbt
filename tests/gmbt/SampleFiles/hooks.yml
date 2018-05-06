@@ -1,0 +1,10 @@
+hooks: 
+    common: 
+        post:
+            - assetsMerge: "a"
+        pre:
+            - texturesCompile: "b"
+            - texturesCompile: "c"
+    test: 
+        post:
+            - subtitlesUpdate: "d"

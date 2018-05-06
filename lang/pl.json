@@ -7,6 +7,10 @@
 	"Compiled": "Skompilowano",
 	"Gothic2NotR": "Gothic 2 Noc Kruka",
 
+	"Hooks.Run": "Uruchamianie skryptu: {0}",
+	"Hooks.Run.WaitingForEnd": "Oczekiwanie na zakończenie...",
+	"Hooks.Run.Error": "Błąd uruchamiania skryptu: {0}",
+	
 	"Update.CheckingAvailableUpdate": "Sprawdzanie dostępności aktualizacji...",
 	"Update.FailedCheck": "Nie udało się sprawdzić dostępności aktualizacji. Sprawdź połączenie internetowe.",
 	"Update.FailedDownload": "Błąd podczas pobierania. Sprawdź połączenie internetowe.",

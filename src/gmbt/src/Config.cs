@@ -6,6 +6,10 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace GMBT
 {
+    using HooksTree = Dictionary<HookMode,
+                      Dictionary<HookType,
+                      List<Dictionary<HookEvent, string>>>>;
+
     /// <summary>
     /// Implements deserializing of config file.
     /// </summary>
@@ -17,10 +21,17 @@ namespace GMBT
             Deserializer deserializer = deserializerBuilder.Build();
             StringReader configReader = new StringReader(File.ReadAllText(configFile));
 
-            Config config = deserializer.Deserialize<Config>(configReader);
-            
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(Program.Options.CommonTestBuild.ConfigFile));
+            return deserializer.Deserialize<Config>(configReader);
+        }
+    }
 
+    /// <summary>
+    /// Implements parsing of config file.
+    /// </summary>
+    internal static class ConfigParser
+    {
+        public static void Parse(Config config)
+        {
             if (Directory.Exists(config.GothicRoot) == false)
             {
                 throw new DirectoryNotFoundException(string.Format("Config.Error.RootDirDidNotFound".Translate(), Path.GetFullPath(config.GothicRoot)));
@@ -47,8 +58,6 @@ namespace GMBT
                     }
                 }
             }
-
-            return config;
         }
     }
 
@@ -63,7 +72,9 @@ namespace GMBT
         public ModVDF ModVdf { get; set; }
 
         public List<Dictionary<string, string>> Install { get; set; }
-        public List<Dictionary<string, string>> GothicIniOverrides { get; set; }  
+        public List<Dictionary<string, string>> GothicIniOverrides { get; set; }
+
+        public HooksTree Hooks { get; set; }
     }
 
     internal class ModFiles

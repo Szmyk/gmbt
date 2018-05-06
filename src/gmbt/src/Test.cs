@@ -35,7 +35,22 @@ namespace GMBT
                     Console.WriteLine("Done".Translate(), ConsoleColor.Green);
                 }
             };
-        }  
+        }
+
+        protected override void runHooks(HookType hookType, HookEvent hookEvent)
+        {
+            Program.HooksManager.RunHooks(HookMode.Common, hookType, hookEvent);
+            Program.HooksManager.RunHooks(HookMode.Test, hookType, hookEvent);
+
+            if (Mode == TestMode.Full)
+            {
+                Program.HooksManager.RunHooks(HookMode.FullTest, hookType, hookEvent);
+            }
+            else if (Mode == TestMode.Quick)
+            {
+                Program.HooksManager.RunHooks(HookMode.QuickTest, hookType, hookEvent);
+            }
+        }
 
         /// <summary>
         /// Starts test.
@@ -44,11 +59,17 @@ namespace GMBT
         {
             if (Program.Options.TestVerb.Merge != Merge.MergeOptions.None)
             {
+                runHooks(HookType.Pre, HookEvent.AssetsMerge);
+
                 Merge.MergeAssets(gothic, Program.Options.TestVerb.Merge);
+
+                runHooks(HookType.Post, HookEvent.AssetsMerge);
             }
 
             if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
             {
+                runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
+
                 var message = "ConvertingSubtitles".Translate();
 
                 Program.Logger.Trace(message);
@@ -58,12 +79,18 @@ namespace GMBT
                     OutputUnitsUpdater.OutputUnitsUpdater.Update(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent),
                                                                  gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene) + "OU.csl");
                 }
+
+                runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
             }
 
             if (Mode == TestMode.Full)
             {
+                runHooks(HookType.Pre, HookEvent.TexturesCompile);
+
                 Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
                                          gothic.GetGameDirectory(Gothic.GameDirectory.TexturesCompiled));
+
+                runHooks(HookType.Post, HookEvent.TexturesCompile);
             }        
 
             compilingAssetsWatcher.Start();

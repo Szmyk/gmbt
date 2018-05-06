@@ -15,6 +15,7 @@ namespace GMBT
         public readonly static AppData AppData = new AppData();
         public readonly static Options Options = new Options();   
         public readonly static Updater Updater = new Updater();
+        public readonly static HooksManager HooksManager = new HooksManager();
         public readonly static LogManager LogManager = new LogManager();
 
         public static Config Config;       
@@ -88,7 +89,16 @@ namespace GMBT
 
                 try
                 {
-                    Config = ConfigDeserializer.Deserialize(Options.CommonTestBuild.ConfigFile);                   
+                    Config = ConfigDeserializer.Deserialize(Options.CommonTestBuild.ConfigFile);
+
+                    Directory.SetCurrentDirectory(Path.GetDirectoryName(Options.CommonTestBuild.ConfigFile));
+
+                    ConfigParser.Parse(Config);
+
+                    if (Config.Hooks != null)
+                    {
+                        HooksManager.RegisterHooks(Config.Hooks);
+                    }
                 }
                 catch (YamlException e)
                 {

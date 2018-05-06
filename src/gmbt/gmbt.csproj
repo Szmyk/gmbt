@@ -84,6 +84,7 @@
     <Compile Include="src\Build.cs" />
     <Compile Include="src\Config.cs" />
     <Compile Include="src\Gothic.cs" />
+    <Compile Include="src\Hooks.cs" />
     <Compile Include="src\Internationalization.cs" />
     <Compile Include="src\Install.cs" />
     <Compile Include="src\Logger.cs" />

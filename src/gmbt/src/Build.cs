@@ -20,6 +20,12 @@ namespace GMBT
             };    
         }
 
+        protected override void runHooks(HookType hookType, HookEvent hookEvent)
+        {
+            Program.HooksManager.RunHooks(HookMode.Common, hookType, hookEvent);
+            Program.HooksManager.RunHooks(HookMode.Build, hookType, hookEvent);        
+        }
+
         /// <summary>
         /// Starts build.
         /// </summary>
@@ -27,10 +33,16 @@ namespace GMBT
         {
             DateTime startTime = TimeHelper.Now;
 
+            runHooks(HookType.Pre, HookEvent.AssetsMerge);
+
             Merge.MergeAssets(gothic, Merge.MergeOptions.All);
+
+            runHooks(HookType.Post, HookEvent.AssetsMerge);
 
             if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
             {
+                runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
+
                 var message = "ConvertingSubtitles".Translate();
 
                 Program.Logger.Trace(message);
@@ -40,10 +52,16 @@ namespace GMBT
                     OutputUnitsUpdater.OutputUnitsUpdater.Update(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent),
                                                                  gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene) + "OU.csl");
                 }
+
+                runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
             }
+
+            runHooks(HookType.Pre, HookEvent.TexturesCompile);
 
             Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
                                      gothic.GetGameDirectory(Gothic.GameDirectory.TexturesCompiled));
+
+            runHooks(HookType.Post, HookEvent.TexturesCompile);
 
             compilingAssetsWatcher.Start();
 
