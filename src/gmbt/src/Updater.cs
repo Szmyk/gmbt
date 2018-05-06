@@ -30,6 +30,8 @@ namespace GMBT
 
         public Updater ()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             CheckLatestReleaseTask = Task.Run(() =>
             {
                 try
