@@ -113,6 +113,11 @@ namespace GMBT
         MutuallyExclusiveSet = "build",
         HelpText = "Do not pack any sounds (WAVs) to VDF.")]
         public bool NoPackSounds { get; set; }
+
+        [Option("comment",
+        MutuallyExclusiveSet = "build",
+        HelpText = "Set or override comment of VDF. Default is set in config.")]
+        public string Comment { get; set; }
     }
 
     /// <summary> 

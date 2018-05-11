@@ -101,7 +101,7 @@ namespace GMBT
 
             string vdfOutput = Program.Options.BuildVerb.Output ?? Program.Config.ModVdf.Output;
 
-            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root), vdfOutput, Program.Config.ModVdf.Comment, directoriesToPack, Program.Config.ModVdf.Include, Program.Config.ModVdf.Exclude);
+            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root, false), vdfOutput, Program.Options.BuildVerb.Comment ?? Program.Config.ModVdf.Comment, directoriesToPack, Program.Config.ModVdf.Include, Program.Config.ModVdf.Exclude);
 
             builder.Arguments = "/B " + script.GenerateAndGetPath();
 
