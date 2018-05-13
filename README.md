@@ -29,7 +29,7 @@
   <br>
 </p>
 
-This project was developed primarily for the purpose of assisting the SoulFire team with the development of [The History of Khorinis].
+This project was developed primarily for the purpose of assisting the SoulFire team with the development of [The Chronicles of Myrtana].
 
 ## Table of Contents
 
@@ -72,7 +72,7 @@ There are 3 modes of use:
 
 ## Speed
 
-On a mid-range PC with an HDD, a no sounds VDF build of a huge addon [The History of Khorinis] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
+On a mid-range PC with an HDD, a no sounds VDF build of a huge addon [The Chronicles of Myrtana] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
 
 # Status
 
@@ -114,7 +114,7 @@ You have to configure a [YAML] config:
     * **exclude** - _strings list_
         > Exclude files from merging. Only files paths, not directories and wildcarts.
     * **defaultWorld**  - _string_
-        > Name (not path) of ZEN, eg. _VADUZWORLD.ZEN_
+        > Name (not path) of ZEN, eg. _NEWWORLD.ZEN_
 * **modVdf**  - _structure_
     *   **output**  - _string_
         > Path to save *.mod* file.
@@ -140,15 +140,15 @@ You have to configure a [YAML] config:
 
 ### Example
 
-Below is an example files structure and configuration used in [The History of Khorinis] project. Also, the same structure you can see in the [example project](#example-project).
+Below is an example files structure and configuration used in [The Chronicles of Myrtana] project. Also, the same structure you can see in the [example project](#example-project).
 
-Our developers have to clone modification repository to `_Work` directory, so their local repository is located in `_Work/TheHistoryOfKhorinis`. We have a complex structure for our files. There are four directories:
+Our developers have to clone modification repository to `_Work` directory, so their local repository is located in `_Work/TheChroniclesOfMyrtana`. We have a complex structure for our files. There are four directories:
 * **mdk** - there are eg. original scripts, animations (if needed eg. to compile some new animations)
 * **mdk-overrides** - there are overrides of original assets to maintain transparency and organization
 * **mod** - own new assets, scripts, music and so on. There are only completely new files. Overrides of originals are in the `mdk-overrides`
 * **thirdparty** - some resources from thirdparty libraries and projects on which we have license to use
 
-We have got this config in root of the local repository (`_Work/TheHistoryOfKhorinis/.gmbt.yml`).
+We have got this config in root of the local repository (`_Work/TheChroniclesOfMyrtana/.gmbt.yml`).
 
 ```
 gothicRoot: ..\..
@@ -160,14 +160,14 @@ modFiles:
     - thirdparty
     - mod
 
-  defaultWorld: VADUZWORLD.ZEN
+  defaultWorld: KM_WORLD.ZEN
 
 modVdf:
-  output:  ..\..\Data\ModVDF\DK.mod
-  comment: Gothic 2 - The History of Khorinis (%%D)%%N(C) 2018 SoulFire
+  output:  ..\..\Data\ModVDF\KM.mod
+  comment: Gothic 2 - The Chronicles of Myrtana (%%D)%%N(C) 2018 SoulFire
 
   exclude:
-    - _work\Data\Worlds\DK_SUBZENS\*
+    - _work\Data\Worlds\KM_SUBZENS\*
 
 gothicIniOverrides:
   - 'GAME.playLogoVideos' : '0'
@@ -237,7 +237,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 Example Batch scripts are also in [example project].
 
-Below are some examples used developing [The History of Khorinis] project:
+Below are some examples used developing [The Chronicles of Myrtana] project:
 
 * **GMBT_QuickTest.bat**
 
@@ -375,7 +375,7 @@ Big thanks to:
 * [![GitHub issues](https://img.shields.io/github/issues/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues) [![GitHub closed issues](https://img.shields.io/github/issues-closed/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues)
 * [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gothic-mod-build-tool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
-[The History of Khorinis]: http://thehistoryofkhorinis.com
+[The Chronicles of Myrtana]: https://kronikimyrtany.pl/en
 [D3D11-Renderer for Gothic]: https://forum.worldofplayers.de/forum/threads/1441897-D3D11-Renderer-fÄ‚Ä˝r-Gothic-2-(alpha)-15
 [YAML]: https://en.wikipedia.org/wiki/YAML
 [World of Gothic DE Modderdatenbank]: https://www.worldofgothic.de/?go=moddb
