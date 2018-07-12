@@ -1,3 +1,17 @@
+## [0.14] - 2018-07-13
+
+### New features
+
+- `--comment` option (build mode)
+
+### Improved
+
+- Improve config changes detection
+
+### Fixed
+
+- Fix exceptions messages formatting in config file parsing
+
 ## [0.13] - 2018-05-06
 
 ### New features
@@ -66,7 +80,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.13...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.14...HEAD
+[0.14]: https://github.com/szmyk/gmbt/compare/v0.13...v0.14
 [0.13]: https://github.com/szmyk/gmbt/compare/v0.12...v0.13
 [0.12]: https://github.com/szmyk/gmbt/compare/v0.11.1...v0.12
 [0.11.1]: https://github.com/szmyk/gmbt/compare/v0.11...v0.11.1
