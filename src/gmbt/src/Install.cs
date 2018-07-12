@@ -6,8 +6,7 @@ using System.Diagnostics;
 
 using Szmyk.Utils.Paths;
 using Szmyk.Utils.Directory;
-
-using System.Data.HashFunction;
+using Newtonsoft.Json;
 
 namespace GMBT
 {
@@ -27,25 +26,12 @@ namespace GMBT
         /// </summary>
         public void Start()
         {
-            gothic.GothicINI.Write("lastConfigFileHash", string.Empty, "GMBT");
-
             MakeOriginalAssetsBackup();
 
             UnPackOriginalVDFs();
 
-            if (Program.Config.Install != null)
-            {
-                if (Program.Config.Install.Count > 0)
-                {
-                    CopyUserFiles();
-                }
-            }
-
             MarkOriginalAssets();
 
-            var hash = Encoding.Default.GetString(new xxHash().ComputeHash(Encoding.UTF8.GetBytes(File.ReadAllText(Program.Options.CommonTestBuild.ConfigFile))));
-
-            gothic.GothicINI.Write("lastConfigFileHash", hash, "GMBT");
             gothic.GothicINI.Write("gmbtVersion", Assembly.GetExecutingAssembly().GetName().Version.ToString(), "GMBT");
             gothic.GothicINI.Write("testStarts", "0", "GMBT");
             gothic.GothicINI.Write("buildStarts", "0", "GMBT");
@@ -92,6 +78,40 @@ namespace GMBT
             if (gothic.Version == Gothic.GameVersion.Gothic1)
             {
                 Directory.Delete(gothic.GetGameDirectory(Gothic.GameDirectory.Textures) + "DESKTOP", true);
+            }
+        }
+
+        public void DetectLastConfigChanges ()
+        {
+            var serializedLastInstallDictionaryFile = gothic.GetGameDirectory(Gothic.GameDirectory.System, true) + "GMBT\\install.json";
+
+            string serializedLastInstallDictionary = null;
+
+            var directory = Path.GetDirectoryName(serializedLastInstallDictionaryFile);
+
+            if (Directory.Exists(directory) == false)
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            if (File.Exists(serializedLastInstallDictionaryFile))
+            {
+                serializedLastInstallDictionary = File.ReadAllText(serializedLastInstallDictionaryFile);
+            }
+
+            var serializedInstallDictionary = JsonConvert.SerializeObject(Program.Config.Install, Formatting.None);
+
+            if (serializedLastInstallDictionary != serializedInstallDictionary)
+            {
+                if (Program.Config.Install != null)
+                {
+                    if (Program.Config.Install.Count > 0)
+                    {
+                        CopyUserFiles();
+                    }
+                }
+
+                File.WriteAllText(serializedLastInstallDictionaryFile, serializedInstallDictionary);
             }
         }
 

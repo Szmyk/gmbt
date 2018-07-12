@@ -6,7 +6,7 @@ using NLog;
 
 using YamlDotNet.Core;
 
-using System.Data.HashFunction;
+using Newtonsoft.Json;
 
 namespace GMBT
 {
@@ -107,7 +107,7 @@ namespace GMBT
                 }
                 catch (Exception e)
                 {
-                    Logger.Fatal("Config.Error".Translate(e.Message));
+                    Logger.Fatal("Config.Error".Translate(e.ToString()));
                     return;
                 }
 
@@ -117,14 +117,15 @@ namespace GMBT
 
                     try
                     {
-                        if (Options.InvokedVerb == "test")
-                        {
-                            var hash = Encoding.Default.GetString(new xxHash().ComputeHash(Encoding.UTF8.GetBytes(File.ReadAllText(Program.Options.CommonTestBuild.ConfigFile))));
+                        var install = new Install(gothic);
 
-                            if ((gothic.GetLastUsedConfigHash() != hash)
-                            || (Options.TestVerb.ReInstall))
+                        install.DetectLastConfigChanges();
+
+                        if (Options.InvokedVerb == "test")
+                        {                         
+                            if (Options.TestVerb.ReInstall)
                             {
-                                new Install(gothic).Start();
+                                install.Start();
                             }
 
                             if (Options.TestVerb.Full)
@@ -138,7 +139,7 @@ namespace GMBT
                         }
                         else if (Options.InvokedVerb == "build")
                         {
-                            new Install(gothic).Start();
+                            install.Start();
                             new Build(gothic).Start();
                         }
                     }

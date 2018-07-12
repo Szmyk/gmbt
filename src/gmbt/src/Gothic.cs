@@ -96,8 +96,6 @@ namespace GMBT
             }      
         }
 
-        public string GetLastUsedConfigHash () => GothicINI.Read("lastConfigFileHash", "GMBT");
-
         private void overrideGothicIniKeys()
         {
             var gmbtIniPath = GetGameDirectory(GameDirectory.System) + "gmbt.ini";
