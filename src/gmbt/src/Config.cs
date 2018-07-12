@@ -34,14 +34,14 @@ namespace GMBT
         {
             if (Directory.Exists(config.GothicRoot) == false)
             {
-                throw new DirectoryNotFoundException(string.Format("Config.Error.RootDirDidNotFound".Translate(), Path.GetFullPath(config.GothicRoot)));
+                throw new DirectoryNotFoundException("Config.Error.RootDirDidNotFound".Translate(config.GothicRoot));
             }
 
             foreach (var directory in config.ModFiles.Assets)
             {
                 if (Directory.Exists(directory) == false)
                 {
-                    throw new DirectoryNotFoundException(string.Format("Config.Error.AssetsDirDidNotFound".Translate(), Path.GetFullPath(directory)));
+                    throw new DirectoryNotFoundException("Config.Error.AssetsDirDidNotFound".Translate(directory));
                 }
             }
 
@@ -53,7 +53,7 @@ namespace GMBT
                     {
                         if (File.Exists(file) == false)
                         {
-                            throw new FileNotFoundException(string.Format("Config.Error.FileDidNotFound".Translate(), Path.GetFullPath(file)));
+                            throw new FileNotFoundException("Config.Error.FileDidNotFound".Translate(file));
                         }
                     }
                 }
