@@ -223,6 +223,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | ---------------------------- 	| --------------------------------------------- | ------------------------------------
 |`-O <file>, --output=<file>`  	| Path of VDF volume (`.mod`) output. 			| Set in [config file](#configuration)
 |`--nopacksounds`  				| Do not to pack sounds (WAVs) to mod package.  | N/A
+|`--comment`  					| Set or override comment of VDF.  				| Set in [config file](#configuration)
 
 ### `update`
 
