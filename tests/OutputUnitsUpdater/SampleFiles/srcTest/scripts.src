@@ -1,6 +1,7 @@
 //test
 
 Script.d
+Script.d
 system\*.d
 content\*.d
 content\dialogs\npc_*.d

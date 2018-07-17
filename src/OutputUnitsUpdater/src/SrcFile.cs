@@ -56,7 +56,7 @@ namespace OutputUnitsUpdater
                 }             
             }
 
-            return toReturn;
+            return toReturn.Union(toReturn).ToList();
         }
 
         private string getExtension(string path)
