@@ -89,7 +89,7 @@ namespace GMBT
 
                             foreach (FileInfo fi in fis)
                             {
-                                files.Remove(fi.FullName);
+                                files.RemoveAll(x => Path.GetFullPath(x) == fi.FullName);
                             }
                         }
                     }
