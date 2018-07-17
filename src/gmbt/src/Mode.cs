@@ -35,7 +35,19 @@ namespace GMBT
                 Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene), "OU.csl")
             );
 
-            updater.Update();            
+            updater.Update();
+
+            var duplicated = updater.GetDuplicates();
+
+            if (duplicated.Count > 0)
+            {
+                Program.Logger.Error("FoundDuplicatedDialogs".Translate());
+
+                foreach (var duplicate in duplicated)
+                {
+                    Program.Logger.Error("\t" + duplicate.Name);
+                }
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 	"Done": "Ukończono.",
 	"UnknownError": "Nieznany błąd",
 	"ConvertingSubtitles": "Konwertowanie napisów...",
+	"FoundDuplicatedDialogs": "Znaleziono duplikaty dialogów:",
 	"CompilingTextures": "Kompilowanie tekstur...",
 	"CompletedIn": "Ukończono w {0} min. {1} sek.",
 	"Compiled": "Skompilowano",
