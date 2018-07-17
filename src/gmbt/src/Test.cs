@@ -70,15 +70,7 @@ namespace GMBT
             {
                 runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
 
-                var message = "ConvertingSubtitles".Translate();
-
-                Program.Logger.Trace(message);
-
-                using (ProgressBar bar = new ProgressBar(message, 1))
-                {
-                    OutputUnitsUpdater.OutputUnitsUpdater.Update(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent),
-                                                                 gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene) + "OU.csl");
-                }
+                UpdateDialogs();
 
                 runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
             }

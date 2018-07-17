@@ -1,0 +1,8 @@
+//test
+
+Script.d
+system\*.d
+content\*.d
+content\dialogs\npc_*.d
+
+//end

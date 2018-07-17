@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ParserTests.cs" />
+    <Compile Include="SrcTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\OutputUnitsUpdater\OutputUnitsUpdater.csproj">
@@ -62,10 +63,46 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SampleFiles\Dialog.d">
+    <None Include="SampleFiles\ouTest\Dialog.d">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SampleFiles\SVM.d">
+    <None Include="SampleFiles\ouTest\scripts.src">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\ouTest\SVM.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\content\dialogs\npc_1.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\content\dialogs\npc_2.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\content\dialogs\Npc_3.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\content\dialogs\NPC_4.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\content\dialogs\NPC_5.D">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\content\script.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\Script.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\scripts.src">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\system\script1.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\system\script2.d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SampleFiles\srcTest\system\Script3.d">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
