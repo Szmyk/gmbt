@@ -81,6 +81,27 @@ namespace GMBT
             }
         }
 
+        public bool LastConfigPathChanged ()
+        {
+            var lastConfigDir = gothic.GothicINI.Read("last_config_dir", "GMBT");
+            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestBuild.ConfigFile));
+
+            gothic.GothicINI.Write("last_config_dir", configDir, "GMBT");
+
+            var changed = configDir != lastConfigDir;
+            
+            if (lastConfigDir == string.Empty)
+            {
+                Program.Logger.Info("Pierwsze uruchomienie aplikacji.");
+            }
+            else if (changed && lastConfigDir != string.Empty)
+            {
+                Program.Logger.Info("Wykryto zmianę pliku konfiguracyjnego.");
+            }
+
+            return changed;
+        }
+
         public void DetectLastConfigChanges ()
         {
             var serializedLastInstallDictionaryFile = gothic.GetGameDirectory(Gothic.GameDirectory.System, true) + "GMBT\\install.json";

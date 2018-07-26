@@ -122,8 +122,9 @@ namespace GMBT
                         install.DetectLastConfigChanges();
 
                         if (Options.InvokedVerb == "test")
-                        {                         
-                            if (Options.TestVerb.ReInstall)
+                        {
+                            if (install.LastConfigPathChanged()
+                            || (Options.TestVerb.ReInstall))
                             {
                                 install.Start();
                             }
