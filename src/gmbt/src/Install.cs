@@ -8,6 +8,8 @@ using Szmyk.Utils.Paths;
 using Szmyk.Utils.Directory;
 using Newtonsoft.Json;
 
+using VdfsSharp;
+
 namespace GMBT
 {
     internal class Install
@@ -48,33 +50,24 @@ namespace GMBT
 
             var files = Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "*", SearchOption.TopDirectoryOnly);
 
-            foreach (string file in files)
-            {
-                File.Move(file, PathsUtils.ChangeExtension(file, ".vdf"));
-            }
-
             using (ProgressBar unpackVDFs = new ProgressBar(message, files.Length))
             {
                 foreach (string vdfFile in files)
                 {
-                    ProcessStartInfo gothicVDFS = new ProcessStartInfo
-                    {
-                        FileName = Program.AppData.GetTool("GothicVDFS.exe"),
-                        Arguments = "/X \"" + PathsUtils.ChangeExtension(vdfFile, ".vdf") + "\"",
-                        WorkingDirectory = gothic.GetGameDirectory(Gothic.GameDirectory.Root),
-                        WindowStyle = ProcessWindowStyle.Minimized
-                    };
+                    var filePath = PathsUtils.GetPathWithoutExtensions(vdfFile) + ".vdf.disabled";
 
-                    Process.Start(gothicVDFS).WaitForExit();
+                    File.Move(vdfFile, filePath);
 
-                    File.Move(PathsUtils.ChangeExtension(vdfFile, ".vdf"), PathsUtils.ChangeExtension(vdfFile, ".vdf.disabled"));
+                    var vdfExtractor = new VdfsExtractor(filePath);
+ 
+                    vdfExtractor.ExtractFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Root), true);
 
-                    Program.Logger.Trace("\t" + PathsUtils.ChangeExtension(vdfFile, ".vdf"));
+                    Program.Logger.Trace("\t" + vdfFile);            
 
                     unpackVDFs.Increase();
                 }
             }
-              
+
             if (gothic.Version == Gothic.GameVersion.Gothic1)
             {
                 Directory.Delete(gothic.GetGameDirectory(Gothic.GameDirectory.Textures) + "DESKTOP", true);
