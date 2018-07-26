@@ -89,7 +89,6 @@
     <Compile Include="src\Program.cs" />
     <Compile Include="src\ProgressBar.cs" />
     <Compile Include="src\Test.cs" />
-    <Compile Include="src\Textures.cs" />
     <Compile Include="src\Updater.cs" />
     <Compile Include="src\VDF.cs" />
     <Compile Include="src\VDFScript.cs" />

@@ -60,12 +60,6 @@ namespace GMBT
         HelpText = "Path to config file. More information in ReadMe.html")]
         public string ConfigFile { get; set; }
 
-        [Option("texturecompile",
-        MetaValue = "<normal|quick>",
-        DefaultValue = Textures.CompileMode.Normal,
-        HelpText = "Method of textures compiling. More information in ReadMe.html.")]
-        public Textures.CompileMode TextureCompile { get; set; }
-
         [Option("noupdatesubtitles",
         HelpText = "Do not update dialogs subtitles.")]
         public bool NoUpdateSubtitles { get; set; }

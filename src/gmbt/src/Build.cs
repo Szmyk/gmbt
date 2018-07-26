@@ -48,13 +48,6 @@ namespace GMBT
                 runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
             }
 
-            runHooks(HookType.Pre, HookEvent.TexturesCompile);
-
-            Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
-                                     gothic.GetGameDirectory(Gothic.GameDirectory.TexturesCompiled));
-
-            runHooks(HookType.Post, HookEvent.TexturesCompile);
-
             compilingAssetsWatcher.Start();
 
             gothic.Start(GetGothicArguments()).WaitForExit();
@@ -80,6 +73,7 @@ namespace GMBT
             arguments.Add("zwindow");
             arguments.Add("zreparse");
             arguments.Add("zconvertall");
+            arguments.Add("ztexconvert");
             arguments.Add("nomenu");
             arguments.Add("3d", "none");
 

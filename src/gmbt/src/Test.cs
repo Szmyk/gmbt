@@ -73,17 +73,7 @@ namespace GMBT
                 UpdateDialogs();
 
                 runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
-            }
-
-            if (Mode == TestMode.Full)
-            {
-                runHooks(HookType.Pre, HookEvent.TexturesCompile);
-
-                Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
-                                         gothic.GetGameDirectory(Gothic.GameDirectory.TexturesCompiled));
-
-                runHooks(HookType.Post, HookEvent.TexturesCompile);
-            }        
+            } 
 
             compilingAssetsWatcher.Start();
 
@@ -123,6 +113,7 @@ namespace GMBT
             {
                 parameters.Add("3d", "none");
                 parameters.Add("zconvertall");
+                parameters.Add("ztexconvert");              
                 parameters.Add("nomenu");
             }
             else
