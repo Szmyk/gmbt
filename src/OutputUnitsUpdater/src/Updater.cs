@@ -70,27 +70,25 @@ namespace OutputUnitsUpdater
             }
         }
 
-        enum zCEventMessageSubType { }
-
         void writeCsl ()
         {
             var writer = new ZenArchiveWriter(_cslFile);
 
             var mainObject = writer.AddMainObject("zCCSLib");
-            mainObject.AddProperty("NumOfItems", _ouList.Count);
+            mainObject.AddProperty("NumOfItems", "int", _ouList.Count);
 
             for (int i = 0; i < _ouList.Count; i++)
             {
                 var block = mainObject.AddChild("zCCSBlock");
-                block.AddProperty("blockName", _ouList[i].Name);
-                block.AddProperty("numOfBlocks", 1);
-                block.AddProperty("subBlock0", 0f);
+                block.AddProperty("blockName", "string", _ouList[i].Name);
+                block.AddProperty("numOfBlocks", "int", 1);
+                block.AddProperty("subBlock0", "float", 0);
 
                 var atomicBlock = block.AddChild("zCCSAtomicBlock");
                 var eventMessage = atomicBlock.AddChild("oCMsgConversation:oCNpcMessage:zCEventMessage");
-                eventMessage.AddProperty("subType", (zCEventMessageSubType)0);
-                eventMessage.AddProperty("text", _ouList[i].Text);
-                eventMessage.AddProperty("name", _ouList[i].Name.ToUpper().RemoveSpaces() + ".WAV");   
+                eventMessage.AddProperty("subType", "enum", 0);
+                eventMessage.AddProperty("text", "string", _ouList[i].Text);
+                eventMessage.AddProperty("name", "string", _ouList[i].Name.ToUpper().RemoveSpaces() + ".WAV");   
             }
 
             writer.Save();

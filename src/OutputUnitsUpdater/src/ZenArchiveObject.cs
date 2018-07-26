@@ -21,9 +21,9 @@ namespace OutputUnitsUpdater
             Header = new ZenArchiveObjectHeader(name, className, version);
         }
 
-        public void AddProperty(string name, object value)
+        public void AddProperty(string name, string type, object value)
         {
-            Properties.Add(new ZenArchiveObjectProperty(name, value));
+            Properties.Add(new ZenArchiveObjectProperty(name, type, value));
         }
 
         public ZenArchiveObject AddChild(string name, string className, int version)
