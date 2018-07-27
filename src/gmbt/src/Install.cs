@@ -60,7 +60,7 @@ namespace GMBT
 
                     var vdfExtractor = new VdfsExtractor(filePath);
  
-                    vdfExtractor.ExtractFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Root), true);
+                    vdfExtractor.ExtractFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Root), ExtractOption.Hierarchy);
 
                     Program.Logger.Trace("\t" + vdfFile);            
 
