@@ -10,8 +10,8 @@ using System.Runtime.CompilerServices;
 
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("0.14")]
-[assembly: AssemblyInformationalVersion("v0.14")]
-[assembly: AssemblyFileVersion("0.14")]
+[assembly: AssemblyVersion("0.15")]
+[assembly: AssemblyInformationalVersion("v0.15-beta")]
+[assembly: AssemblyFileVersion("0.15")]
 
 [assembly: InternalsVisibleTo("gmbtTests")]
