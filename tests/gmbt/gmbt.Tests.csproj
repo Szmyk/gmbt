@@ -52,6 +52,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="src\HooksTests.cs" />
+    <Compile Include="src\UpdaterTests.cs" />
     <Compile Include="src\VDFScriptTests.cs" />
     <Compile Include="src\GothicArgumentsTests.cs" />
   </ItemGroup>
