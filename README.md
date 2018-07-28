@@ -18,8 +18,8 @@
     <img src="https://img.shields.io/github/downloads/szmyk/gmbt/total.svg" alt="Downloads of Github Releases">
   </a>
   
-  <a href="https://www.codacy.com/app/Szmyk/gmbt">
-    <img src="https://api.codacy.com/project/badge/Grade/12d93d0465b14dc284444a78062b5688" alt="Codacy Badge">
+  <a href="https://discord.gg/N4eGsJj">
+    <img src="https://img.shields.io/discord/472863935943409665.svg" alt="Join the Discord chat">
   </a>
   
   <a href="https://gitter.im/gothic-mod-build-tool">
