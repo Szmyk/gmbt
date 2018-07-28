@@ -295,7 +295,6 @@ Hooks are actions can be set in [config file](#configuration) to trigger actions
 
 * `assetsMerge`
 * `subtitlesUpdate`
-* `texturesCompile`
 
 Hooks have to be set in config file. Example:
 
@@ -304,11 +303,8 @@ hooks:
     common: 
         post:
             - assetsMerge: "tools/script.bat"
-        pre:
-            - texturesCompile: "tools/tool.exe"
-            - texturesCompile: "tools/tool2.exe"
     test: 
-        post:
+        pre:
             - subtitlesUpdate: "tools/script2.bat"
 ```
 
@@ -355,8 +351,6 @@ Licenses and disclaimers are in the [ThirdPartyNotices.md](https://github.com/Sz
 
 * **GothicVDFS 2.6** Copyright (c) 2001-2003, Nico Bendlin
 * **Virtual Disk File System (VDFS)** Copyright (c) 1994-2002, Peter Sabath / TRIACOM Software GmbH
-* **DDS2ZTEX Converter 1.0** Copyright (c) 2005 Nico Bendlin
-* **NVIDIA Legacy Texture Tools** Copyright 2007 NVIDIA Corporation
 * **zSpy 2.05** Copyright (c) 1997-2000 Bert Speckels, Mad Scientists 1997
 * **NSIS (Nullsoft Scriptable Install System)** Copyright (C) 1999-2018 Nullsoft and Contributors
 
