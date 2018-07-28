@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace GMBT
 {
@@ -52,11 +53,35 @@ namespace GMBT
             }
         }
 
+        public void DetectIfWorldIsNotExists()
+        {
+            var worlds = Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Worlds), "*.ZEN", SearchOption.AllDirectories).ToList();
+
+            foreach(var dir in Program.Config.ModFiles.Assets)
+            {
+                var worldsDir = Path.Combine(dir, "Worlds");
+
+                if (Directory.Exists(worldsDir))
+                {
+                    worlds.AddRange(Directory.GetFiles(worldsDir, "*.ZEN", SearchOption.AllDirectories).ToList());
+                }              
+            }
+
+            var world = Program.Options.TestVerb.World ?? Program.Config.ModFiles.DefaultWorld;
+
+            if (worlds.Where(x => Path.GetFileName(x) == Path.GetFileName(world)).Count() < 1)
+            {
+                Program.Logger.Fatal("Config.Error.FileDidNotFound".Translate(world));
+            }         
+        }
+
         /// <summary>
         /// Starts test.
         /// </summary>
         public override void Start()
         {
+            DetectIfWorldIsNotExists();
+
             if (Program.Options.TestVerb.Merge != Merge.MergeOptions.None)
             {
                 runHooks(HookType.Pre, HookEvent.AssetsMerge);
