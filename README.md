@@ -192,7 +192,6 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
-| `--texturecompile=<normal\|quick>`		| Mode of textures compile.																													| _normal_
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
 | `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
@@ -310,7 +309,7 @@ hooks:
 
 To better understand the entire process of tool execution, you should look at the diagram:
 
-![](https://i.imgur.com/NvOwLlM.png)
+![](https://i.imgur.com/Am0Vz9G.png)
 
 # License
 
