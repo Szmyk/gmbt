@@ -126,7 +126,32 @@ namespace GMBT
                             if (install.LastConfigPathChanged()
                             || (Options.TestVerb.ReInstall))
                             {
-                                install.Start();
+                                if (Options.TestVerb.Full == false)
+                                {
+                                    if (Options.TestVerb.ReInstall)
+                                    {
+                                        Logger.Fatal("Install.Error.Reinstall.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
+                                    }
+                                    else
+                                    {
+                                        Logger.Fatal("Install.Error.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
+                                    }                                  
+                                }
+                                else if (Options.TestVerb.Merge != Merge.MergeOptions.All)
+                                {
+                                    if (Options.TestVerb.ReInstall)
+                                    {
+                                        Logger.Fatal("Install.Error.Reinstall.RequireMergeAll".Translate() + " " + "Install.Error.RunMergeAll".Translate());
+                                    }
+                                    else
+                                    {
+                                        Logger.Fatal("Install.Error.RequireMergeAll".Translate() + " " + "Install.Error.RunMergeAll".Translate());
+                                    }
+                                }
+                                else
+                                {
+                                    install.Start();
+                                }                         
                             }
 
                             if (Options.TestVerb.Full)

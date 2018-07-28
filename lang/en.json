@@ -42,6 +42,14 @@
 	"Install.UnpackingOriginalAssets": "Unpacking original assets...",
 	"Install.CopyingFiles": "Copying files listed in config...",
 	"Install.PreparingOriginalAssets": "Preparing original assets...",
+	
+	"Install.Error.Reinstall.RequireFullTest": "Reinstallation requires full test!",
+	"Install.Error.RequireFullTest": "First run of application or changing config file requires full test!",
+	"Install.Error.Reinstall.RequireMergeAll": "Reinstallation requires merging all assets!",
+	"Install.Error.RequireMergeAll": "First run of application or changing config file requires merging all assets!",
+
+	"Install.Error.RunFullTest": "Run program with `--full` option.",
+	"Install.Error.RunMergeAll": "Run program with `--merge=all` option.",
 
 	"Merge.Merging": "Merging",
 
