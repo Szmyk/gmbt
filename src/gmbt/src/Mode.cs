@@ -37,17 +37,22 @@ namespace GMBT
 
             updater.Update();
 
-            var duplicated = updater.GetDuplicates();
-
-            if (duplicated.Count > 0)
+            if (Program.Options.CommonTestBuild.ShowDuplicatedSubtitles)
             {
-                Program.Logger.Error("FoundDuplicatedDialogs".Translate());
+                Program.Logger.Info("SearchingDuplicatedSubtitles".Translate());
 
-                foreach (var duplicate in duplicated)
+                var duplicated = updater.GetDuplicates();
+
+                if (duplicated.Count > 0)
                 {
-                    Program.Logger.Error("\t" + duplicate.Name);
+                    Program.Logger.Error("FoundDuplicatedDialogs".Translate());
+
+                    foreach (var duplicate in duplicated)
+                    {
+                        Program.Logger.Error("\t" + duplicate.Name);
+                    }
                 }
-            }
+            }         
         }
     }
 }

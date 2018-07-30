@@ -2,6 +2,7 @@
 	"Done": "Done.",
 	"UnknownError": "Unknown error",
 	"ConvertingSubtitles": "Converting subtitles...",
+	"SearchingDuplicatedSubtitles": "Searching duplicated subtitles...",
 	"FoundDuplicatedDialogs": "Found duplicated dialogs:",
 	"CompilingTextures": "Compiling textures...",
 	"CompletedIn": "Completed in {0} min. {1} sec.",

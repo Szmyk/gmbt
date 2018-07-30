@@ -64,6 +64,10 @@ namespace GMBT
         HelpText = "Do not update dialogs subtitles.")]
         public bool NoUpdateSubtitles { get; set; }
 
+        [Option("show-duplicated-subtitles",
+        HelpText = "Show duplicated subtitles.")]
+        public bool ShowDuplicatedSubtitles { get; set; }
+
         [Option("show-compiling-assets",
         HelpText = "Print all compiling by game assets in the console.")]
         public bool ShowCompilingAssets { get; set; }

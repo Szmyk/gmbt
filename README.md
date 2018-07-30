@@ -195,6 +195,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
 | `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
+| `--show-duplicated-subtitles` 			| Print duplicated subtitles.																												| N/A
 
 ## Verb commands
 
