@@ -91,7 +91,7 @@ namespace GMBT
                     {
                         foreach (var evt in events)
                         {
-                            Hooks.Add(new Hook()
+                            Hooks.Add(new Hook
                             {
                                 Mode = modes.Key,
                                 Type = types.Key,
