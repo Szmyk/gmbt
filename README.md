@@ -19,7 +19,7 @@
   </a>
   
   <a href="https://discord.gg/N4eGsJj">
-    <img src="https://img.shields.io/discord/472863935943409665.svg" alt="Join the Discord chat">
+    <img src="https://discordapp.com/api/guilds/472863935943409665/embed.png" alt="Join the Discord chat">
   </a>
   
   <a href="https://gitter.im/gothic-mod-build-tool">
