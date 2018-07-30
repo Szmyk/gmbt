@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 
+using VdfsSharp;
+
 namespace GMBT
 {
     internal enum TestMode
@@ -55,9 +57,20 @@ namespace GMBT
 
         public void DetectIfWorldIsNotExists()
         {
-            var worlds = Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Worlds), "*.ZEN", SearchOption.AllDirectories).ToList();
+            var worlds = new VdfsReader(gothic.GetGameDirectory(Gothic.GameDirectory.Data) + "Worlds.vdf")
+                .ReadEntries(false)
+                .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))
+                .Select(x => x.Name).ToList();
 
-            foreach(var dir in Program.Config.ModFiles.Assets)
+            if (gothic.Version == Gothic.GameVersion.Gothic2)
+            {
+                worlds.AddRange(new VdfsReader(gothic.GetGameDirectory(Gothic.GameDirectory.Data) + "Worlds_Addon.vdf")
+                    .ReadEntries(false)
+                    .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))
+                    .Select(x => x.Name).ToList());
+            }
+           
+            foreach (var dir in Program.Config.ModFiles.Assets)
             {
                 var worldsDir = Path.Combine(dir, "Worlds");
 
@@ -133,6 +146,8 @@ namespace GMBT
             {
                 parameters.Add("time", Program.Options.TestVerb.InGameTime);
             }
+       
+            parameters.Add("vdfs", "physicalfirst");
 
             if (Mode == TestMode.Full && assetsCompiled == false)
             {
@@ -140,6 +155,7 @@ namespace GMBT
                 parameters.Add("zconvertall");
                 parameters.Add("ztexconvert");              
                 parameters.Add("nomenu");
+                parameters.Add("zautoconvertdata");
             }
             else
             {

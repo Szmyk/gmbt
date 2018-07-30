@@ -54,11 +54,7 @@ namespace GMBT
 
             compilingAssetsWatcher.Stop();
 
-            VDF vdf = new VDF(gothic);
-            vdf.PreparePathsForMakingVDF();
-            vdf.ClearDirectoriesBeforeMakingVDF();
-            vdf.RunBuilder();
-            vdf.ClearDirectoriesAfterMakingVDF();
+            new VDF(gothic).RunBuilder();
 
             Program.Logger.Info("CompletedIn".Translate((TimeHelper.Now - startTime).Minutes, (TimeHelper.Now - startTime).Seconds));
         }
@@ -76,6 +72,7 @@ namespace GMBT
             arguments.Add("ztexconvert");
             arguments.Add("nomenu");
             arguments.Add("3d", "none");
+            arguments.Add("zautoconvertdata");
 
             return arguments;
         }

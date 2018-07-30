@@ -1,14 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using System.Reflection;
-using System.Diagnostics;
 
 using Szmyk.Utils.Paths;
 using Szmyk.Utils.Directory;
 using Newtonsoft.Json;
-
-using VdfsSharp;
 
 namespace GMBT
 {
@@ -23,6 +19,14 @@ namespace GMBT
             this.gothic = gothic;
         }
 
+        public void RenameDisabledVdfs ()
+        {
+            foreach(var vdf in Directory.EnumerateFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "*", SearchOption.TopDirectoryOnly))
+            {
+                File.Move(vdf, PathsUtils.GetPathWithoutExtensions(vdf) + ".vdf");
+            }
+        }
+
         /// <summary> 
         /// Starts an installation. 
         /// </summary>
@@ -30,48 +34,11 @@ namespace GMBT
         {
             MakeOriginalAssetsBackup();
 
-            UnPackOriginalVDFs();
-
-            MarkOriginalAssets();
+            RenameDisabledVdfs();
 
             gothic.GothicINI.Write("gmbtVersion", Assembly.GetExecutingAssembly().GetName().Version.ToString(), "GMBT");
             gothic.GothicINI.Write("testStarts", "0", "GMBT");
             gothic.GothicINI.Write("buildStarts", "0", "GMBT");
-        }
-
-        /// <summary>
-        /// Runs Gothic VDFS which unpacks original assets. 
-        /// </summary>
-        public void UnPackOriginalVDFs ()
-        {
-            var message = "Install.UnpackingOriginalAssets".Translate();
-
-            Program.Logger.Trace(message);
-
-            var files = Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "*", SearchOption.TopDirectoryOnly);
-
-            using (ProgressBar unpackVDFs = new ProgressBar(message, files.Length))
-            {
-                foreach (string vdfFile in files)
-                {
-                    var filePath = PathsUtils.GetPathWithoutExtensions(vdfFile) + ".vdf.disabled";
-
-                    File.Move(vdfFile, filePath);
-
-                    var vdfExtractor = new VdfsExtractor(filePath);
- 
-                    vdfExtractor.ExtractFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Root), ExtractOption.Hierarchy);
-
-                    Program.Logger.Trace("\t" + vdfFile);            
-
-                    unpackVDFs.Increase();
-                }
-            }
-
-            if (gothic.Version == Gothic.GameVersion.Gothic1)
-            {
-                Directory.Delete(gothic.GetGameDirectory(Gothic.GameDirectory.Textures) + "DESKTOP", true);
-            }
         }
 
         public bool LastConfigPathChanged ()
@@ -203,29 +170,6 @@ namespace GMBT
                                 .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Music));
                 }
             }               
-        }
-
-        /// <summary>
-        /// Marks original unpacked assets.
-        /// </summary>
-        public void MarkOriginalAssets ()
-        {
-            var message = "Install.PreparingOriginalAssets".Translate();
-
-            Program.Logger.Trace(message);
-
-            var files = Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData), "*", SearchOption.AllDirectories);
-
-            using (ProgressBar originalAssets = new ProgressBar(message, files.Length))
-            {
-                foreach (string file in files)
-                {
-                    File.SetLastWriteTime(file, OriginalAssetsDateTime);
-                    File.SetCreationTime(file, OriginalAssetsDateTime);
-
-                    originalAssets.Increase();
-                }             
-            }
-        }        
+        }      
     }
 }
