@@ -45,7 +45,12 @@ namespace OutputUnitsUpdater
                 {
                     string[] splitted = pattern.Split(line);
 
-                    ouList.Add(new OutputUnitInfo(splitted[2], splitted[3].Trim()));
+                    var text = splitted[3].Trim();
+
+                    if (text != string.Empty)
+                    {
+                        ouList.Add(new OutputUnitInfo(splitted[2], text));
+                    }                 
                 }
             }
 
