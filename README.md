@@ -310,7 +310,7 @@ hooks:
 
 To better understand the entire process of tool execution, you should look at the diagram:
 
-![](https://i.imgur.com/Am0Vz9G.png)
+![](https://i.imgur.com/FMfMoOF.png)
 
 # License
 
