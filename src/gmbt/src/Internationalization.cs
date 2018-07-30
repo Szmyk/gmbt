@@ -44,7 +44,7 @@ namespace GMBT
 
                     if (File.Exists(file) == false)
                     {
-                        throw new FileNotFoundException();
+                        Program.Logger.Fatal($"Not found default language file ({file}). Please reinstall application.");
                     }
                 }
 
