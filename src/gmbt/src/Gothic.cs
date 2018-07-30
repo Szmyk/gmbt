@@ -115,6 +115,8 @@ namespace GMBT
                 FileName = Version == GameVersion.Gothic1
                          ? GetGameDirectory(GameDirectory.System) + "Gothic.exe"
                          : GetGameDirectory(GameDirectory.System) + "Gothic2.exe",
+
+                WorkingDirectory = GetGameDirectory(GameDirectory.System)
             };
 
             gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString();
