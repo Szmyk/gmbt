@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 
 using NLog;
 
 using YamlDotNet.Core;
-
-using Newtonsoft.Json;
 
 namespace GMBT
 {
