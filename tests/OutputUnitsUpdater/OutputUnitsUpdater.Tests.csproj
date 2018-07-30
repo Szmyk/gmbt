@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="HelperTests.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="SrcTests.cs" />
   </ItemGroup>
