@@ -32,13 +32,7 @@ namespace OutputUnitsUpdater
 
         public List<OutputUnitInfo> GetDuplicates()
         {
-            var duplicates = _ouList.GroupBy(x => x.Name)
-                                    .Where(x => x.Count() > 1)
-                                    .Select(x => x.Key);
-
-            return _ouList.FindAll(p => duplicates.Contains(p.Name))
-                          .GroupBy(x => x.Name)
-                          .Select(x => x.First()).ToList();
+            return OutputUnitsUpdaterHelper.GetDuplicates(_ouList);
         }
 
         List<OutputUnitInfo> parse ()
