@@ -33,7 +33,6 @@
 	"GetTool.Error": "Did not find {0}. Reinstall application and try again.",
 
 	"Gothic.Error.DidNotFoundExe": "Did not found Gothic or Gothic 2 Night of the Raven EXE file!",
-	"Gothic.Error.WrongExeVersion": "Wrong {0} EXE version!",
 	"Gothic.Error.AlreadyRunning": "{0} is already running!",
 	"Gothic.RunningWithParameters": "Running {0} with parameters: {1}",
 	"Gothic.Running": "Running {0}...",

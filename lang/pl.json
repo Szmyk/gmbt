@@ -33,7 +33,6 @@
 	"GetTool.Error": "Nie znaleziono {0}. Zainstaluj aplikację ponownie.",
 
 	"Gothic.Error.DidNotFoundExe": "Nie znaleziono pliku wykonywalnego gry Gothic lub Gothic 2 Noc Kruka!",
-	"Gothic.Error.WrongExeVersion": "Zła wersja pliku wykonywalnego gry {0}!",
 	"Gothic.Error.AlreadyRunning": "Gra {0} jest już uruchomiona!",
 	"Gothic.RunningWithParameters": "Uruchamianie gry {0} z parametrami: {1}",
 	"Gothic.Running": "Uruchamianie gry {0}...",

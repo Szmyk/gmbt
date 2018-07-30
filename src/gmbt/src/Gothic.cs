@@ -54,31 +54,12 @@ namespace GMBT
                 Program.Logger.Fatal("Gothic.Error.DidNotFoundExe".Translate());
             }
 
-            if (CheckGothicExeCheckSum(exeFile) == false)
-            {
-                Program.Logger.Fatal("Gothic.Error.WrongExeVersion".Translate(GetGothicVersionName()));
-            }
-
             if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exeFile)).Length > 0)
             {
                 Program.Logger.Fatal("Gothic.Error.AlreadyRunning".Translate(GetGothicVersionName()));
             }
 
             GothicINI = new IniFile(GetGameDirectory(GameDirectory.System) + "GOTHIC.INI");           
-        }
-
-        private const uint gothic26FixHeaderSum = 0x008a3e89;
-        private const uint gothic108kHeaderSum = 0x0000eb3d;
-
-        /// <summary>
-        /// Checks if Gothic or Gothic 2 Night of thr Raven EXE file is a good version.
-        /// </summary>
-        public bool CheckGothicExeCheckSum (string exePath)
-        {
-            NativeMethods.MapFileAndCheckSum(exePath, out uint HeaderSum, out uint CheckSum);
-
-            return (HeaderSum == gothic26FixHeaderSum && Version == GameVersion.Gothic2)
-                || (HeaderSum == gothic108kHeaderSum  && Version == GameVersion.Gothic1);
         }
 
         public void Dispose()
