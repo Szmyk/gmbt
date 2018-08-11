@@ -32,6 +32,10 @@ namespace GMBT
         /// </summary>
         public void Start()
         {
+            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestBuild.ConfigFile));
+
+            gothic.GothicINI.Write("last_config_dir", configDir, "GMBT");
+
             MakeOriginalAssetsBackup();
 
             RenameDisabledVdfs();
@@ -45,8 +49,6 @@ namespace GMBT
         {
             var lastConfigDir = gothic.GothicINI.Read("last_config_dir", "GMBT");
             var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestBuild.ConfigFile));
-
-            gothic.GothicINI.Write("last_config_dir", configDir, "GMBT");
 
             var changed = configDir != lastConfigDir;
             
