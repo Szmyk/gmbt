@@ -4,6 +4,7 @@ using System.IO;
 using NLog;
 
 using YamlDotNet.Core;
+using Rollbar;
 
 namespace GMBT
 {
@@ -22,12 +23,17 @@ namespace GMBT
         {
             LogManager.InitBasicTargets();
             Logger = LogManager.GetLogger();
-          
+         
             Internationalization.Init();
 
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) => Logger.Fatal("UnknownError".Translate() + e.ExceptionObject.ToString());
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) => 
+            {
+                Rollbar.Critical((Exception)e.ExceptionObject);
 
-            Options.Arguments = args;         
+                Logger.Fatal("UnknownError".Translate() + e.ExceptionObject.ToString());              
+            };
+
+            Options.Arguments = args;
 
             if (CommandLine.Parser.Default.ParseArguments(args, Options,
             (verb, subOptions) =>
@@ -118,6 +124,8 @@ namespace GMBT
 
                         install.DetectLastConfigChanges();
 
+                        install.CheckRollbarTelemetry();
+
                         if (Options.InvokedVerb == "test")
                         {
                             if (install.LastConfigPathChanged()
@@ -170,7 +178,9 @@ namespace GMBT
                     {
                         gothic.EndProcess();
 
-                        Logger.Fatal("UnknownError".Translate() + ": {0} {1}\n\n{2}", e.GetType(), e.Message, e.StackTrace);
+                        Rollbar.Critical(e);
+
+                        Logger.Fatal("UnknownError".Translate() + ": {0} {1}\n\n{2}", e.GetType(), e.Message, e.StackTrace);                      
                     }
                 }
             }

@@ -27,7 +27,9 @@ namespace GMBT
         public void InitBasicTargets()
         {
             AddTarget("console", GetConsoleTarget(), LogLevel.Info);
-            AddTarget("error", GetErrorTarget(), LogLevel.Fatal);       
+            AddTarget("error", GetErrorTarget(), LogLevel.Fatal);
+
+            Rollbar.InitRollbar();
         }
 
         public void InitFileTarget()

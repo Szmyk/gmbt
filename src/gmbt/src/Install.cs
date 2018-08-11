@@ -45,6 +45,18 @@ namespace GMBT
             gothic.GothicINI.Write("buildStarts", "0", "GMBT");
         }
 
+        public void CheckRollbarTelemetry ()
+        {
+            var rollbarSend = gothic.GothicINI.Read("rollbar_send", "GMBT");
+
+            if (rollbarSend == string.Empty)
+            {
+                Rollbar.Info("New user");
+
+                gothic.GothicINI.Write("rollbar_send", "true", "GMBT");
+            }         
+        }
+
         public bool LastConfigPathChanged ()
         {
             var lastConfigDir = gothic.GothicINI.Read("last_config_dir", "GMBT");
