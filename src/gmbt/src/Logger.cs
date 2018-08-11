@@ -77,7 +77,7 @@ namespace GMBT
 
             return new FileTarget
             {
-                FileName = Program.AppData.Logs + fileNameFormat,
+                FileName = Path.Combine(Program.AppData.Logs, fileNameFormat),
                 Layout = "${longdate} ${message}",
                 Header = HeadingInfo.Default + Environment.NewLine + CopyrightInfo.Default + Environment.NewLine + Environment.NewLine +
                 "AppData: " + Program.AppData.Path + Environment.NewLine +
