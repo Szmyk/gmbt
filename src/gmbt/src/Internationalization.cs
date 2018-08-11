@@ -36,11 +36,11 @@ namespace GMBT
         {           
             try
             {
-                var file = Program.AppData.Languages + lang + ".json";
+                var file = Path.Combine(Program.AppData.Languages, lang + ".json");
 
                 if (File.Exists(file) == false)
                 {
-                    file = Program.AppData.Languages + "en.json";
+                    file = Path.Combine(Program.AppData.Languages, "en.json");
 
                     if (File.Exists(file) == false)
                     {
@@ -48,7 +48,7 @@ namespace GMBT
                     }
                 }
 
-                var json = File.ReadAllText(Program.AppData.Languages + lang + ".json");
+                var json = File.ReadAllText(file);
 
                 keys = readJson(json);
             }
