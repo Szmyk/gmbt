@@ -82,7 +82,7 @@ The most important features of the tool are finalized, but of course you use it 
 
 | Latest stable release | Latest unstable release | Unstable development ([dev](https://github.com/Szmyk/gmbt/tree/dev) branch)
 |:---------------------:| :----------------------:|:------------------------------------------------------------------------------:
-[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) | [![GitHub (pre-)release](https://img.shields.io/github/release/Szmyk/gmbt/all.svg)](https://github.com/Szmyk/gmbt) | [![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
+[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) | [![GitHub (pre-)release](https://img.shields.io/github/release/Szmyk/gmbt/all.svg)](https://github.com/Szmyk/gmbt/releases) | [![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
 
 # Installation & Requirements
 
