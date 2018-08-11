@@ -162,6 +162,10 @@ namespace GMBT
         [Option('R', "reinstall",
         HelpText = "Reinstall before test.")]
         public bool ReInstall { get; set; }
+
+        [Option('D', "devmode",
+        HelpText = "Dev mode of game (marvin mode).")]
+        public bool DevMode { get; set; }
     }
 
     /// <summary> 

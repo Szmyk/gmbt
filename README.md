@@ -214,6 +214,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allows you to temporarily disable this wrapper. 						| N/A
 | `--nomenu` 									| Run game without menu showing (starts a new game immediately). 																	| N/A
 | `-R, --reinstall`								| Reinstall before start.																											| N/A
+| `-D, --devmode`								| Dev mode of game (marvin mode).																									| N/A
 
 ### `build`
 

@@ -149,6 +149,11 @@ namespace GMBT
        
             parameters.Add("vdfs", "physicalfirst");
 
+            if (Program.Options.TestVerb.DevMode)
+            {
+                parameters.Add("devmode");
+            }
+          
             if (Mode == TestMode.Full && assetsCompiled == false)
             {
                 parameters.Add("3d", "none");
