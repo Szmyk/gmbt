@@ -50,6 +50,9 @@
 
 	"Install.Error.RunFullTest": "Run program with `--full` option.",
 	"Install.Error.RunMergeAll": "Run program with `--merge=all` option.",
+	
+	"Install.LastConfigPathChanged.FirstRun": "First run of tool.",
+	"Install.LastConfigPathChanged.ConfigChanged": "Config file change detected.",
 
 	"Merge.Merging": "Merging",
 

@@ -52,11 +52,11 @@ namespace GMBT
             
             if (lastConfigDir == string.Empty)
             {
-                Program.Logger.Info("Pierwsze uruchomienie aplikacji.");
+                Program.Logger.Info("Install.LastConfigPathChanged.FirstRun".Translate());              
             }
             else if (changed && lastConfigDir != string.Empty)
             {
-                Program.Logger.Info("Wykryto zmianę pliku konfiguracyjnego.");
+                Program.Logger.Info("Install.LastConfigPathChanged.ConfigChanged".Translate());           
             }
 
             return changed;

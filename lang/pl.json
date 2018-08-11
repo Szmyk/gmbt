@@ -51,6 +51,9 @@
 	"Install.Error.RunFullTest": "Uruchom program z parametrem `--full`.",
 	"Install.Error.RunMergeAll": "Uruchom program z opcją `--merge=all`.",
 	
+	"Install.LastConfigPathChanged.FirstRun": "Pierwsze uruchomienie aplikacji.",
+	"Install.LastConfigPathChanged.ConfigChanged": "Wykryto zmianę pliku konfiguracyjnego.",
+	
 	"Merge.Merging": "Łączenie",
 
 	"VDF.PreparingFiles": "Przygotowywanie plików...",
