@@ -9,6 +9,8 @@
 	"Compiled": "Skompilowano",
 	"Gothic2NotR": "Gothic 2 Noc Kruka",
 
+	"Options.UsingPredefined": "Użyto predefiniowanego zestawu parametrów ({0}): {1}",
+		
 	"Hooks.Run": "Uruchamianie skryptu: {0}",
 	"Hooks.Run.WaitingForEnd": "Oczekiwanie na zakończenie...",
 	"Hooks.Run.Error": "Błąd uruchamiania skryptu: {0}",

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 using NLog;
 
 using YamlDotNet.Core;
-using Rollbar;
 
 namespace GMBT
 {
@@ -21,20 +21,32 @@ namespace GMBT
 
         static void Main(string[] args)
         {
-            LogManager.InitBasicTargets();
-            Logger = LogManager.GetLogger();
-         
-            Internationalization.Init();
-
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) => 
+            try
             {
-                Rollbar.Critical((Exception)e.ExceptionObject);
+                LogManager.InitBasicTargets();
+                Logger = LogManager.GetLogger();
+         
+                Internationalization.Init();
 
-                Logger.Fatal("UnknownError".Translate() + e.ExceptionObject.ToString());              
-            };
+                Options.Arguments = args;
 
-            Options.Arguments = args;
+                ParseCommandLine(args);
 
+                if (Updater.IsUpdateAvailable)
+                {
+                    Updater.PrintNotification();
+                }
+            }
+            catch (Exception e)
+            {
+                Rollbar.Critical(e);
+
+                Logger.Fatal("UnknownError".Translate() + e.ToString());
+            }         
+        }
+
+        static void ParseCommandLine(string[] args)
+        {
             if (CommandLine.Parser.Default.ParseArguments(args, Options,
             (verb, subOptions) =>
             {
@@ -45,11 +57,11 @@ namespace GMBT
                 if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build")
                 {
                     Options.CommonTestBuild = (CommonTestBuildOptions)subOptions;
-                }     
+                }
             }))
-            {               
-                if ((Options.Common.Language?.ToLower() == "en")
-                ||  (Options.Common.Language?.ToLower() == "pl"))
+            {
+                if (( Options.Common.Language?.ToLower() == "en" )
+                || ( Options.Common.Language?.ToLower() == "pl" ))
                 {
                     Internationalization.SetLanguage(Options.Common.Language);
                 }
@@ -62,7 +74,7 @@ namespace GMBT
                     }
 
                     while (Updater.CheckLatestReleaseTask.Status == System.Threading.Tasks.TaskStatus.Running)
-                        ;            
+                        ;
 
                     if (Updater.FailedCheck)
                     {
@@ -83,7 +95,7 @@ namespace GMBT
                 }
 
                 Options.CommonTestBuild.ConfigFile = Path.GetFullPath(Options.CommonTestBuild.ConfigFile);
-            
+
                 if (File.Exists(Options.CommonTestBuild.ConfigFile) == false)
                 {
                     Logger.Fatal("Config.Error.DidNotFound".Translate());
@@ -98,6 +110,30 @@ namespace GMBT
 
                     ConfigParser.Parse(Config);
 
+                    if (Config.Predefined != null)
+                    {
+                        if (args.Length > 1)
+                        {
+                            var options = Config.Predefined.Where(x => x.ContainsKey(args[1]));
+
+                            if (options.Count() > 0)
+                            {
+                                var arguments = options.First().First().Value.Split(' ');
+
+                                Console.WriteLine("Options.UsingPredefined".Translate(args[1], string.Join(" ", arguments)));
+                                Console.WriteLine();
+
+                                var argsWithoutPredefinedOptionName = args.ToList();
+
+                                argsWithoutPredefinedOptionName.RemoveAt(1);
+
+                                ParseCommandLine(argsWithoutPredefinedOptionName.Concat(arguments).ToArray());
+
+                                return;
+                            }
+                        }
+                    }                
+
                     if (Config.Hooks != null)
                     {
                         HooksManager.RegisterHooks(Config.Hooks);
@@ -108,14 +144,9 @@ namespace GMBT
                     Logger.Fatal("Config.Error.ParsingError".Translate(e.Message));
                     return;
                 }
-                catch (Exception e)
-                {
-                    Logger.Fatal("Config.Error".Translate(e.ToString()));
-                    return;
-                }
-
+               
                 using (Gothic gothic = new Gothic(Config.GothicRoot))
-                {                   
+                {
                     LogManager.InitFileTarget();
 
                     try
@@ -129,7 +160,7 @@ namespace GMBT
                         if (Options.InvokedVerb == "test")
                         {
                             if (install.LastConfigPathChanged()
-                            || (Options.TestVerb.ReInstall))
+                            || ( Options.TestVerb.ReInstall ))
                             {
                                 if (Options.TestVerb.Full == false)
                                 {
@@ -140,7 +171,7 @@ namespace GMBT
                                     else
                                     {
                                         Logger.Fatal("Install.Error.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
-                                    }                                  
+                                    }
                                 }
                                 else if (Options.TestVerb.Merge != Merge.MergeOptions.All)
                                 {
@@ -156,7 +187,7 @@ namespace GMBT
                                 else
                                 {
                                     install.Start();
-                                }                         
+                                }
                             }
 
                             if (Options.TestVerb.Full)
@@ -166,7 +197,7 @@ namespace GMBT
                             else
                             {
                                 new Test(gothic, TestMode.Quick).Start();
-                            }     
+                            }
                         }
                         else if (Options.InvokedVerb == "build")
                         {
@@ -180,15 +211,10 @@ namespace GMBT
 
                         Rollbar.Critical(e);
 
-                        Logger.Fatal("UnknownError".Translate() + ": {0} {1}\n\n{2}", e.GetType(), e.Message, e.StackTrace);                      
+                        Logger.Fatal("UnknownError".Translate() + ": {0} {1}\n\n{2}", e.GetType(), e.Message, e.StackTrace);
                     }
                 }
             }
-
-            if (Updater.IsUpdateAvailable)
-            {
-                Updater.PrintNotification();
-            }
-        }       
+        }
     }
 }

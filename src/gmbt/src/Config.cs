@@ -75,6 +75,8 @@ namespace GMBT
         public List<Dictionary<string, string>> GothicIniOverrides { get; set; }
 
         public HooksTree Hooks { get; set; }
+
+        public List<Dictionary<string, string>> Predefined { get; set; }
     }
 
     internal class ModFiles

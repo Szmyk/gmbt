@@ -9,6 +9,8 @@
 	"Compiled": "Compiled",
 	"Gothic2NotR": "Gothic 2 Night of the Raven",
 
+	"Options.UsingPredefined": "Using predefined options ({0}): {1}",
+	
 	"Hooks.Run": "Running hook: {0}",
 	"Hooks.Run.WaitingForEnd": "Waiting for the end...",
 	"Hooks.Run.Error": "Running hook error: {0}",
