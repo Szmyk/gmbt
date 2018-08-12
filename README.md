@@ -49,6 +49,7 @@ This project was developed primarily for the purpose of assisting the SoulFire t
     *  [Examples](#examples)
 * [Advanced usage](#advanced-usage)
 	*  [Hooks](#hooks)
+	*  [Predefined options](#predefined-options)
 * [Example project](#example-project)
 * [License](#license)
 * [Built with](#built-with)
@@ -312,6 +313,20 @@ hooks:
 To better understand the entire process of tool execution, you should look at the diagram:
 
 ![](https://i.imgur.com/FMfMoOF.png)
+
+## Predefined options
+
+Predefined options is something like templates for command line parameters.
+
+You can set predefined options sets in config file:
+
+```yaml
+predefined:
+  - "world": "--world=WORLD.ZEN"
+  - "anotherworld": "--world=WORLD2.ZEN"
+```
+
+and then, instead of calling `gmbt test --world=WORLD.ZEN`, you can type `gmbt test world`.
 
 # License
 
