@@ -1,3 +1,9 @@
+## [0.14.1] - 2018-08-12
+
+### Fixed
+
+- ignore unmatched properties in config parsing
+
 ## [0.14] - 2018-07-13
 
 ### New features
