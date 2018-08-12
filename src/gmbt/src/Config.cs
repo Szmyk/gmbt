@@ -17,7 +17,10 @@ namespace GMBT
     {
         public static Config Deserialize(string configFile)
         {
-            DeserializerBuilder deserializerBuilder = new DeserializerBuilder().WithNamingConvention(new CamelCaseNamingConvention());
+            DeserializerBuilder deserializerBuilder = new DeserializerBuilder()
+                .WithNamingConvention(new CamelCaseNamingConvention())
+                .IgnoreUnmatchedProperties();
+
             Deserializer deserializer = deserializerBuilder.Build();
             StringReader configReader = new StringReader(File.ReadAllText(configFile));
 
