@@ -31,13 +31,13 @@ namespace GMBT
         {
             return new Dictionary<string, object>()
             {
-                { "cmd", string.Join(" ", Program.Options.Arguments) },
-                { "config", Program.Config },
-                { "lang", Program.Options.Common.Language },
-                { "lang_cc", Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName },
-                { "working_dir", Directory.GetCurrentDirectory() },
-                { "appdata", Program.AppData.Path },
-                { "gothicversion", File.Exists(Path.Combine(Program.Config.GothicRoot, "System\\Gothic2.exe")) ? "gothic2" : "gothic1" }
+                { "cmd",  Program.Options.Arguments ?? null },
+                { "config", Program.Config ?? null },
+                { "lang", Program.Options.Common.Language ?? null },
+                { "lang_cc", Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName ?? null  },
+                { "working_dir", Directory.GetCurrentDirectory() ?? null },
+                { "appdata", Program.AppData.Path ?? null  },
+                { "gothicversion", Program.Config != null ? File.Exists(Path.Combine(Program.Config.GothicRoot, "System\\Gothic2.exe")) ? "gothic2" : "gothic1" : null }
             };
         }
 
