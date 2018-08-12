@@ -104,14 +104,18 @@ namespace GMBT
                 runHooks(HookType.Post, HookEvent.AssetsMerge);
             }
 
-            if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
+            if ((Program.Options.TestVerb.Merge == Merge.MergeOptions.Scripts)
+            || (Program.Options.TestVerb.Merge == Merge.MergeOptions.All))
             {
-                runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
+                if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
+                {
+                    runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
 
-                UpdateDialogs();
+                    UpdateDialogs();
 
-                runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
-            } 
+                    runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
+                }
+            }        
 
             compilingAssetsWatcher.Start();
 
