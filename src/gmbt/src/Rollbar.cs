@@ -17,7 +17,12 @@ namespace GMBT
         {
             RollbarLocator.RollbarInstance.Configure(new RollbarConfig("a6658daddb494506b591ea8cd41370ac")
             {
-                Environment = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion,
+                #if DEBUG
+                    Environment = "development",
+                #else
+                    Environment = "production",
+                #endif
+
                 Person = new Person
                 {
                     Id = getUniqueId() ?? Environment.MachineName ?? "unknown",
@@ -31,6 +36,7 @@ namespace GMBT
         {
             return new Dictionary<string, object>()
             {
+                { "version", FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion },
                 { "cmd",  Program.Options.Arguments ?? null },
                 { "config", Program.Config ?? null },
                 { "lang", Program.Options.Common.Language ?? null },
