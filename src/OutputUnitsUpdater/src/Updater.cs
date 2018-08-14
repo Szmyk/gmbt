@@ -58,9 +58,11 @@ namespace OutputUnitsUpdater
                 Directory.CreateDirectory(ouDirectory);
             }
 
-            if (File.Exists(ouDirectory + "\\OU.BIN"))
+            var ouBin = Path.Combine(ouDirectory, "OU.BIN");
+
+            if (File.Exists(ouBin))
             {
-                File.Delete(ouDirectory + "\\OU.BIN");
+                File.Delete(ouBin);
             }
         }
 

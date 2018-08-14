@@ -58,24 +58,24 @@ namespace GMBT
 
         public void DetectIfWorldIsNotExists()
         {
-            if (File.Exists(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "Worlds.vdf")) == false)
+            if (File.Exists(gothic.GetGameFile(Gothic.GameFile.WorldsVdf)) == false)
             {
                 Logger.Fatal("Test.Error.RequireReinstall".Translate("Worlds.vdf"));
             }
 
-            var worlds = new VdfsReader(gothic.GetGameDirectory(Gothic.GameDirectory.Data) + "Worlds.vdf")
+            var worlds = new VdfsReader(gothic.GetGameFile(Gothic.GameFile.WorldsVdf))
                 .ReadEntries(false)
                 .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))
                 .Select(x => x.Name).ToList();
 
             if (gothic.Version == Gothic.GameVersion.Gothic2)
             {
-                if (File.Exists(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "Worlds_Addon.vdf")) == false)
+                if (File.Exists(gothic.GetGameFile(Gothic.GameFile.WorldsAddonVdf)) == false)
                 {
                     Logger.Fatal("Test.Error.RequireReinstall".Translate("Worlds_Addon.vdf"));
                 }
 
-                worlds.AddRange(new VdfsReader(gothic.GetGameDirectory(Gothic.GameDirectory.Data) + "Worlds_Addon.vdf")
+                worlds.AddRange(new VdfsReader(gothic.GetGameFile(Gothic.GameFile.WorldsAddonVdf))
                     .ReadEntries(false)
                     .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))
                     .Select(x => x.Name).ToList());
@@ -225,12 +225,12 @@ namespace GMBT
 
             if (Program.Options.TestVerb.NoAudio)
             {
-                if (File.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCompiled) + "MUSIC.DAT"))
+                if (File.Exists(gothic.GetGameFile(Gothic.GameFile.MusicDat)))
                 {
                     parameters.Add("znomusic");
                 }
 
-                if (File.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCompiled) + "SFX.DAT"))
+                if (File.Exists(gothic.GetGameFile(Gothic.GameFile.SfxDat)))
                 {
                     parameters.Add("znosound");
                 }

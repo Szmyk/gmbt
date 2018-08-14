@@ -23,7 +23,7 @@ namespace GMBT
         {
             foreach(var vdf in Directory.EnumerateFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "*", SearchOption.TopDirectoryOnly))
             {
-                File.Move(vdf, PathsUtils.GetPathWithoutExtensions(vdf) + ".vdf");
+                File.Move(vdf, PathsUtils.ChangeExtension(vdf, ".vdf"));
             }
         }
 
@@ -78,7 +78,7 @@ namespace GMBT
 
         public void DetectLastConfigChanges ()
         {
-            var serializedLastInstallDictionaryFile = gothic.GetGameDirectory(Gothic.GameDirectory.System, true) + "GMBT\\install.json";
+            var serializedLastInstallDictionaryFile = Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.GMBT), "install.json");
 
             string serializedLastInstallDictionary = null;
 
@@ -156,13 +156,13 @@ namespace GMBT
                 else
                 {
                     new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Video))
-                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Video");
+                                .CopyTo(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg), "Video"));
 
                     new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Presets))
-                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Presets");
+                                .CopyTo(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg), "Presets"));
 
                     new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Music))
-                                .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Music");
+                                .CopyTo(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg), "Music"));
 
                     originalAssets.Increase();
 
@@ -170,13 +170,13 @@ namespace GMBT
 
                     originalAssets.Increase();
 
-                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Video")
+                    new DirectoryHelper(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg), "Video"))
                                 .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Video));
 
-                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Presets")
+                    new DirectoryHelper(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg), "Presets"))
                                 .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Presets));
 
-                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg) + "Music")
+                    new DirectoryHelper(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataOrg), "Music"))
                                 .CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.Music));
                 }
             }               
