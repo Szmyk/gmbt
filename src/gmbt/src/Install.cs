@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 
 using Szmyk.Utils.Paths;
 using Szmyk.Utils.Directory;
@@ -40,9 +41,7 @@ namespace GMBT
 
             RenameDisabledVdfs();
 
-            gothic.GothicINI.Write("gmbtVersion", Assembly.GetExecutingAssembly().GetName().Version.ToString(), "GMBT");
-            gothic.GothicINI.Write("testStarts", "0", "GMBT");
-            gothic.GothicINI.Write("buildStarts", "0", "GMBT");
+            gothic.GothicINI.Write("gmbtVersion", FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion, "GMBT");
         }
 
         public void CheckRollbarTelemetry ()
@@ -78,23 +77,9 @@ namespace GMBT
 
         public void DetectLastConfigChanges ()
         {
-            var serializedLastInstallDictionaryFile = Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.GMBT), "install.json");
+            string serializedLastInstallDictionary = gothic.GothicINI.Read("install", "GMBT");
 
-            string serializedLastInstallDictionary = null;
-
-            var directory = Path.GetDirectoryName(serializedLastInstallDictionaryFile);
-
-            if (Directory.Exists(directory) == false)
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            if (File.Exists(serializedLastInstallDictionaryFile))
-            {
-                serializedLastInstallDictionary = File.ReadAllText(serializedLastInstallDictionaryFile);
-            }
-
-            var serializedInstallDictionary = JsonConvert.SerializeObject(Program.Config.Install, Formatting.None);
+            string serializedInstallDictionary = JsonConvert.SerializeObject(Program.Config.Install, Formatting.None);
 
             if (serializedLastInstallDictionary != serializedInstallDictionary)
             {
@@ -106,7 +91,7 @@ namespace GMBT
                     }
                 }
 
-                File.WriteAllText(serializedLastInstallDictionaryFile, serializedInstallDictionary);
+                gothic.GothicINI.Write("install", serializedInstallDictionary, "GMBT");
             }
         }
 

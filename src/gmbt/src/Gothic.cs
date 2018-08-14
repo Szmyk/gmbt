@@ -58,7 +58,7 @@ namespace GMBT
                 Logger.Fatal("Gothic.Error.AlreadyRunning".Translate(GetGothicVersionName()));
             }
 
-            GothicINI = new IniFile(GetGameDirectory(GameDirectory.System) + "GOTHIC.INI");           
+            GothicINI = new IniFile(GetGameFile(GameFile.GothicIni));
         }
 
         public void Dispose()
@@ -77,23 +77,16 @@ namespace GMBT
         }
 
         private void overrideGothicIniKeys()
-        {
-            var gmbtIniPath = Path.Combine(GetGameDirectory(GameDirectory.System), "gmbt.ini");
-
-            if (File.Exists(gmbtIniPath) == false)
-            {
-                File.Create(gmbtIniPath);
-            }
-
-            var gmbtIni = new IniFile(gmbtIniPath);
-
+        {          
             if (Program.Config.GothicIniOverrides != null)
-            {
+            {               
                 foreach (var dictionary in Program.Config.GothicIniOverrides)
                 {
                     foreach (var tuple in dictionary)
-                    {                     
-                        gmbtIni.Write(tuple.Key, tuple.Value, "OVERRIDES");
+                    {
+                        var split = tuple.Key.Split('.');
+
+                        GothicINI.Write(split[1], tuple.Value, split[0]);
                     }
                 }
             }
@@ -164,7 +157,7 @@ namespace GMBT
                 arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestBuild.ZSpyLevel) + ",s");
             }
 
-            arguments.Add("game", "gmbt.ini");         
+            arguments.Add("ini", Path.GetFileName(GetGameFile(GameFile.GothicIni)));         
 
             return arguments;
         }
@@ -181,8 +174,7 @@ namespace GMBT
             Textures, TexturesCompiled,
             Sound, Worlds,
             Video, Music, Presets,
-            GD3D11,
-            GMBT
+            GD3D11
         }
 
         public enum GameFile
@@ -209,7 +201,7 @@ namespace GMBT
                 case GameFile.WorldsAddonVdf: return Path.Combine(GetGameDirectory(GameDirectory.Data), "Worlds_Addon.vdf");
                 case GameFile.Gothic1Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic.exe");
                 case GameFile.Gothic2Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic2.exe");
-                case GameFile.GothicIni:      return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic.ini");
+                case GameFile.GothicIni:      return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic_GMBT.ini");
                 case GameFile.DdrawDll:       return Path.Combine(GetGameDirectory(GameDirectory.System), "ddraw.dll");
                 default: throw new FileNotFoundException(file.ToString());
             }
@@ -222,7 +214,6 @@ namespace GMBT
                 case GameDirectory.Root:             return Path.GetFullPath(rootDirectory);           
                 case GameDirectory.System:           return Path.Combine(GetGameDirectory(GameDirectory.Root), "System");
                 case GameDirectory.GD3D11:           return Path.Combine(GetGameDirectory(GameDirectory.System), "GD3D11");
-                case GameDirectory.GMBT:             return Path.Combine(GetGameDirectory(GameDirectory.System), "GMBT");
                 case GameDirectory.Data:             return Path.Combine(GetGameDirectory(GameDirectory.Root), "Data");
                 case GameDirectory.ModVDF:           return Path.Combine(GetGameDirectory(GameDirectory.Data), "ModVDF");
                 case GameDirectory.Work:             return Path.Combine(GetGameDirectory(GameDirectory.Root), "_Work");
