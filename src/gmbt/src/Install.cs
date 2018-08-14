@@ -77,21 +77,12 @@ namespace GMBT
 
         public void DetectLastConfigChanges ()
         {
-            string serializedLastInstallDictionary = gothic.GothicINI.Read("install", "GMBT");
-
-            string serializedInstallDictionary = JsonConvert.SerializeObject(Program.Config.Install, Formatting.None);
-
-            if (serializedLastInstallDictionary != serializedInstallDictionary)
+            if (Program.Config.Install != null)
             {
-                if (Program.Config.Install != null)
+                if (Program.Config.Install.Count > 0)
                 {
-                    if (Program.Config.Install.Count > 0)
-                    {
-                        CopyUserFiles();
-                    }
+                    CopyUserFiles();
                 }
-
-                gothic.GothicINI.Write("install", serializedInstallDictionary, "GMBT");
             }
         }
 
@@ -108,9 +99,12 @@ namespace GMBT
                 {
                     foreach (var file in dictionary)
                     {
-                        File.Copy(file.Key, file.Value, true);
+                        if (File.Exists(file.Value) == false)
+                        {
+                            File.Copy(file.Key, file.Value, true);
 
-                        Logger.Detailed("\t" + file);
+                            Logger.Detailed("\t" + file);                       
+                        }
 
                         userFiles.Increase();
                     }
