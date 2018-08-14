@@ -56,6 +56,8 @@
 	"Install.LastConfigPathChanged.FirstRun": "Pierwsze uruchomienie aplikacji.",
 	"Install.LastConfigPathChanged.ConfigChanged": "Wykryto zmianę pliku konfiguracyjnego.",
 	
+	"Test.Error.RequireReinstall": "Oryginalne zasoby gry ({0}) nie zostały znalezione. Wymagana reinstalacja. Uruchom program z parametrem `--reinstall`.",
+	
 	"Merge.Merging": "Łączenie",
 
 	"VDF.PreparingFiles": "Przygotowywanie plików...",

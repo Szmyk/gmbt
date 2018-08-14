@@ -55,6 +55,11 @@ namespace GMBT
 
         public void DetectIfWorldIsNotExists()
         {
+            if (File.Exists(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "Worlds.vdf")) == false)
+            {
+                Logger.Fatal("Test.Error.RequireReinstall".Translate("Worlds.vdf"));
+            }
+
             var worlds = new VdfsReader(gothic.GetGameDirectory(Gothic.GameDirectory.Data) + "Worlds.vdf")
                 .ReadEntries(false)
                 .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))
@@ -62,6 +67,11 @@ namespace GMBT
 
             if (gothic.Version == Gothic.GameVersion.Gothic2)
             {
+                if (File.Exists(Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.Data), "Worlds_Addon.vdf")) == false)
+                {
+                    Logger.Fatal("Test.Error.RequireReinstall".Translate("Worlds_Addon.vdf"));
+                }
+
                 worlds.AddRange(new VdfsReader(gothic.GetGameDirectory(Gothic.GameDirectory.Data) + "Worlds_Addon.vdf")
                     .ReadEntries(false)
                     .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))

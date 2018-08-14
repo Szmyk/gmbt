@@ -56,6 +56,8 @@
 	"Install.LastConfigPathChanged.FirstRun": "First run of tool.",
 	"Install.LastConfigPathChanged.ConfigChanged": "Config file change detected.",
 
+	"Test.Error.RequireReinstall": "Game resources ({0}) not found. Requires reinstallation. Run program with `--reinstall` option.",
+	
 	"Merge.Merging": "Merging",
 
 	"VDF.PreparingFiles": "Preparing files...",
