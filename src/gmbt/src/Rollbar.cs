@@ -15,7 +15,7 @@ namespace GMBT
     {
         public static void InitRollbar()
         {
-            RollbarLocator.RollbarInstance.Configure(new RollbarConfig("a6658daddb494506b591ea8cd41370ac")
+            RollbarLocator.RollbarInstance.Configure(new RollbarConfig("8086308d42f6445bbc44aeab7be68e99")
             {
                 #if DEBUG
                     Environment = "development",
