@@ -49,11 +49,21 @@ namespace GMBT
 
         public static void Critical(System.Exception ex)
         {
+            if (RollbarLocator.RollbarInstance.Config.AccessToken == null)
+            {
+                InitRollbar();
+            }
+
             RollbarLocator.RollbarInstance.Critical(ex, getCustomData());
         }
 
         public static void Info(string message)
         {
+            if (RollbarLocator.RollbarInstance.Config.AccessToken == null)
+            {
+                InitRollbar();
+            }
+
             RollbarLocator.RollbarInstance.Info(message, getCustomData());
         }
 

@@ -48,7 +48,7 @@ namespace GMBT
         {
             var rollbarSend = gothic.GothicINI.Read("rollbar_send", "GMBT");
 
-            if (rollbarSend == string.Empty)
+            if (rollbarSend != "true")
             {
                 Rollbar.Info("New user");
 
