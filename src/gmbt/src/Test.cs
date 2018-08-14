@@ -34,8 +34,6 @@ namespace GMBT
                     {
                         gothic.EndProcess();
                     }
-
-                    Console.WriteLine("Done".Translate(), ConsoleColor.Green);
                 }
             };
         }
@@ -84,7 +82,7 @@ namespace GMBT
 
             if (worlds.Where(x => Path.GetFileName(x) == Path.GetFileName(world)).Count() < 1)
             {
-                Program.Logger.Fatal("Config.Error.FileDidNotFound".Translate(world));
+                Logger.Fatal("Config.Error.FileDidNotFound".Translate(world));
             }         
         }
 

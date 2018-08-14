@@ -66,11 +66,11 @@ namespace GMBT
             
             if (lastConfigDir == string.Empty)
             {
-                Program.Logger.Info("Install.LastConfigPathChanged.FirstRun".Translate());              
+                Logger.Normal("Install.LastConfigPathChanged.FirstRun".Translate());              
             }
             else if (changed && lastConfigDir != string.Empty)
             {
-                Program.Logger.Info("Install.LastConfigPathChanged.ConfigChanged".Translate());           
+                Logger.Normal("Install.LastConfigPathChanged.ConfigChanged".Translate());           
             }
 
             return changed;
@@ -117,8 +117,6 @@ namespace GMBT
         {
             var message = "Install.CopyingFiles".Translate();
 
-            Program.Logger.Trace(message);
-
             using (ProgressBar userFiles = new ProgressBar(message, Program.Config.Install.Count))
             {
                 foreach (var dictionary in Program.Config.Install)
@@ -127,7 +125,7 @@ namespace GMBT
                     {
                         File.Copy(file.Key, file.Value, true);
 
-                        Program.Logger.Trace("\t" + file);
+                        Logger.Detailed("\t" + file);
 
                         userFiles.Increase();
                     }
@@ -141,8 +139,6 @@ namespace GMBT
         public void MakeOriginalAssetsBackup ()
         {
             var message = "Install.PreparingOriginalAssets".Translate();
-
-            Program.Logger.Trace(message);
 
             using (ProgressBar originalAssets = new ProgressBar(message, 2))
             {

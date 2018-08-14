@@ -68,10 +68,6 @@ namespace GMBT
         HelpText = "Show duplicated subtitles.")]
         public bool ShowDuplicatedSubtitles { get; set; }
 
-        [Option("show-compiling-assets",
-        HelpText = "Print all compiling by game assets in the console.")]
-        public bool ShowCompilingAssets { get; set; }
-
         [Option("zspy",
         DefaultValue = ZSpy.Mode.None,
         MetaValue = "<none|low|medium|high>",
@@ -88,6 +84,12 @@ namespace GMBT
         MetaValue = "<en|pl>",
         HelpText = "Set language of console output.")]
         public string Language { get; set; }
+
+        [Option('V', "verbosity",
+        DefaultValue = VerbosityLevel.Normal,
+        MetaValue = "<level>",
+        HelpText = "Set verbosity level of console output. Levels: quiet|minimal|normal|detailed|diagnostic.")]
+        public VerbosityLevel Verbosity { get; set; }
 
         [Option("help",
         HelpText = "Show this screen.")]

@@ -56,7 +56,7 @@ namespace GMBT
 
             new VDF(gothic).RunBuilder();
 
-            Program.Logger.Info("CompletedIn".Translate((TimeHelper.Now - startTime).Minutes, (TimeHelper.Now - startTime).Seconds));
+            Logger.Normal("CompletedIn".Translate((TimeHelper.Now - startTime).Minutes, (TimeHelper.Now - startTime).Seconds));
         }
 
         /// <summary>

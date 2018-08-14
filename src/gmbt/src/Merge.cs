@@ -73,8 +73,6 @@ namespace GMBT
 
                 string message = string.Format(logPattern + "... ", "(" + "Only".Translate() + " " + string.Join(", ", mergingOptions.ToArray()) + ")", directory.Path);
              
-                Program.Logger.Trace(message);
-
                 List<string> files = directory.GetFiles(mergingPatterns).ToList();
 
                 if (Program.Config.ModFiles.Exclude != null)
@@ -107,11 +105,11 @@ namespace GMBT
 
                         File.Copy(file, destination, true);
 
-                        Program.Logger.Trace("\t" + directoryPathWithoutRoot);
+                        Logger.Detailed("\t" + directoryPathWithoutRoot);
      
                         mergeBar.Increase();
                     }
-                }            
+                }
             }
         } 
     }

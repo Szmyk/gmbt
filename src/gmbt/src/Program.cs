@@ -2,8 +2,6 @@
 using System.IO;
 using System.Linq;
 
-using NLog;
-
 using YamlDotNet.Core;
 
 namespace GMBT
@@ -14,18 +12,15 @@ namespace GMBT
         public readonly static Options Options = new Options();   
         public readonly static Updater Updater = new Updater();
         public readonly static HooksManager HooksManager = new HooksManager();
-        public readonly static LogManager LogManager = new LogManager();
 
         public static Config Config;       
-        public static Logger Logger;
 
         static void Main(string[] args)
         {
             try
             {
-                LogManager.InitBasicTargets();
-                Logger = LogManager.GetLogger();
-         
+                Console.WriteLine(CommandLine.Text.HeadingInfo.Default + Environment.NewLine + CommandLine.Text.CopyrightInfo.Default + Environment.NewLine);
+
                 Internationalization.Init();
 
                 Options.Arguments = args;
@@ -60,6 +55,8 @@ namespace GMBT
                 }
             }))
             {
+                Logger.Init(Options.Common.Verbosity);
+             
                 if (( Options.Common.Language?.ToLower() == "en" )
                 || ( Options.Common.Language?.ToLower() == "pl" ))
                 {
@@ -70,7 +67,7 @@ namespace GMBT
                 {
                     if (Options.UpdateVerb.Force == false)
                     {
-                        Logger.Info("Update.CheckingAvailableUpdate".Translate() + Environment.NewLine);
+                        Logger.Normal("Update.CheckingAvailableUpdate".Translate() + Environment.NewLine);
                     }
 
                     while (Updater.CheckLatestReleaseTask.Status == System.Threading.Tasks.TaskStatus.Running)
@@ -120,8 +117,7 @@ namespace GMBT
                             {
                                 var arguments = options.First().First().Value.Split(' ');
 
-                                Console.WriteLine("Options.UsingPredefined".Translate(args[1], string.Join(" ", arguments)));
-                                Console.WriteLine();
+                                Logger.Minimal("Options.UsingPredefined".Translate(args[1], string.Join(" ", arguments)));
 
                                 var argsWithoutPredefinedOptionName = args.ToList();
 
@@ -147,7 +143,7 @@ namespace GMBT
                
                 using (Gothic gothic = new Gothic(Config.GothicRoot))
                 {
-                    LogManager.InitFileTarget();
+                    Logger.InitFileTarget();
 
                     try
                     {

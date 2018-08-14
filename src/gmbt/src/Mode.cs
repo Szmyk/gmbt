@@ -26,7 +26,7 @@ namespace GMBT
 
         protected void UpdateDialogs()
         {
-            Program.Logger.Info("ConvertingSubtitles".Translate());
+            Logger.Minimal("ConvertingSubtitles".Translate());
 
             var updater = new OutputUnitsUpdater.OutputUnitsUpdater
             (
@@ -38,17 +38,17 @@ namespace GMBT
 
             if (Program.Options.CommonTestBuild.ShowDuplicatedSubtitles)
             {
-                Program.Logger.Info("SearchingDuplicatedSubtitles".Translate());
+                Logger.Normal("SearchingDuplicatedSubtitles".Translate());
 
                 var duplicated = updater.GetDuplicates();
 
                 if (duplicated.Count > 0)
                 {
-                    Program.Logger.Error("FoundDuplicatedDialogs".Translate());
+                    Logger.Warn("FoundDuplicatedDialogs".Translate());
 
                     foreach (var duplicate in duplicated)
                     {
-                        Program.Logger.Error("\t" + duplicate.Name);
+                        Logger.Warn("\t" + duplicate.Name);
                     }
                 }
             }         

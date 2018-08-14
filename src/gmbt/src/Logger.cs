@@ -1,96 +1,138 @@
 ﻿using System;
 using System.IO;
 
-using NLog;
-using NLog.Config;
-using NLog.Targets;
-using NLog.Conditions;
-
 using CommandLine.Text;
 
 namespace GMBT
 {
-    /// <summary>
-    /// Implements predefined settings for NLog.
-    /// </summary>
-    internal class LogManager
+    public enum VerbosityLevel
     {
-        private readonly LoggingConfiguration config = new LoggingConfiguration();
+        Quiet,
+        Minimal,
+        Normal,
+        Detailed,
+        Diagnostic
+    }
 
-        public Logger GetLogger()
+    internal static class Logger
+    {
+        public static VerbosityLevel Verbosity;
+
+        private static string logFilePath;
+
+        private static StreamWriter writer;
+
+        public static void WriteLineToFile(string msg, params object[] arg)
         {
-            NLog.LogManager.Configuration = config;
-
-            return NLog.LogManager.GetLogger(string.Empty);
-        }
-
-        public void InitBasicTargets()
-        {
-            AddTarget("console", GetConsoleTarget(), LogLevel.Info);
-            AddTarget("error", GetErrorTarget(), LogLevel.Fatal);
-
-            Rollbar.InitRollbar();
-        }
-
-        public void InitFileTarget()
-        {
-            AddTarget("file", GetFileTarget(), LogLevel.Trace);
-
-            NLog.LogManager.ReconfigExistingLoggers();
-        }
-
-        public void AddTarget(string name, Target target, LogLevel logLevel)
-        {
-            config.AddTarget(name, target);
-            config.LoggingRules.Add(new LoggingRule("*", logLevel, target));       
-        }
-
-        public static MethodCallTarget GetErrorTarget()
-        {
-            return new MethodCallTarget
+            if (fileTargetInited)
             {
-                ClassName = typeof(LogManager).AssemblyQualifiedName,
-                MethodName = "HandleErrorLog"
-            };
+                writer.WriteLine("{0}: {1}", DateTime.Now.ToString("HH:mm:ss.ffff"), string.Format(msg, arg));
+                writer.Flush();
+            }
         }
 
-        public static ColoredConsoleTarget GetConsoleTarget()
+        private static bool fileTargetInited;
+
+        public static void InitFileTarget()
         {
-            var consoleTarget = new ColoredConsoleTarget
-            {
-                Layout = @"${message}",
-                Header = HeadingInfo.Default + Environment.NewLine + CopyrightInfo.Default + Environment.NewLine,
-            };
+            var fileName = Path.Combine(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH-mm-ss")) + ".log";
 
-            consoleTarget.RowHighlightingRules.Add(new ConsoleRowHighlightingRule
-            {
-                Condition = ConditionParser.ParseExpression("level == LogLevel.Info"),
-                ForegroundColor = ConsoleOutputColor.Gray
-            });
+            logFilePath = Path.Combine(Program.AppData.Logs, fileName);
 
-            return consoleTarget;
-        }
+            Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
 
-        public static FileTarget GetFileTarget()
-        {
-            string fileNameFormat = "${cached:cached=true:inner=${date:format=yyyy-MM-dd/HH-mm-ss}}.log";
+            writer = File.AppendText(logFilePath);
 
-            return new FileTarget
-            {
-                FileName = Path.Combine(Program.AppData.Logs, fileNameFormat),
-                Layout = "${longdate} ${message}",
-                Header = HeadingInfo.Default + Environment.NewLine + CopyrightInfo.Default + Environment.NewLine + Environment.NewLine +
+            writer.Write(
+                HeadingInfo.Default + Environment.NewLine + CopyrightInfo.Default + Environment.NewLine + Environment.NewLine +
                 "AppData: " + Program.AppData.Path + Environment.NewLine +
                 "Working directory: " + Directory.GetCurrentDirectory() + Environment.NewLine +
-                "Console arguments: " + String.Join(" ", Program.Options.Arguments) + Environment.NewLine + 
-                "Config: " + Environment.NewLine + Environment.NewLine + File.ReadAllText(Program.Options.CommonTestBuild.ConfigFile) + Environment.NewLine,
+                "Console arguments: " + String.Join(" ", Program.Options.Arguments) + Environment.NewLine +
+                "Config: " + Environment.NewLine + Environment.NewLine + File.ReadAllText(Program.Options.CommonTestBuild.ConfigFile) + Environment.NewLine);
 
-                DeleteOldFileOnStartup = true
-            };
+            writer.Flush();
+
+            fileTargetInited = true;
         }
 
-        public static void HandleErrorLog()
+        public static void Init(VerbosityLevel level)
         {
+            Verbosity = level;
+        }
+
+        public static void Diagnostic(string msg)
+        {
+            if (Verbosity == VerbosityLevel.Diagnostic)
+            {
+                Console.WriteLine(msg, ConsoleColor.DarkGray);
+            }
+
+            WriteLineToFile(msg);
+        }
+
+        public static void Detailed(string msg, bool newLine = true)
+        {
+            if (Verbosity >= VerbosityLevel.Detailed)
+            {
+                if (newLine)
+                {
+                    Console.WriteLine(msg, ConsoleColor.DarkGray);
+                }
+                else
+                {
+                    Console.Write(msg, ConsoleColor.DarkGray);
+                }
+            }
+
+            WriteLineToFile(msg);
+        }
+
+        public static void Normal(string msg)
+        {
+            if (Verbosity == VerbosityLevel.Normal)
+            {
+                Console.WriteLine(msg);
+            }
+
+            WriteLineToFile(msg);
+        }
+
+        public static void Minimal(string msg)
+        {
+            if (Verbosity >= VerbosityLevel.Minimal)
+            {
+                Console.WriteLine(msg);
+            }
+
+            WriteLineToFile(msg);
+        }
+
+        public static void Warn(string msg)
+        {
+            if (Verbosity >= VerbosityLevel.Minimal)
+            {
+                Console.WriteLine(msg, ConsoleColor.Yellow);
+            }
+
+            WriteLineToFile(msg);
+        }
+
+        public static void Error(string msg)
+        {
+            if (Verbosity >= VerbosityLevel.Minimal)
+            {
+                Console.WriteLine(msg, ConsoleColor.Red);
+            }
+
+            WriteLineToFile(msg);
+        }
+
+        public static void Fatal(string msg, params object[] arg)
+        {
+            Console.WriteLine(msg, ConsoleColor.Red, arg);
+
+            WriteLineToFile(msg, arg);
+
             Environment.Exit(-1);
         }
     }

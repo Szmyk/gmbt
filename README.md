@@ -194,7 +194,6 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
-| `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
 | `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
 | `--show-duplicated-subtitles` 			| Print duplicated subtitles.																												| N/A
 
@@ -357,7 +356,6 @@ SOFTWARE.
 # Built with
 
 * [**YamlDotNet**](https://github.com/aaubry/YamlDotNet) Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013, 2014 Antoine Aubry and contributors
-* [**NLog**](https://github.com/NLog/NLog) Copyright (c) 2004-2017 Jaroslaw Kowalski, Kim Christensen, Julian Verdurmen
 * [**CommandLineParser**](https://github.com/commandlineparser/commandline) Copyright (c) 2005 - 2015 Giacomo Stelluti Scala & Contributors
 * [**Newtonsoft.Json**](https://github.com/JamesNK/Newtonsoft.Json) Copyright (c) 2007 James Newton-King
 

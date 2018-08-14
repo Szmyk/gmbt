@@ -34,19 +34,19 @@ namespace GMBT
 
         public void Run()
         {
-            Program.Logger.Info("Hooks.Run".Translate(this));
+            Logger.Normal("Hooks.Run".Translate(this));
 
             try
             {
                 var process = Process.Start(Command);
 
-                Program.Logger.Info("Hooks.Run.WaitingForEnd".Translate());
+                Logger.Normal("Hooks.Run.WaitingForEnd".Translate());
 
                 process.WaitForExit();           
             }
             catch (Exception ex)
             {
-                Program.Logger.Warn("Hooks.Run.Error".Translate(ex.Message));
+                Logger.Warn("Hooks.Run.Error".Translate(ex.Message));
             }
         }
 

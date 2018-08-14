@@ -46,7 +46,8 @@ namespace GMBT
             }
             else
             {
-                Program.Logger.Fatal("GetTool.Error".Translate(path));
+                Logger.Fatal("GetTool.Error".Translate(path));
+
                 return string.Empty;
             }
         }

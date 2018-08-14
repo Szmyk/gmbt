@@ -50,12 +50,12 @@ namespace GMBT
             }
             else
             {
-                Program.Logger.Fatal("Gothic.Error.DidNotFoundExe".Translate());
+                Logger.Fatal("Gothic.Error.DidNotFoundExe".Translate());
             }
 
             if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exeFile)).Length > 0)
             {
-                Program.Logger.Fatal("Gothic.Error.AlreadyRunning".Translate(GetGothicVersionName()));
+                Logger.Fatal("Gothic.Error.AlreadyRunning".Translate(GetGothicVersionName()));
             }
 
             GothicINI = new IniFile(GetGameDirectory(GameDirectory.System) + "GOTHIC.INI");           
@@ -120,22 +120,22 @@ namespace GMBT
             };
 
             gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString();
-            
-            Program.Logger.Trace("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
 
-            using (ProgressBar bar = new ProgressBar("Gothic.Running".Translate(GetGothicVersionName()), 1))
+            Logger.Detailed("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
+
+            if (Logger.Verbosity <= VerbosityLevel.Detailed)
             {
-                OnOffDirectX11Wrapper(Program.Options.TestVerb.NoDirectX11);
-
-                gothicProcess = new Process();
-                gothicProcess.StartInfo = gothic;
-
-                gothicProcess.Start();
-
-                bar.Increase();
+                Logger.Minimal("Gothic.Running".Translate(GetGothicVersionName()));
             }
 
-            Console.Write("Gothic.CompilingAssets".Translate() + (Program.Options.CommonTestBuild.ShowCompilingAssets ? "\n" : " "));
+            OnOffDirectX11Wrapper(Program.Options.TestVerb.NoDirectX11);
+
+            gothicProcess = new Process();
+            gothicProcess.StartInfo = gothic;
+
+            gothicProcess.Start();
+
+            Logger.Minimal("Gothic.CompilingAssets".Translate());
 
             return gothicProcess;
         }

@@ -44,7 +44,7 @@ namespace GMBT
 
                     if (File.Exists(file) == false)
                     {
-                        Program.Logger.Fatal($"Not found default language file ({file}). Please reinstall application.");
+                        Logger.Fatal($"Not found default language file ({file}). Please reinstall application.");
                     }
                 }
 
@@ -54,7 +54,7 @@ namespace GMBT
             }
             catch
             {
-                Program.Logger.Fatal("No language file could be loaded. Please reinstall application.");             
+                Logger.Fatal("No language file could be loaded. Please reinstall application.");             
             }                  
         }
 
