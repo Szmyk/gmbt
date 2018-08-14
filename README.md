@@ -187,6 +187,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `-L <en\|pl>, --lang=<en\|pl>`			| Set language of console output.																											| Control Panel -> Regional Settings
 | `--help`								    | Print short descriptions of parameters.																									| N/A
+| `-V <level> --verbosity=<level>`		    | Set verbosity level of console output. Levels: quiet|minimal|normal|detailed|diagnostic.													| _normal_
 
 ## Common parameters (`test` & `build`)
 
