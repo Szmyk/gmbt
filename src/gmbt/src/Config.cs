@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 using System.Collections.Generic;
 
 using YamlDotNet.Serialization;
@@ -33,8 +35,18 @@ namespace GMBT
     /// </summary>
     internal static class ConfigParser
     {
-        public static void Parse(Config config)
+        public static void Parse (Config config)
         {
+            if (config.MinimalVersion != null)
+            {
+                string localVersion = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion;
+
+                if (Updater.IsVersionGreater(localVersion, config.MinimalVersion) == false)
+                {
+                    Logger.Fatal("MinimalVersionRequired".Translate(config.MinimalVersion));
+                }
+            }
+         
             if (Directory.Exists(config.GothicRoot) == false)
             {
                 throw new DirectoryNotFoundException("Config.Error.RootDirDidNotFound".Translate(config.GothicRoot));
@@ -68,7 +80,9 @@ namespace GMBT
     /// Represents the structure of YAML config.
     /// </summary>
     internal class Config
-    {    
+    {
+        public string MinimalVersion { get; set; }
+
         public string GothicRoot { get; set; }
 
         public ModFiles ModFiles { get; set; }       

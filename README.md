@@ -107,6 +107,8 @@ Next you have to [configure paths](#configuration) and run the tool with the com
 
 You have to configure a [YAML] config:
 
+* **minimalVersion** - optional _string_
+    > Minimal version of GMBT required to run the project. Eg. _v0.14.1_
 * **gothicRoot** - _string_
     > Path to game root directory, eg. relative path (`..\..`) or absolute (`C:\Program Files\JoWood\Gothic 2 Gold Edition`)
 * **modFiles**  - _structure_

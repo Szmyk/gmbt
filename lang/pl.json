@@ -9,6 +9,8 @@
 	"Compiled": "Skompilowano",
 	"Gothic2NotR": "Gothic 2 Noc Kruka",
 
+	"MinimalVersionRequired": "Wymagana przynajmniej wersja {0} do uruchomienia tego projektu!",
+	
 	"Options.UsingPredefined": "Użyto predefiniowanego zestawu parametrów ({0}): {1}",
 		
 	"Hooks.Run": "Uruchamianie skryptu: {0}",

@@ -9,6 +9,8 @@
 	"Compiled": "Compiled",
 	"Gothic2NotR": "Gothic 2 Night of the Raven",
 
+	"MinimalVersionRequired": "At least version {0} is required to run this project!",
+		
 	"Options.UsingPredefined": "Using predefined options ({0}): {1}",
 	
 	"Hooks.Run": "Running hook: {0}",
