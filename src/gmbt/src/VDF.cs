@@ -61,7 +61,7 @@ namespace GMBT
                 include.AddRange(Program.Config.ModVdf.Include);
             }
 
-            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root), vdfOutput, Program.Options.BuildVerb.Comment ?? Program.Config.ModVdf.Comment, directoriesToPack, include, Program.Config.ModVdf.Exclude);
+            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root), vdfOutput, Program.Options.BuildVerb.Comment ?? Program.Config.ModVdf.Comment ?? string.Empty, directoriesToPack, include, Program.Config.ModVdf.Exclude);
 
             builder.Arguments = "/B " + script.GenerateAndGetPath();
 
