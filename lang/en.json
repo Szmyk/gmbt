@@ -35,6 +35,11 @@
 	"Config.Error.AssetsDirDidNotFound": "Assets directory ({0}) does not exist!",
 	"Config.Error.FileDidNotFound": "File ({0}) does not exist!",
 
+	"Config.Error.RootDirNotConfigured": "Path of root directory is not set in the configuration file!",
+	"Config.Error.AssetsNotConfigured": "Path of project's assets is not set in the configuration file!",
+	"Config.Error.DefaultWorldNotConfigured": "Default world (ZEN) is not set in the configuration file!",
+	"Config.Error.ModVdfOutputNotConfigured": "Path to save mod VDF is not set in the configuration file!",
+	
 	"GetTool.Error": "Did not find {0}. Reinstall application and try again.",
 
 	"Gothic.Error.DidNotFoundExe": "Did not found Gothic or Gothic 2 Night of the Raven EXE file!",

@@ -47,9 +47,29 @@ namespace GMBT
                 }
             }
          
+            if (config.GothicRoot == null)
+            {
+                Logger.Fatal("Config.Error.RootDirNotConfigured".Translate());
+            }
+
             if (Directory.Exists(config.GothicRoot) == false)
             {
                 throw new DirectoryNotFoundException("Config.Error.RootDirDidNotFound".Translate(config.GothicRoot));
+            }
+
+            if (config.ModFiles.Assets == null)
+            {
+                Logger.Fatal("Config.Error.AssetsNotConfigured".Translate());
+            }
+
+            if (config.ModFiles.DefaultWorld == null)
+            {
+                Logger.Fatal("Config.Error.DefaultWorldNotConfigured".Translate());
+            }
+
+            if (config.ModVdf.Output == null)
+            {
+                Logger.Fatal("Config.Error.ModVdfOutputNotConfigured".Translate());
             }
 
             foreach (var directory in config.ModFiles.Assets)

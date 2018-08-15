@@ -35,6 +35,11 @@
 	"Config.Error.AssetsDirDidNotFound":" Folder ({0}) nie istnieje!",
 	"Config.Error.FileDidNotFound": "Plik ({0}) nie istnieje!",
 
+	"Config.Error.RootDirNotConfigured": "Ścieżka katalogu głównego gry nie została ustawiona w pliku konfiguracyjnym!",
+	"Config.Error.AssetsNotConfigured": "Ścieżka zasobów projektu nie została ustawiona w pliku konfiguracyjnym!",
+	"Config.Error.DefaultWorldNotConfigured": "Domyślny świat (ZEN) nie został ustawiony w pliku konfiguracyjnym!",
+	"Config.Error.ModVdfOutputNotConfigured": "Ścieżka zapisu paczki z modyfikacją nie została ustawiona w pliku konfiguracyjnym!",
+
 	"GetTool.Error": "Nie znaleziono {0}. Zainstaluj aplikację ponownie.",
 
 	"Gothic.Error.DidNotFoundExe": "Nie znaleziono pliku wykonywalnego gry Gothic lub Gothic 2 Noc Kruka!",
