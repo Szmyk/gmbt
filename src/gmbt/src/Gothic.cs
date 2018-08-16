@@ -75,8 +75,6 @@ namespace GMBT
 
         public void EndProcess ()
         {
-            ZSpy.Abort();
-
             if (gothicProcess?.HasExited == false)
             {
                 gothicProcess.Kill();
