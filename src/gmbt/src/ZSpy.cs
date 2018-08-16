@@ -17,7 +17,8 @@ namespace GMBT
 
         public static void Run()
         {
-            Process.Start(Program.AppData.GetTool("zSpy.exe"));
+            Process.Start(Program.AppData.GetTool("zSpy.exe"))
+                   .WaitForInputIdle(-1);
         }
     }
 }
