@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 using CommandLine.Text;
@@ -127,11 +127,25 @@ namespace GMBT
             WriteLineToFile(msg);
         }
 
+        private static Action onFatal;
+
+        public static void SetOnFatalEvent(Action onFatal)
+        {
+            Logger.onFatal = onFatal;
+        }
+
         public static void Fatal(string msg, params object[] arg)
         {
-            Console.WriteLine(msg, ConsoleColor.Red, arg);
+            Fatal(string.Format(msg, arg));
+        }
 
-            WriteLineToFile(msg, arg);
+        public static void Fatal(string msg)
+        {
+            onFatal?.Invoke();
+
+            Console.WriteLine(msg, ConsoleColor.Red);
+
+            WriteLineToFile(msg);
 
             Environment.Exit(-1);
         }

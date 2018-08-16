@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Diagnostics;
 
@@ -59,6 +59,11 @@ namespace GMBT
             }
 
             GothicINI = new IniFile(GetGameFile(GameFile.GothicIni));
+
+            Logger.SetOnFatalEvent(() =>
+            {
+                gothicProcess?.Kill();
+            });
         }
 
         public void Dispose()
@@ -69,7 +74,9 @@ namespace GMBT
         private Process gothicProcess;
 
         public void EndProcess ()
-        {           
+        {
+            ZSpy.Abort();
+
             if (gothicProcess?.HasExited == false)
             {
                 gothicProcess.Kill();
@@ -94,10 +101,7 @@ namespace GMBT
 
         public Process Start (GothicArguments arguments)
         {
-            if (Program.Options.CommonTestBuild.ZSpyLevel != ZSpy.Mode.None)
-            {
-                ZSpy.Run();
-            }
+            ZSpy.Run();
 
             overrideGothicIniKeys();
 
