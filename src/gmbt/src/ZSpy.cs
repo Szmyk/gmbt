@@ -76,8 +76,7 @@ namespace GMBT
 
                 var msg = data.lpData;
 
-                if (msg.StartsWith("Fatal:")
-                || (msg.StartsWith("Fault:")))
+                if (msg.StartsWith("Fatal:"))        
                 {
                     Logger.Fatal(msg);
                 }
@@ -87,6 +86,10 @@ namespace GMBT
                     if (msg.StartsWith("Warn:"))
                     {
                         Logger.Warn("\t" + msg);
+                    }
+                    else if (msg.StartsWith("Fault:"))
+                    {
+                        Logger.Error("\t" + msg);
                     }
                     else
                     {
