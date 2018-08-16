@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 
@@ -132,6 +132,8 @@ namespace GMBT
 
             compilingAssetsWatcher.Start();
 
+            ZSpy.Run();
+
             gothic.Start(GetGothicArguments()).WaitForExit();
 
             assetsCompiled = true;
@@ -142,6 +144,8 @@ namespace GMBT
 
                 gothic.Start(GetGothicArguments()).WaitForExit();             
             }
+
+            ZSpy.Abort();
 
             compilingAssetsWatcher.Stop();
         }

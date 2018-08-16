@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Szmyk.Utils.Time;
 
@@ -50,7 +50,11 @@ namespace GMBT
 
             compilingAssetsWatcher.Start();
 
+            ZSpy.Run();
+
             gothic.Start(GetGothicArguments()).WaitForExit();
+
+            ZSpy.Abort();
 
             compilingAssetsWatcher.Stop();
 

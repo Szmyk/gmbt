@@ -143,8 +143,6 @@ namespace GMBT
 
         public Process Start (GothicArguments arguments)
         {
-            ZSpy.Run();
-
             overrideGothicIniKeys();
 
             createDirectoriesForCompiledAssets();
