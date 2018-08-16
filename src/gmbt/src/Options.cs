@@ -47,12 +47,20 @@ namespace GMBT
         [HelpVerbOption]
         public string GetUsage(string verb)
         {
+            if (verb?.ToLower() == "help")
+            {
+                if (Arguments?.Length > 1)
+                {
+                    verb = Arguments[1];
+                }
+            }         
+
             var helpText = HelpText.AutoBuild(this, verb).ToString();
 
             return helpText.Remove(helpText.Length - 1)
                 .Replace(HeadingInfo.Default, string.Empty)
                 .Replace(CopyrightInfo.Default, string.Empty)
-                .Remove(0, 6);    
+                .Remove(0, 6) + (verb == null ? "\nSee 'gmbt help <command>' or 'gmbt <command> --help' to read about a specific subcommand.\n" : string.Empty);    
         }
     }
 
