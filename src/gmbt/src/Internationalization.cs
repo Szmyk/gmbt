@@ -33,19 +33,23 @@ namespace GMBT
         }
 
         static public void Init(string lang)
-        {           
+        {
+            lang = lang.ToLower();
+
             try
             {
                 var file = Path.Combine(Program.AppData.Languages, lang + ".json");
 
                 if (File.Exists(file) == false)
                 {
-                    file = Path.Combine(Program.AppData.Languages, "en.json");
-
-                    if (File.Exists(file) == false)
+                    if (lang == "pl" || lang == "en")
                     {
-                        Logger.Fatal($"Not found default language file ({file}). Please reinstall application.");
+                        Logger.Fatal($"Not found language file ({file}). Please reinstall application.");
                     }
+                    else
+                    {
+                        Logger.Fatal($"Not found language file ({file}).");
+                    }                   
                 }
 
                 var json = File.ReadAllText(file);

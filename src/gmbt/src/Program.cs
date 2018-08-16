@@ -62,8 +62,7 @@ namespace GMBT
             {
                 Logger.Init(Options.Common.Verbosity);
              
-                if (( Options.Common.Language?.ToLower() == "en" )
-                || ( Options.Common.Language?.ToLower() == "pl" ))
+                if (Options.Common.Language != null)        
                 {
                     Internationalization.SetLanguage(Options.Common.Language);
                 }
