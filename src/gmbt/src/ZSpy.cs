@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
 namespace GMBT
 {
@@ -17,7 +17,7 @@ namespace GMBT
 
         public static void Run()
         {
-            Process.Start(Program.AppData.Tools + "zSpy.exe");
+            Process.Start(Program.AppData.GetTool("zSpy.exe"));
         }
     }
 }
