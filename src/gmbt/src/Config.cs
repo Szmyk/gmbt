@@ -46,7 +46,12 @@ namespace GMBT
                     Logger.Fatal("MinimalVersionRequired".Translate(config.MinimalVersion));
                 }
             }
-         
+
+            if (config.ProjectName == null)
+            {
+                Logger.Fatal("Config.Error.ProjectNameNotConfigured".Translate());
+            }
+
             if (config.GothicRoot == null)
             {
                 Logger.Fatal("Config.Error.RootDirNotConfigured".Translate());
@@ -101,6 +106,8 @@ namespace GMBT
     /// </summary>
     internal class Config
     {
+        public string ProjectName { get; set; }
+
         public string MinimalVersion { get; set; }
 
         public string GothicRoot { get; set; }

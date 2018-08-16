@@ -40,6 +40,8 @@
 	"Config.Error.DefaultWorldNotConfigured": "Domyślny świat (ZEN) nie został ustawiony w pliku konfiguracyjnym!",
 	"Config.Error.ModVdfOutputNotConfigured": "Ścieżka zapisu paczki z modyfikacją nie została ustawiona w pliku konfiguracyjnym!",
 
+	"Config.Error.ProjectNameNotConfigured": "Nazwa projektu nie została ustawiona w pliku konfiguracyjnym!",
+		
 	"GetTool.Error": "Nie znaleziono {0}. Zainstaluj aplikację ponownie.",
 
 	"Gothic.Error.DidNotFoundExe": "Nie znaleziono pliku wykonywalnego gry Gothic lub Gothic 2 Noc Kruka!",

@@ -107,6 +107,8 @@ Next you have to [configure paths](#configuration) and run the tool with the com
 
 You have to configure a [YAML] config:
 
+* **projectName** - _string_
+    > Title of modification using for example as default VDF volume comment.
 * **minimalVersion** - optional _string_
     > Minimal version of GMBT required to run the project. Eg. _v0.14.1_
 * **gothicRoot** - _string_
