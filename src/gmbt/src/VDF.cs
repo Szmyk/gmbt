@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 
@@ -35,19 +35,19 @@ namespace GMBT
                 CreateNoWindow = true
             };
 
-            directoriesToPack.Add(@"_work\Data\Anims\_compiled\*");
-            directoriesToPack.Add(@"_work\Data\Meshes\_compiled\*");
-            directoriesToPack.Add(@"_work\Data\Textures\_compiled\*"); 
-            directoriesToPack.Add(@"_work\Data\Scripts\_compiled\*");
-            directoriesToPack.Add(@"_work\Data\Scripts\Content\Cutscene\*");
+            directoriesToPack.Add(@"_work\Data\Anims\_compiled");
+            directoriesToPack.Add(@"_work\Data\Meshes\_compiled");
+            directoriesToPack.Add(@"_work\Data\Textures\_compiled"); 
+            directoriesToPack.Add(@"_work\Data\Scripts\_compiled");
+            directoriesToPack.Add(@"_work\Data\Scripts\Content\Cutscene");
+            directoriesToPack.Add(@"_work\Data\Worlds");
 
             directoriesToInclude.Add(@"_work\Data\Anims\*.mds -r");
-            directoriesToInclude.Add(@"_work\Data\Textures\Desktop\*.tga - r");
-            directoriesToInclude.Add(@"_work\Data\Worlds\* -r");
-
+            directoriesToInclude.Add(@"_work\Data\Textures\Desktop\*.tga -r");
+           
             if (Program.Options.BuildVerb.NoPackSounds == false)
             {
-                directoriesToInclude.Add(@"_work\Data\Sound\* -r");
+                directoriesToPack.Add(@"_work\Data\Sound");
             }
 
             string vdfOutput = Program.Options.BuildVerb.Output ?? Program.Config.ModVdf.Output;
