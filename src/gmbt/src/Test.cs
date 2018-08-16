@@ -1,11 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 
 using VdfsSharp;
-
-using Szmyk.Utils.Paths;
 
 namespace GMBT
 {
@@ -99,40 +96,6 @@ namespace GMBT
             }
         }
 
-        List<string> disabledVdfs = new List<string>();
-
-        public void EnableVdfs()
-        {
-            foreach (var vdf in disabledVdfs)
-            {
-                File.Move(vdf, PathsUtils.ChangeExtension(vdf, ".vdf"));
-            }
-        }
-
-        public void DisableVdfs()
-        {
-            foreach (var vdf in Directory.GetFiles(gothic.GetGameDirectory(Gothic.GameDirectory.Data)))
-            {
-                var reader = new VdfsReader(vdf);
-
-                var hasAnims = reader
-                    .ReadEntries(false)
-                    .Where(x => x.Name.Equals("ANIMS", StringComparison.OrdinalIgnoreCase))
-                    .Select(x => x.Name).Count() > 0;
-
-                reader.Dispose();
-
-                if (hasAnims)
-                {
-                    var newPath = PathsUtils.ChangeExtension(vdf, ".disabled");
-
-                    disabledVdfs.Add(newPath);
-
-                    File.Move(vdf, newPath);
-                }    
-            }        
-        }
-
         /// <summary>
         /// Starts test.
         /// </summary>
@@ -164,7 +127,7 @@ namespace GMBT
 
             if (Mode == TestMode.Full)
             {
-                DisableVdfs();
+                gothic.DisableVdfs();
             }
 
             compilingAssetsWatcher.Start();
@@ -175,7 +138,7 @@ namespace GMBT
 
             if (Mode == TestMode.Full)
             {
-                EnableVdfs();
+                gothic.EnableVdfs();
 
                 gothic.Start(GetGothicArguments()).WaitForExit();             
             }
