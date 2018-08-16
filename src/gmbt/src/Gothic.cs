@@ -156,9 +156,9 @@ namespace GMBT
         {
             GothicArguments arguments = new GothicArguments();
 
-            if (Program.Options.CommonTestBuild.ZSpyLevel != ZSpy.Mode.None)
+            if (Program.Options.CommonTestSpacerBuild.ZSpyLevel != ZSpy.Mode.None)
             {
-                arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestBuild.ZSpyLevel) + ",s");
+                arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestSpacerBuild.ZSpyLevel) + ",s");
             }
 
             arguments.Add("ini", Path.GetFileName(GetGameFile(GameFile.GothicIni)));         
@@ -188,6 +188,7 @@ namespace GMBT
             OuCsl,
             WorldsVdf, WorldsAddonVdf,
             Gothic1Exe, Gothic2Exe,
+            SpacerExe, Spacer2Exe,
             GothicIni,
             DdrawDll
         }
@@ -205,6 +206,8 @@ namespace GMBT
                 case GameFile.WorldsAddonVdf: return Path.Combine(GetGameDirectory(GameDirectory.Data), "Worlds_Addon.vdf");
                 case GameFile.Gothic1Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic.exe");
                 case GameFile.Gothic2Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic2.exe");
+                case GameFile.SpacerExe:      return Path.Combine(GetGameDirectory(GameDirectory.System), "Spacer.exe");
+                case GameFile.Spacer2Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Spacer2.exe");
                 case GameFile.GothicIni:      return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic_GMBT.ini");
                 case GameFile.DdrawDll:       return Path.Combine(GetGameDirectory(GameDirectory.System), "ddraw.dll");
                 default: throw new FileNotFoundException(file.ToString());

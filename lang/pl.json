@@ -50,6 +50,10 @@
 	"Gothic.Running": "Uruchamianie gry {0}...",
 	"Gothic.CompilingAssets": "Kompilowanie zasobów...",
 
+	"Spacer.Running": "Uruchamianie programu Spacer...",
+	"Spacer.RunningWithParameters": "Uruchamianie programu Spacer z parametrami: {0}",
+	"Spacer.Error.AlreadyRunning": "Spacer jest już uruchomiony!",
+	
 	"Install.UnpackingOriginalAssets": "Rozpakowywanie oryginalnych zasobów...",
 	"Install.CopyingFiles": "Kopiowanie plików wskazanych w pliku konfiguracyjnym...",
 	"Install.PreparingOriginalAssets":" Przygotowywanie oryginalnych zasobów...",

@@ -1,4 +1,4 @@
-﻿using CommandLine;
+using CommandLine;
 using CommandLine.Text;
 
 namespace GMBT
@@ -14,10 +14,15 @@ namespace GMBT
 
         public CommonOptions Common { get; set; }
         public CommonTestBuildOptions CommonTestBuild { get; set; }
+        public CommonTestSpacerBuildOptions CommonTestSpacerBuild { get; set; }     
 
         [VerbOption("test",
         HelpText = "Starts a test.")]
         public TestSubOption TestVerb { get; set; }
+
+        [VerbOption("spacer",
+        HelpText = "Starts Spacer.")]
+        public SpacerSubOption SpacerVerb { get; set; }
 
         [VerbOption("build",
         HelpText = "Starts a VDF build.")]
@@ -31,8 +36,10 @@ namespace GMBT
         {
             Common = new CommonOptions();
             CommonTestBuild = new CommonTestBuildOptions();
+            CommonTestSpacerBuild = new CommonTestSpacerBuildOptions();
 
             TestVerb = new TestSubOption();
+            SpacerVerb = new SpacerSubOption();
             BuildVerb = new BuildSubOptions();
             UpdateVerb = new UpdateSubOption();
         }
@@ -50,9 +57,9 @@ namespace GMBT
     }
 
     /// <summary> 
-    /// Represents common arguments that can be used with both "test" and 'build" commands. 
+    /// Represents common arguments that can be used with both "test", "spacer" and 'build" commands. 
     /// </summary>
-    internal class CommonTestBuildOptions : CommonOptions
+    internal class CommonTestSpacerBuildOptions : CommonOptions
     {
         [Option('C', "config",
         MetaValue = "<path>",
@@ -60,19 +67,25 @@ namespace GMBT
         HelpText = "Path to config file. More information in ReadMe.html")]
         public string ConfigFile { get; set; }
 
+        [Option("zspy",
+        DefaultValue = ZSpy.Mode.None,
+        MetaValue = "<none|low|medium|high>",
+        HelpText = "Logging level if zSpy.")]
+        public ZSpy.Mode ZSpyLevel { get; set; }
+    }
+
+    /// <summary> 
+    /// Represents common arguments that can be used with both "test" and 'build" commands. 
+    /// </summary>
+    internal class CommonTestBuildOptions : CommonTestSpacerBuildOptions
+    {      
         [Option("noupdatesubtitles",
         HelpText = "Do not update dialogs subtitles.")]
         public bool NoUpdateSubtitles { get; set; }
 
         [Option("show-duplicated-subtitles",
         HelpText = "Show duplicated subtitles.")]
-        public bool ShowDuplicatedSubtitles { get; set; }
-
-        [Option("zspy",
-        DefaultValue = ZSpy.Mode.None,
-        MetaValue = "<none|low|medium|high>",
-        HelpText = "Logging level if zSpy.")]
-        public ZSpy.Mode ZSpyLevel { get; set; }
+        public bool ShowDuplicatedSubtitles { get; set; }    
     }
 
     /// <summary> 
@@ -120,6 +133,20 @@ namespace GMBT
         public string Comment { get; set; }
     }
 
+    /// <summary> 
+    /// Reperesent arguments that can be used with "spacer" command. 
+    /// </summary>
+    internal class SpacerSubOption : CommonTestSpacerBuildOptions
+    {
+        [Option("noaudio",
+        HelpText = "Run Spacer with no sounds and music.")]
+        public bool NoAudio { get; set; }
+
+        [Option("maxfps",
+        HelpText = "Maximum framerate.")]
+        public int MaxFps { get; set; }
+    }
+    
     /// <summary> 
     /// Reperesent arguments that can be used with "test" command. 
     /// </summary>

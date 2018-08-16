@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -49,6 +49,11 @@ namespace GMBT
 
                 Options.Common = (CommonOptions)subOptions;
 
+                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build" || Options.InvokedVerb == "spacer")
+                {
+                    Options.CommonTestSpacerBuild = (CommonTestSpacerBuildOptions)subOptions;
+                }
+
                 if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build")
                 {
                     Options.CommonTestBuild = (CommonTestBuildOptions)subOptions;
@@ -91,9 +96,9 @@ namespace GMBT
                     return;
                 }
 
-                Options.CommonTestBuild.ConfigFile = Path.GetFullPath(Options.CommonTestBuild.ConfigFile);
+                Options.CommonTestSpacerBuild.ConfigFile = Path.GetFullPath(Options.CommonTestSpacerBuild.ConfigFile);
 
-                if (File.Exists(Options.CommonTestBuild.ConfigFile) == false)
+                if (File.Exists(Options.CommonTestSpacerBuild.ConfigFile) == false)
                 {
                     Logger.Fatal("Config.Error.DidNotFound".Translate());
                     return;
@@ -101,9 +106,9 @@ namespace GMBT
 
                 try
                 {
-                    Config = ConfigDeserializer.Deserialize(Options.CommonTestBuild.ConfigFile);
+                    Config = ConfigDeserializer.Deserialize(Options.CommonTestSpacerBuild.ConfigFile);
 
-                    Directory.SetCurrentDirectory(Path.GetDirectoryName(Options.CommonTestBuild.ConfigFile));
+                    Directory.SetCurrentDirectory(Path.GetDirectoryName(Options.CommonTestSpacerBuild.ConfigFile));
 
                     ConfigParser.Parse(Config);
 
@@ -194,6 +199,17 @@ namespace GMBT
                             {
                                 new Test(gothic, TestMode.Quick).Start();
                             }
+                        }
+                        else if (Options.InvokedVerb == "spacer")
+                        {
+                            if (install.LastConfigPathChanged())
+                            {
+                                Logger.Fatal("Install.Error.Reinstall.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
+                            }
+                            else
+                            {
+                                new Spacer(gothic).Start();
+                            }                          
                         }
                         else if (Options.InvokedVerb == "build")
                         {

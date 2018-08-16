@@ -41,10 +41,13 @@ This project was developed primarily for the purpose of assisting the SoulFire t
     * [Example](#example)
 * [Usage](#usage)
     *  [Common parameters](#common-parameters)
-    *  [Common parameters](#common-parameters-test--build)
+    *  [Common parameters (`test` & `spacer` & `build`)](#common-parameters-test--spacer--build)
+    *  [Common parameters (`test` & `build`)](#common-parameters-test--build)
+    *  [Common parameters (`test` & `spacer`)](#common-parameters-test--spacer)
     *  [Verb commands](#verb-commands)
         * [`test`](#test)
         * [`build`](#build)
+		* [`spacer`](#spacer)
         * [`update`](#update)
     *  [Examples](#examples)
 * [Advanced usage](#advanced-usage)
@@ -193,14 +196,25 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--help`								    | Print short descriptions of parameters.																									| N/A
 | `-V <level>, --verbosity=<level>`		    | Set verbosity level of console output. Levels: quiet\|minimal\|normal\|detailed\|diagnostic.												| _normal_
 
-## Common parameters (`test` & `build`)
+## Common parameters (`test` & `spacer` & `build`)
 
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
-| `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
+
+## Common parameters (`test` & `build`)
+
+| Parameter 								| Description 																																| Default value
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+| `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-duplicated-subtitles` 			| Print duplicated subtitles.																												| N/A
+
+## Common parameters (`test` & `spacer`)
+
+| Parameter 								| Description 																																| Default value
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+| `--noaudio` 					     		| Run game/Spacer without any audio. 																										| N/A
 
 ## Verb commands
 
@@ -214,7 +228,6 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--merge=<none\|all\|scripts\|worlds\|sounds>`| Merge option. <br/> Enter eg. `scripts` if you just want to debug scripts and do not want to copy all assets every time. Also, nice option to use is `scripts,worlds` if you want to debug some changes only related to scripts and worlds. | _all_
 | `-W <zen>, --world=<zen>` 					| Run game in a specific world. 																									| Set in [config file](#configuration)
 | `--windowed` 						 			| Run game in window. 																												| N/A
-| `--noaudio` 					     			| Run game without any audio. 																										| N/A
 | `--ingametime=<hh:mm>`						| Ingame time. <br/>Syntax: **hour:minute**, eg. _15:59_. 																			| N/A
 | `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allows you to temporarily disable this wrapper. 						| N/A
 | `--nomenu` 									| Run game without menu showing (starts a new game immediately). 																	| N/A
@@ -230,6 +243,14 @@ At this moment the only way to use the tool is command line interface. GUI appli
 |`-O <file>, --output=<file>`  	| Path of VDF volume (`.mod`) output. 			| Set in [config file](#configuration)
 |`--nopacksounds`  				| Do not to pack sounds (WAVs) to mod package.  | N/A
 |`--comment`  					| Set or override comment of VDF.  				| Set in [config file](#configuration)
+
+### `spacer`
+
+> Starts Spacer.
+
+| Parameter 					| Description								    | Default value
+| ---------------------------- 	| --------------------------------------------- | ------------------------------------
+|`--maxfps`  					| Maximum framerate. 							| N/A
 
 ### `update`
 

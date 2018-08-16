@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Diagnostics;
@@ -33,7 +33,7 @@ namespace GMBT
         /// </summary>
         public void Start()
         {
-            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestBuild.ConfigFile));
+            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuild.ConfigFile));
 
             gothic.GothicINI.Write("last_config_dir", configDir, "GMBT");
 
@@ -59,7 +59,7 @@ namespace GMBT
         public bool LastConfigPathChanged ()
         {
             var lastConfigDir = gothic.GothicINI.Read("last_config_dir", "GMBT");
-            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestBuild.ConfigFile));
+            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuild.ConfigFile));
 
             var changed = configDir != lastConfigDir;
             
