@@ -202,7 +202,7 @@ namespace GMBT
                 case GameFile.OuCsl:          return Path.Combine(GetGameDirectory(GameDirectory.ScriptsCutscene), "OU.CSL");
                 case GameFile.WorldsVdf:      return Path.Combine(GetGameDirectory(GameDirectory.Data), "Worlds.vdf");
                 case GameFile.WorldsAddonVdf: return Path.Combine(GetGameDirectory(GameDirectory.Data), "Worlds_Addon.vdf");
-                case GameFile.Gothic1Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic.exe");
+                case GameFile.Gothic1Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "GothicMod.exe");
                 case GameFile.Gothic2Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic2.exe");
                 case GameFile.SpacerExe:      return Path.Combine(GetGameDirectory(GameDirectory.System), "Spacer.exe");
                 case GameFile.Spacer2Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Spacer2.exe");
