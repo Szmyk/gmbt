@@ -213,7 +213,7 @@ namespace GMBT
             Root,
             System,
             Data, ModVDF,
-            Work, WorkData, WorkDataOrg, WorkDataToVDF, WorkDataBak,
+            Work, WorkData, WorkDataOrg,
             Scripts, ScriptsCompiled, ScriptsCutscene, ScriptsContent,
             Anims, AnimsCompiled,
             Meshes, MeshesCompiled,
@@ -267,9 +267,7 @@ namespace GMBT
                 case GameDirectory.ModVDF:           return Path.Combine(GetGameDirectory(GameDirectory.Data), "ModVDF");
                 case GameDirectory.Work:             return Path.Combine(GetGameDirectory(GameDirectory.Root), "_Work");
                 case GameDirectory.WorkData:         return Path.Combine(GetGameDirectory(GameDirectory.Work), "Data");
-                case GameDirectory.WorkDataOrg:      return Path.Combine(GetGameDirectory(GameDirectory.Work), "DataOriginal");
-                case GameDirectory.WorkDataToVDF:    return Path.Combine(GetGameDirectory(GameDirectory.Work), "DataToVDF");
-                case GameDirectory.WorkDataBak:      return Path.Combine(GetGameDirectory(GameDirectory.Work), "DataBak");
+                case GameDirectory.WorkDataOrg:      return Path.Combine(GetGameDirectory(GameDirectory.Work), "DataOriginal");               
                 case GameDirectory.ScriptsCompiled:  return Path.Combine(GetGameDirectory(GameDirectory.Scripts), "_compiled");
                 case GameDirectory.ScriptsCutscene:  return Path.Combine(GetGameDirectory(GameDirectory.ScriptsContent), "Cutscene");
                 case GameDirectory.ScriptsContent:   return Path.Combine(GetGameDirectory(GameDirectory.Scripts), "Content");
