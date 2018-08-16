@@ -391,7 +391,6 @@ Licenses and disclaimers are in the [ThirdPartyNotices.md](https://github.com/Sz
 
 * **GothicVDFS 2.6** Copyright (c) 2001-2003, Nico Bendlin
 * **Virtual Disk File System (VDFS)** Copyright (c) 1994-2002, Peter Sabath / TRIACOM Software GmbH
-* **zSpy 2.05** Copyright (c) 1997-2000 Bert Speckels, Mad Scientists 1997
 * **NSIS (Nullsoft Scriptable Install System)** Copyright (C) 1999-2018 Nullsoft and Contributors
 
 Licenses and disclaimers are in the [tools](https://github.com/Szmyk/gmbt/tree/master/tools) directory.
