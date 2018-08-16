@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 using CommandLine.Text;
@@ -24,9 +24,14 @@ namespace GMBT
 
         public static void WriteLineToFile(string msg, params object[] arg)
         {
+            WriteLineToFile(string.Format(msg, arg));
+        }
+
+        public static void WriteLineToFile(string msg)
+        {
             if (fileTargetInited)
             {
-                writer.WriteLine("{0}: {1}", DateTime.Now.ToString("HH:mm:ss.ffff"), string.Format(msg, arg));
+                writer.WriteLine("{0}: {1}", DateTime.Now.ToString("HH:mm:ss.ffff"), msg);
                 writer.Flush();
             }
         }
