@@ -14,6 +14,14 @@
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
   </a>
   
+  <a href="https://stats.uptimerobot.com/Lv8jVs0kK">
+    <img src="https://img.shields.io/uptimerobot/status/m780841486-c4045132dc369debb14a3cbd.svg" alt="Status">
+  </a>
+  
+  <a href="https://stats.uptimerobot.com/Lv8jVs0kK">
+    <img src="https://img.shields.io/uptimerobot/ratio/7/m780841486-c4045132dc369debb14a3cbd.svg" alt="Uptime">
+  </a>
+  
   <a href="https://github.com/Szmyk/gmbt/releases/latest">
     <img src="https://img.shields.io/github/downloads/szmyk/gmbt/total.svg" alt="Downloads of Github Releases">
   </a>
@@ -64,7 +72,7 @@ This project was developed primarily for the purpose of assisting the SoulFire t
 
 Let's start with some background: the Gothic Mod Build Tool is kind of a breakthrough in Gothic modding, because it is one of the few successful attempts to create a build system which fully automates the process that was previously done manually, every modder had to manually compile assets like textures, meshes and animations and send them to their co-modders. Now, working with version control systems is possible, because each modder has the same version of assets at the same time and at any time can launch the game without need to build a *.mod* and not run into errors or discrepancies due to a lack of or mismatching assets.
 
-This tool serves two very important purposes, to merge and to compile everything. It uses external tools for compiling textures, updating dialogs subtitles but also launches the Gothic game executable and compiles assets like 3D models and animations ingame.
+This tool serves two very important purposes, to merge and to compile everything. It uses external tool for updating dialogs subtitles but also launches the Gothic game executable and compiles assets like 3D models and animations ingame with appropriate game settings.
 
 ## Modes
 
@@ -72,11 +80,11 @@ There are 3 modes of use:
 
 * **Quick test** - merges assets directories, compiles the necessary assets to run the game, and launches the game. Not everything is compiled, so lag/stuttering can occur because of compiling textures, animations and 3D models "on the fly", in game. Used mainly to check if scripts are parsing when you are not using IDE/syntax checker. It could also be used if a full test is completed.
 * **Full test** - compiles everything. This takes more time, but then you can play without problems like lag and stuttering.
-* **Make VDF** - compiles everything and builds a *.mod*.
+* **Build** - compiles everything and builds a *.mod* volume.
 
 ## Speed
 
-On a mid-range PC with an HDD, a no sounds VDF build of a huge addon [The Chronicles of Myrtana] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
+On a mid-range PC with an HDD, a no sounds build of a huge addon [The Chronicles of Myrtana] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
 
 # Status
 
@@ -96,35 +104,35 @@ The most important features of the tool are finalized, but of course you use it 
 
 * A clean installation of vanilla *Gothic* or *Gothic 2 Night of the Raven* on your PC. You must have a **COMPLETELY** clean copy of game, with no mods, textures packs and other such.
 
-* [Gothic Patch 1.08k](http://www.worldofgothic.de/dl/download_6.htm) or [Gothic II Report-Version 2.6f-rev2](https://www.worldofgothic.de/dl/download_278.htm) 
+* [Gothic Patch 1.08k](http://www.worldofgothic.de/dl/download_6.htm) or [Gothic II Report-Version 2.6-rev2](https://www.worldofgothic.de/dl/download_278.htm) 
 
 * [Gothic Player Kit v1.08k](http://www.worldofgothic.de/dl/download_34.htm) or [Gothic 2 Player Kit 2.6f](https://www.worldofgothic.de/dl/download_168.htm).
 
-* Of course, you can also install [SystemPack](https://forum.worldofplayers.de/forum/threads/1340357-Release-Gothic-Ă‚Ëť-Ă‚â€”-SystemPack-%28ENG-DEU%29) if you have problems with the game on your PC.
+* Of course, you can also install [SystemPack](https://forum.worldofplayers.de/forum/threads/1340357-Release-Gothic-Ă‚Ëť-Ă‚â€”-SystemPack-%28ENG-DEU%29) if you have problems with the game.
 
 After installation, you can run the Gothic copy **ONLY** via GMBT. Of course, you can use eg. Spacer, but you have to complete a full test before (the scripts have to be compiled because Spacer needs eg. `GOTHIC.DAT` and `CAMERA.DAT`).
 
-Next you have to [configure paths](#configuration) and run the tool with the command you want ([usage guide](#usage)).
+Next you have to do [configuration](#configuration) and run the tool with the command you want ([usage guide](#usage)).
 
 # Configuration
 
 You have to configure a [YAML] config:
 
-* **projectName** - _string_
+* **projectName** - _string_ (**required**)
     > Title of modification using for example as default VDF volume comment.
-* **minimalVersion** - optional _string_
-    > Minimal version of GMBT required to run the project. Eg. _v0.14.1_
-* **gothicRoot** - _string_
+* **gothicRoot** - _string_ (**required**)
     > Path to game root directory, eg. relative path (`..\..`) or absolute (`C:\Program Files\JoWood\Gothic 2 Gold Edition`)
+* **minimalVersion** - _string_
+    > Minimal version of GMBT required to run the project. Eg. _v0.14.1_
 * **modFiles**  - _structure_
-    * **assets**  - _strings list_
+    * **assets**  - _strings list_ (**required**)
         > Paths to assets directories which have to be placed in `_work/Data` directories. You have to prepare right structure inside these directories (same as in `_work/Data`: _\<dir\>\Anims_, _\<dir\>\Scripts_ and so on).
     * **exclude** - _strings list_
         > Exclude files from merging. Only files paths, not directories and wildcarts.
-    * **defaultWorld**  - _string_
+    * **defaultWorld**  - _string_ (**required**)
         > Name (not path) of ZEN, eg. _NEWWORLD.ZEN_
 * **modVdf**  - _structure_
-    *   **output**  - _string_
+    *   **output**  - _string_ (**required**)
         > Path to save *.mod* file.
     *   **comment**  - _string_
         > VDF volume comment.
@@ -140,7 +148,6 @@ You have to configure a [YAML] config:
     > Keys of GOTHIC.INI you want to override when running test or build.
     >
     > Syntax: _['section.key', 'value']_ or _'section.key': 'target'_, eg. '`GAME.playLogoVideos' : '0'`
-
 *  **install**  - _dictionary_
     > Optional files you want to install.
     >
@@ -159,6 +166,8 @@ Our developers have to clone modification repository to `_Work` directory, so th
 We have got this config in root of the local repository (`_Work/TheChroniclesOfMyrtana/.gmbt.yml`).
 
 ```
+projectName: The Chronicles of Myrtana
+
 gothicRoot: ..\..
 
 modFiles:
@@ -297,7 +306,7 @@ Below are some examples used developing [The Chronicles of Myrtana] project:
 
 # Example project
 
-There is an [example project] which uses this tool. There are some assets from [World of Gothic DE Modderdatenbank] — just for the test. This repository is very nice sandbox which allows you to get acquainted with the tool. The repository has the same structure of files as in [example configuration](#example).
+There is an [example project] which uses this tool. There are some assets from [World of Gothic DE Modderdatenbank] — just for the test. That repository is very nice sandbox which allows you to get acquainted with the tool. The repository has the same structure of files as in [example configuration](#example).
 
 # Advanced usage
 
@@ -351,7 +360,7 @@ predefined:
   - "anotherworld": "--world=WORLD2.ZEN"
 ```
 
-and then, instead of calling `gmbt test --world=WORLD.ZEN`, you can type `gmbt test world`.
+and then, instead of calling `gmbt test --world=WORLD2.ZEN`, you can type `gmbt test anotherworld`.
 
 # License
 
