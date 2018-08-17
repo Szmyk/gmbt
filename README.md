@@ -399,9 +399,10 @@ Licenses and disclaimers are in the [tools](https://github.com/Szmyk/gmbt/tree/m
 
 Big thanks to:
 
-* the whole SoulFire team, especially ['oGon'](https://github.com/oGon991), ['Xardas49'](https://github.com/Xardas49), ['Komuch'](https://github.com/miwisniewski) and [Radoslaw 'Revo' Rak](https://github.com/revo16pl) for testing on the very early stage of production
+* the whole SoulFire team, especially ['oGon'](https://github.com/ogoooon), ['Xardas49'](https://github.com/Xardas49), ['Komuch'](https://github.com/miwisniewski) and ['Revo'](https://github.com/revo16pl) for testing on the very early stage of production
+* [Nico Bendlin](https://github.com/nicodex) for huge help with understanding ZenGin engine intricacy
 * [Adam 'Avallach' Golebiowski](https://github.com/Avallach7) for idea of this tool and help on the very early stage of production
-* [Mikolaj 'Miko' Sitarek](mailto:Nikolajek@hotmail.com) for proofreading
+* [Mikolaj 'Miko' Sitarek](mailto:themiko19@gmail.com) for proofreading
 
 # Contributing / issues / contact
 
