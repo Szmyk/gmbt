@@ -189,6 +189,13 @@ namespace GMBT
                                     install.Start();
                                 }
                             }
+                            else
+                            {
+                                if (Directory.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)) == false)
+                                {
+                                    Logger.Fatal("Test.Error.RequireReinstall");
+                                }
+                            }
 
                             if (Options.TestVerb.Full)
                             {
