@@ -26,11 +26,18 @@ namespace GMBT
 
         protected void UpdateDialogs()
         {
+            var gothicSrc = gothic.GetGameFile(Gothic.GameFile.GothicSrc);
+
+            if (File.Exists(gothicSrc) == false)
+            {
+                Logger.Fatal("Config.Error.FileDidNotFound".Translate(gothicSrc));
+            }
+
             Logger.Minimal("ConvertingSubtitles".Translate());
 
             var updater = new OutputUnitsUpdater.OutputUnitsUpdater
             (
-                Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent), "Gothic.src"),
+                gothicSrc,
                 Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene), "OU.csl")
             );
 
