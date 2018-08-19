@@ -54,7 +54,7 @@ namespace GMBT
                 InitRollbar();
             }
 
-            RollbarLocator.RollbarInstance.Critical(ex, getCustomData());
+            RollbarLocator.RollbarInstance.AsBlockingLogger(TimeSpan.FromSeconds(5)).Critical(ex, getCustomData());
         }
 
         public static void Info(string message)
@@ -64,7 +64,7 @@ namespace GMBT
                 InitRollbar();
             }
 
-            RollbarLocator.RollbarInstance.Info(message, getCustomData());
+            RollbarLocator.RollbarInstance.AsBlockingLogger(TimeSpan.FromSeconds(5)).Info(message, getCustomData());
         }
 
         private static string getGitCmdOutput(string arguments)
