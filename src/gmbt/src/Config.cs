@@ -10,7 +10,7 @@ namespace GMBT
 {
     using HooksTree = Dictionary<HookMode,
                       Dictionary<HookType,
-                      List<Dictionary<HookEvent, string>>>>;
+                      Dictionary<HookEvent, List<string>>>>;
 
     /// <summary>
     /// Implements deserializing of config file.

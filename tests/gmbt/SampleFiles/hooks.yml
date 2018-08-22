@@ -1,7 +1,10 @@
 hooks: 
     common: 
         post:
-            - assetsMerge: "a"
+            assetsMerge: 
+                - "a"
+                - "b"
     test: 
         post:
-            - subtitlesUpdate: "d"
+            subtitlesUpdate: 
+                - "d"

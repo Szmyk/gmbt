@@ -338,10 +338,13 @@ Hooks have to be set in config file. Example:
 hooks: 
     common: 
         post:
-            - assetsMerge: "tools/script.bat"
+            assetsMerge: 
+                - "tools/script.bat"
+                - "tools/script1.bat"
     test: 
-        pre:
-            - subtitlesUpdate: "tools/script2.bat"
+        post:
+            subtitlesUpdate: 
+                - "tools/script2.bat"
 ```
 
 To better understand the entire process of tool execution, you should look at the diagram:

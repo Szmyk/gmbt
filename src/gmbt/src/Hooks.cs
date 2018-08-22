@@ -7,7 +7,7 @@ namespace GMBT
 {
     using HooksTree = Dictionary<HookMode,
                       Dictionary<HookType,
-                      List<Dictionary<HookEvent, string>>>>;
+                      Dictionary<HookEvent, List<string>>>>;
 
     internal enum HookType
     {
@@ -89,14 +89,14 @@ namespace GMBT
                 {
                     foreach (var events in types.Value)
                     {
-                        foreach (var evt in events)
+                        foreach (var command in events.Value)
                         {
                             Hooks.Add(new Hook
                             {
                                 Mode = modes.Key,
                                 Type = types.Key,
-                                Event = evt.Key,
-                                Command = evt.Value
+                                Event = events.Key,
+                                Command = command
                             });
                         }
                     }
