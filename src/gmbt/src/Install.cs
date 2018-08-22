@@ -33,14 +33,13 @@ namespace GMBT
         /// </summary>
         public void Start()
         {
-            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuild.ConfigFile));
-
-            gothic.GothicINI.Write("last_config_dir", configDir, "GMBT");
-
             MakeOriginalAssetsBackup();
 
             RenameDisabledVdfs();
 
+            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuild.ConfigFile));
+
+            gothic.GothicINI.Write("last_config_dir", configDir, "GMBT");
             gothic.GothicINI.Write("gmbtVersion", FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion, "GMBT");
         }
 
