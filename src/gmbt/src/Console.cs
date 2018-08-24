@@ -151,13 +151,28 @@ namespace GMBT
 
         public static void WriteLine(string format, ConsoleColor color, params object[] args)
         {
+            WriteLine(string.Format(format, args), color);
+        }
+
+        public static void WriteLine(string format, ConsoleColor color)
+        {
             var colorBackup = ForegroundColor;
 
             ForegroundColor = color;
 
-            System.Console.WriteLine(format, args);
+            System.Console.WriteLine(format);
 
             ForegroundColor = colorBackup;           
+        }
+
+        public static void WriteLine(string value)
+        {
+            System.Console.WriteLine(value);
+        }
+
+        public static void WriteLine(object value)
+        {
+            System.Console.WriteLine(value);
         }
 
         public static void WriteLine(string format, params object[] args)

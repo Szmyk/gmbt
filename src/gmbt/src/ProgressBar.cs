@@ -35,7 +35,20 @@ namespace GMBT
         /// </summary>
         public ProgressBar(string text, int total)
         {
-            Console.Write(text + " ");
+            Logger.WriteLineToFile(text);
+
+            if (Logger.Verbosity >= VerbosityLevel.Detailed)
+            {
+                Console.WriteLine(text);
+            }
+            else if (Logger.Verbosity == VerbosityLevel.Normal)
+            {
+                Console.Write(text + " ");
+            }
+            else if (Logger.Verbosity != VerbosityLevel.Quiet)
+            {
+                Console.Write(text);
+            }
 
             this.total = total;
 
@@ -123,7 +136,10 @@ namespace GMBT
                 deleteOverlappingChars(text, outputBuilder);
             }
 
-            Console.Write(outputBuilder);
+            if (Logger.Verbosity == VerbosityLevel.Normal)
+            {
+                Console.Write(outputBuilder);
+            }        
 
             currentText = text;
         }
@@ -144,7 +160,14 @@ namespace GMBT
                 update(string.Empty);          
             }
 
-            Console.WriteLine("Done".Translate(), ConsoleColor.Green);
+            if (Logger.Verbosity >= VerbosityLevel.Normal)
+            {
+                Console.WriteLine("Done".Translate(), ConsoleColor.Green);
+            }
+            else if (Logger.Verbosity == VerbosityLevel.Minimal)
+            {
+                Console.WriteLine();
+            }
         }
     }
 }

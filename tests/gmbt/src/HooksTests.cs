@@ -25,20 +25,12 @@ namespace GMBT.Tests
             Assert.AreEqual(manager.Hooks[1], new Hook
             {
                 Mode = HookMode.Common,
-                Type = HookType.Pre,
-                Event = HookEvent.TexturesCompile,
+                Type = HookType.Post,
+                Event = HookEvent.AssetsMerge,
                 Command = "b"
             });
 
             Assert.AreEqual(manager.Hooks[2], new Hook
-            {
-                Mode = HookMode.Common,
-                Type = HookType.Pre,
-                Event = HookEvent.TexturesCompile,
-                Command = "c"
-            });
-
-            Assert.AreEqual(manager.Hooks[3], new Hook
             {
                 Mode = HookMode.Test,
                 Type = HookType.Post,

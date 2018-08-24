@@ -23,7 +23,7 @@ namespace GMBT
         /// </summary>
         /// <param name="argument">Argument's name.</param>
         /// <param name="value">Argument's value</param>
-        public void Add (string argument, string value)
+        public void Add (string argument, object value)
         {
             content.AppendFormat("-{0}:{1} ", argument, value);
         }

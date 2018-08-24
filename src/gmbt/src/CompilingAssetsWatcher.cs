@@ -19,6 +19,8 @@ namespace GMBT
             Changed += OnChanged;
         }
 
+        string lastCompiledFile;
+
         void OnChanged(object source, FileSystemEventArgs e)
         {
             if (File.GetAttributes(e.FullPath).HasFlag(FileAttributes.Directory))
@@ -26,14 +28,14 @@ namespace GMBT
                 return;
             }
 
-            if (Program.Options.CommonTestBuild.ShowCompilingAssets)
+            if (e.Name != lastCompiledFile)
             {
-                Console.WriteLine("\t" + "Compiled".Translate() + ": " + e.Name);
+                Logger.Detailed("\t" + "Compiled".Translate() + ": " + e.Name);
+
+                OnFileCompile?.Invoke(e.FullPath.ToUpper());
+
+                lastCompiledFile = e.Name;
             }
-
-            Program.Logger.Trace("\t" + "Compiled".Translate() + ": " + e.Name);
-
-            OnFileCompile?.Invoke(e.FullPath.ToUpper());
         }
 
         public void Start() => EnableRaisingEvents = true;

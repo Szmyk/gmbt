@@ -33,28 +33,32 @@ namespace GMBT
         }
 
         static public void Init(string lang)
-        {           
+        {
+            lang = lang.ToLower();
+
             try
             {
-                var file = Program.AppData.Languages + lang + ".json";
+                var file = Path.Combine(Program.AppData.Languages, lang + ".json");
 
                 if (File.Exists(file) == false)
                 {
-                    file = Program.AppData.Languages + "en.json";
-
-                    if (File.Exists(file) == false)
+                    if (lang == "pl" || lang == "en")
                     {
-                        throw new FileNotFoundException();
+                        Logger.Fatal($"Not found language file ({file}). Please reinstall application.");
                     }
+                    else
+                    {
+                        Logger.Fatal($"Not found language file ({file}).");
+                    }                   
                 }
 
-                var json = File.ReadAllText(Program.AppData.Languages + lang + ".json");
+                var json = File.ReadAllText(file);
 
                 keys = readJson(json);
             }
             catch
             {
-                Program.Logger.Fatal("No language file could be loaded. Please reinstall application.");             
+                Logger.Fatal("No language file could be loaded. Please reinstall application.");             
             }                  
         }
 

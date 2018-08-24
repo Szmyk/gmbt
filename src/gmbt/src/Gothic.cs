@@ -1,10 +1,13 @@
-﻿using System;
+using System;
 using System.IO;
+using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 
 using Szmyk.Utils.INI;
 using Szmyk.Utils.Paths;
+
+using VdfsSharp;
 
 namespace GMBT
 { 
@@ -37,59 +40,79 @@ namespace GMBT
         {
             this.rootDirectory = rootDirectory;
 
-            if (File.Exists(GetGameDirectory(GameDirectory.System) + "Gothic2.exe"))
+            if (File.Exists(GetGameFile(GameFile.Gothic2Exe)))
             {
-                exeFile = GetGameDirectory(GameDirectory.System) + "Gothic2.exe";
+                exeFile = GetGameFile(GameFile.Gothic2Exe);
 
                 Version = GameVersion.Gothic2;
             }
-            else if (File.Exists(GetGameDirectory(GameDirectory.System) + "Gothic.exe"))
+            else if (File.Exists(GetGameFile(GameFile.Gothic1Exe)))
             {
-                exeFile = GetGameDirectory(GameDirectory.System) + "Gothic.exe";
+                exeFile = GetGameFile(GameFile.Gothic1Exe);
 
                 Version = GameVersion.Gothic1;
             }
             else
             {
-                Program.Logger.Fatal("Gothic.Error.DidNotFoundExe".Translate());
-            }
-
-            if (CheckGothicExeCheckSum(exeFile) == false)
-            {
-                Program.Logger.Fatal("Gothic.Error.WrongExeVersion".Translate(GetGothicVersionName()));
+                Logger.Fatal("Gothic.Error.DidNotFoundExe".Translate());
             }
 
             if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exeFile)).Length > 0)
             {
-                Program.Logger.Fatal("Gothic.Error.AlreadyRunning".Translate(GetGothicVersionName()));
+                Logger.Fatal("Gothic.Error.AlreadyRunning".Translate(GetGothicVersionName()));
             }
 
-            GothicINI = new IniFile(GetGameDirectory(GameDirectory.System) + "GOTHIC.INI");           
+            GothicINI = new IniFile(GetGameFile(GameFile.GothicIni));
         }
 
-        private const uint gothic26FixHeaderSum = 0x008a3e89;
-        private const uint gothic108kHeaderSum = 0x0000eb3d;
+        List<string> disabledVdfs = new List<string>();
 
-        /// <summary>
-        /// Checks if Gothic or Gothic 2 Night of thr Raven EXE file is a good version.
-        /// </summary>
-        public bool CheckGothicExeCheckSum (string exePath)
+        public void EnableVdfs()
         {
-            NativeMethods.MapFileAndCheckSum(exePath, out uint HeaderSum, out uint CheckSum);
+            foreach (var vdf in disabledVdfs)
+            {
+                if (File.Exists(vdf))
+                {
+                    File.Move(vdf, PathsUtils.ChangeExtension(vdf, ".vdf"));
+                }     
+            }
+        }
 
-            return (HeaderSum == gothic26FixHeaderSum && Version == GameVersion.Gothic2)
-                || (HeaderSum == gothic108kHeaderSum  && Version == GameVersion.Gothic1);
+        public void DisableVdfs()
+        {
+            foreach (var vdf in Directory.GetFiles(GetGameDirectory(Gothic.GameDirectory.Data)))
+            {
+                var reader = new VdfsReader(vdf);
+
+                var hasAnims = reader
+                    .ReadEntries(false)
+                    .Where(x => x.Name.Equals("ANIMS", StringComparison.OrdinalIgnoreCase))
+                    .Select(x => x.Name).Count() > 0;
+
+                reader.Dispose();
+
+                if (hasAnims)
+                {
+                    var newPath = PathsUtils.ChangeExtension(vdf, ".disabled");
+
+                    disabledVdfs.Add(newPath);
+
+                    File.Move(vdf, newPath);
+                }
+            }
         }
 
         public void Dispose()
         {
+            EnableVdfs();
+
             EndProcess();
         }
 
         private Process gothicProcess;
 
         public void EndProcess ()
-        {           
+        {
             if (gothicProcess?.HasExited == false)
             {
                 gothicProcess.Kill();
@@ -97,23 +120,16 @@ namespace GMBT
         }
 
         private void overrideGothicIniKeys()
-        {
-            var gmbtIniPath = GetGameDirectory(GameDirectory.System) + "gmbt.ini";
-
-            if (File.Exists(gmbtIniPath) == false)
-            {
-                File.Create(gmbtIniPath);
-            }
-
-            var gmbtIni = new IniFile(gmbtIniPath);
-
+        {          
             if (Program.Config.GothicIniOverrides != null)
-            {
+            {               
                 foreach (var dictionary in Program.Config.GothicIniOverrides)
                 {
                     foreach (var tuple in dictionary)
-                    {                     
-                        gmbtIni.Write(tuple.Key, tuple.Value, "OVERRIDES");
+                    {
+                        var split = tuple.Key.Split('.');
+
+                        GothicINI.Write(split[1], tuple.Value, split[0]);
                     }
                 }
             }
@@ -121,11 +137,6 @@ namespace GMBT
 
         public Process Start (GothicArguments arguments)
         {
-            if (Program.Options.CommonTestBuild.ZSpyLevel != ZSpy.Mode.None)
-            {
-                ZSpy.Run();
-            }
-
             overrideGothicIniKeys();
 
             createDirectoriesForCompiledAssets();
@@ -133,38 +144,40 @@ namespace GMBT
             ProcessStartInfo gothic = new ProcessStartInfo
             {
                 FileName = Version == GameVersion.Gothic1
-                         ? GetGameDirectory(GameDirectory.System) + "Gothic.exe"
-                         : GetGameDirectory(GameDirectory.System) + "Gothic2.exe",
+                         ? GetGameFile(GameFile.Gothic1Exe)
+                         : GetGameFile(GameFile.Gothic2Exe),
+
+                WorkingDirectory = GetGameDirectory(GameDirectory.System)
             };
 
             gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString();
-            
-            Program.Logger.Trace("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
 
-            using (ProgressBar bar = new ProgressBar("Gothic.Running".Translate(GetGothicVersionName()), 1))
+            Logger.Detailed("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
+
+            if (Logger.Verbosity <= VerbosityLevel.Detailed)
             {
-                OnOffDirectX11Wrapper(Program.Options.TestVerb.NoDirectX11);
-
-                gothicProcess = new Process();
-                gothicProcess.StartInfo = gothic;
-
-                gothicProcess.Start();
-
-                bar.Increase();
+                Logger.Minimal("Gothic.Running".Translate(GetGothicVersionName()));
             }
 
-            Console.Write("Gothic.CompilingAssets".Translate() + (Program.Options.CommonTestBuild.ShowCompilingAssets ? "\n" : " "));
+            OnOffDirectX11Wrapper(Program.Options.TestVerb.NoDirectX11);
+
+            gothicProcess = new Process();
+            gothicProcess.StartInfo = gothic;
+
+            gothicProcess.Start();
+
+            Logger.Minimal("Gothic.CompilingAssets".Translate());
 
             return gothicProcess;
         }
        
         public void OnOffDirectX11Wrapper (bool off)
         {
-            if (File.Exists(GetGameDirectory(GameDirectory.System) + "ddraw.dll")
-            && Directory.Exists(GetGameDirectory(GameDirectory.GD3D11)))
-            {
-                string dllPath = GetGameDirectory(GameDirectory.System) + "ddraw.dll";
+            string dllPath = GetGameFile(GameFile.DdrawDll);
 
+            if (File.Exists(dllPath)
+            && Directory.Exists(GetGameDirectory(GameDirectory.GD3D11)))
+            {              
                 string extension = off 
                                  ? ".off" 
                                  : ".dll";
@@ -177,12 +190,12 @@ namespace GMBT
         {
             GothicArguments arguments = new GothicArguments();
 
-            if (Program.Options.CommonTestBuild.ZSpyLevel != ZSpy.Mode.None)
+            if (Program.Options.CommonTestSpacerBuild.ZSpyLevel != ZSpy.Mode.None)
             {
-                arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestBuild.ZSpyLevel) + ",s");
+                arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestSpacerBuild.ZSpyLevel) + ",s");
             }
 
-            arguments.Add("game", "gmbt.ini");         
+            arguments.Add("ini", Path.GetFileName(GetGameFile(GameFile.GothicIni)));         
 
             return arguments;
         }
@@ -192,7 +205,7 @@ namespace GMBT
             Root,
             System,
             Data, ModVDF,
-            Work, WorkData, WorkDataOrg, WorkDataToVDF, WorkDataBak,
+            Work, WorkData, WorkDataOrg,
             Scripts, ScriptsCompiled, ScriptsCutscene, ScriptsContent,
             Anims, AnimsCompiled,
             Meshes, MeshesCompiled,
@@ -202,47 +215,64 @@ namespace GMBT
             GD3D11
         }
 
-        public string GetGameDirectory(GameDirectory dir, bool endSlashes)
+        public enum GameFile
         {
-            string end = endSlashes 
-                       ? "\\"
-                       : string.Empty;
+            GothicDat, MusicDat, SfxDat,
+            GothicSrc,
+            OuCsl,
+            WorldsVdf, WorldsAddonVdf,
+            Gothic1Exe, Gothic2Exe,
+            SpacerExe, Spacer2Exe,
+            GothicIni,
+            DdrawDll
+        }
 
-            switch (dir)
-            {
-                case GameDirectory.Root:             return Path.GetFullPath(rootDirectory) + end;           
-                case GameDirectory.System:           return GetGameDirectory(GameDirectory.Root) + "System" + end;
-                case GameDirectory.GD3D11:           return GetGameDirectory(GameDirectory.System) + "GD3D11" + end;
-                case GameDirectory.Data:             return GetGameDirectory(GameDirectory.Root) + "Data" + end;
-                case GameDirectory.ModVDF:           return GetGameDirectory(GameDirectory.Data) + "ModVDF" + end;
-                case GameDirectory.Work:             return GetGameDirectory(GameDirectory.Root) + "_Work" + end;
-                case GameDirectory.WorkData:         return GetGameDirectory(GameDirectory.Work) + "Data" + end;
-                case GameDirectory.WorkDataOrg:      return GetGameDirectory(GameDirectory.Work) + "DataOriginal" + end;
-                case GameDirectory.WorkDataToVDF:    return GetGameDirectory(GameDirectory.Work) + "DataToVDF" + end;
-                case GameDirectory.WorkDataBak:      return GetGameDirectory(GameDirectory.Work) + "DataBak" + end;
-                case GameDirectory.ScriptsCompiled:  return GetGameDirectory(GameDirectory.Scripts) + "_compiled" + end;
-                case GameDirectory.ScriptsCutscene:  return GetGameDirectory(GameDirectory.ScriptsContent) + "Cutscene" + end;
-                case GameDirectory.ScriptsContent:   return GetGameDirectory(GameDirectory.Scripts) + "Content" + end;
-                case GameDirectory.AnimsCompiled:    return GetGameDirectory(GameDirectory.Anims) + "_compiled" + end;
-                case GameDirectory.MeshesCompiled:   return GetGameDirectory(GameDirectory.Meshes) + "_compiled" + end;
-                case GameDirectory.TexturesCompiled: return GetGameDirectory(GameDirectory.Textures) + "_compiled" + end;
-                default:                             return GetGameDirectory(GameDirectory.WorkData) + Enum.GetName(typeof(GameDirectory), dir) + end;
-            }        
+        public string GetGameFile (GameFile file)
+        {
+            switch (file)
+            { 
+                case GameFile.GothicDat:      return Path.Combine(GetGameDirectory(GameDirectory.ScriptsCompiled), "GOTHIC.DAT");
+                case GameFile.MusicDat:       return Path.Combine(GetGameDirectory(GameDirectory.ScriptsCompiled), "MUSIC.DAT");
+                case GameFile.SfxDat:         return Path.Combine(GetGameDirectory(GameDirectory.ScriptsCompiled), "SFX.DAT");
+                case GameFile.GothicSrc:      return Path.Combine(GetGameDirectory(GameDirectory.ScriptsContent), "Gothic.src");
+                case GameFile.OuCsl:          return Path.Combine(GetGameDirectory(GameDirectory.ScriptsCutscene), "OU.CSL");
+                case GameFile.WorldsVdf:      return Path.Combine(GetGameDirectory(GameDirectory.Data), "Worlds.vdf");
+                case GameFile.WorldsAddonVdf: return Path.Combine(GetGameDirectory(GameDirectory.Data), "Worlds_Addon.vdf");
+                case GameFile.Gothic1Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "GothicMod.exe");
+                case GameFile.Gothic2Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic2.exe");
+                case GameFile.SpacerExe:      return Path.Combine(GetGameDirectory(GameDirectory.System), "Spacer.exe");
+                case GameFile.Spacer2Exe:     return Path.Combine(GetGameDirectory(GameDirectory.System), "Spacer2.exe");
+                case GameFile.GothicIni:      return Path.Combine(GetGameDirectory(GameDirectory.System), "Gothic_GMBT.ini");
+                case GameFile.DdrawDll:       return Path.Combine(GetGameDirectory(GameDirectory.System), "ddraw.dll");
+                default: throw new FileNotFoundException(file.ToString());
+            }
         }
 
         public string GetGameDirectory(GameDirectory dir)
         {
-            return GetGameDirectory(dir, true);
+            switch (dir)
+            {
+                case GameDirectory.Root:             return Path.GetFullPath(rootDirectory);           
+                case GameDirectory.System:           return Path.Combine(GetGameDirectory(GameDirectory.Root), "System");
+                case GameDirectory.GD3D11:           return Path.Combine(GetGameDirectory(GameDirectory.System), "GD3D11");
+                case GameDirectory.Data:             return Path.Combine(GetGameDirectory(GameDirectory.Root), "Data");
+                case GameDirectory.ModVDF:           return Path.Combine(GetGameDirectory(GameDirectory.Data), "ModVDF");
+                case GameDirectory.Work:             return Path.Combine(GetGameDirectory(GameDirectory.Root), "_Work");
+                case GameDirectory.WorkData:         return Path.Combine(GetGameDirectory(GameDirectory.Work), "Data");
+                case GameDirectory.WorkDataOrg:      return Path.Combine(GetGameDirectory(GameDirectory.Work), "DataOriginal");               
+                case GameDirectory.ScriptsCompiled:  return Path.Combine(GetGameDirectory(GameDirectory.Scripts), "_compiled");
+                case GameDirectory.ScriptsCutscene:  return Path.Combine(GetGameDirectory(GameDirectory.ScriptsContent), "Cutscene");
+                case GameDirectory.ScriptsContent:   return Path.Combine(GetGameDirectory(GameDirectory.Scripts), "Content");
+                case GameDirectory.AnimsCompiled:    return Path.Combine(GetGameDirectory(GameDirectory.Anims), "_compiled");
+                case GameDirectory.MeshesCompiled:   return Path.Combine(GetGameDirectory(GameDirectory.Meshes), "_compiled");
+                case GameDirectory.TexturesCompiled: return Path.Combine(GetGameDirectory(GameDirectory.Textures), "_compiled") ;
+                default:                             return Path.Combine(GetGameDirectory(GameDirectory.WorkData), Enum.GetName(typeof(GameDirectory), dir));
+            }        
         }
 
         public DirectoryInfo GetGameDirectoryInfo(GameDirectory dir)
         {
             return new DirectoryInfo(GetGameDirectory(dir));
-        }
-
-        public DirectoryInfo GetGameDirectoryInfo(GameDirectory dir, bool endSlashes)
-        {
-            return new DirectoryInfo(GetGameDirectory(dir, endSlashes));
         }
 
         private void createDirectoriesForCompiledAssets()

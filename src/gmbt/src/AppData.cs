@@ -15,16 +15,16 @@ namespace GMBT
 
         public AppData()
         {           
-            Path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "//GMBT//";
+            Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "GMBT");
 
             if (Directory.Exists(Path) == false)
             {
                 Directory.CreateDirectory(Path);
             }
 
-            Tools = Path + "tools//";
-            Logs = Path + "logs//";
-            Languages = Path + "lang//";
+            Tools = System.IO.Path.Combine(Path, "tools");
+            Logs = System.IO.Path.Combine(Path, "logs");
+            Languages = System.IO.Path.Combine(Path, "lang");
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace GMBT
         /// </example>
         public string GetTool(string fileName)
         {
-            string path = Tools + fileName;
+            string path = System.IO.Path.Combine(Tools, fileName);
 
             if (File.Exists(path))
             {
@@ -46,7 +46,8 @@ namespace GMBT
             }
             else
             {
-                Program.Logger.Fatal("GetTool.Error".Translate(path));
+                Logger.Fatal("GetTool.Error".Translate(path));
+
                 return string.Empty;
             }
         }

@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using Szmyk.Utils.BytesHelper;
 
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace GMBT
 {
-    class Release
+    public class Release
     {
         public string Version { get; set; }
         public string ArtifactName { get; set; }
@@ -20,13 +21,36 @@ namespace GMBT
         public long Size { get; set; }
     }
 
-    class Updater
+    public class Updater
     {
         public bool FailedCheck { get; set; }
 
         public bool IsUpdateAvailable { get; set; }
         public Release LatestRelease { get; set; }
         public Task CheckLatestReleaseTask { get; set; }
+
+        public static bool IsVersionGreater(string v1, string v2)
+        {
+            var rx = new Regex(@"v([\d.]+)([-\w]+)*");
+
+            var v1Splitted = rx.Split(v1);
+            var v2Splitted = rx.Split(v2);
+
+            var version1 = v1Splitted[1];
+            var version2 = v2Splitted[1];
+
+            Version versionA = new Version(version1);
+            Version versionB = new Version(version2);
+
+            if (v2Splitted.Length == 2)
+            {
+                return false;
+            }
+            else
+            {
+                return versionA.CompareTo(versionB) >= 0;
+            }
+        }
 
         public Updater ()
         {
@@ -40,7 +64,7 @@ namespace GMBT
 
                     string localVersion = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion;
 
-                    IsUpdateAvailable = LatestRelease.Version != localVersion;
+                    IsUpdateAvailable = IsVersionGreater(LatestRelease.Version, localVersion);
                 }
                 catch              
                 {

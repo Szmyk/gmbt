@@ -77,7 +77,7 @@ namespace GMBT
 
             var script = Generate();
 
-            File.WriteAllText(path, script);       
+            File.WriteAllText(path, script, Encoding.Default);       
 
             return path;
         }

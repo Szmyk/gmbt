@@ -7,7 +7,7 @@
     <ProjectGuid>{99C1E851-D3AD-4898-8FF7-39941E8B0938}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OutputUnits</RootNamespace>
+    <RootNamespace>OutputUnitsUpdater</RootNamespace>
     <AssemblyName>OutputUnitsUpdater</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -46,10 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Info.cs" />
     <Compile Include="src\Parser.cs" />
+    <Compile Include="src\SrcFile.cs" />
     <Compile Include="src\Updater.cs" />
+    <Compile Include="src\ZenArchiveObject.cs" />
+    <Compile Include="src\ZenArchiveObjectHeader.cs" />
+    <Compile Include="src\ZenArchiveObjectProperty.cs" />
+    <Compile Include="src\ZenArchiveWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

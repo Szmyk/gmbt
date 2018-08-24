@@ -5,19 +5,20 @@ using System.Collections.Generic;
 namespace OutputUnitsUpdater.Tests
 {
     [TestClass]
+    [DeploymentItem(@"SampleFiles\ouTest", "ouTest")]
     public class OutputUnitsParserTests
     {
-        [TestMethod]
-        [DeploymentItem("SampleFiles\\Dialog.d")]
+        [TestMethod] 
         public void OutputUnitsParser_ParseDialog_Test()
         {
-            OutputUnitsParser outputUnitsParser = new OutputUnitsParser("Dialog.d", OutputUnitsParser.ScriptType.NormalDialogue);
+            OutputUnitsParser outputUnitsParser = new OutputUnitsParser(@"ouTest\Dialog.d", OutputUnitsParser.ScriptType.NormalDialogue);
 
             List<OutputUnitInfo> ouInfos = outputUnitsParser.Parse();
 
             Assert.AreEqual(ouInfos[0].Name, "DIA_Npc_Test_15_00");
             Assert.AreEqual(ouInfos[0].Text, ".");
 
+         
             Assert.AreEqual(ouInfos[1].Name, "DIA_Npc_Test_01_01");
             Assert.AreEqual(ouInfos[1].Text, "..");
 
@@ -35,10 +36,9 @@ namespace OutputUnitsUpdater.Tests
         }
 
         [TestMethod]
-        [DeploymentItem("SampleFiles\\SVM.d")]
         public void OutputUnitsParser_ParseSVM_Test()
         {
-            OutputUnitsParser outputUnitsParser = new OutputUnitsParser("SVM.d", OutputUnitsParser.ScriptType.Svm);
+            OutputUnitsParser outputUnitsParser = new OutputUnitsParser(@"ouTest\SVM.d", OutputUnitsParser.ScriptType.Svm);
 
             List<OutputUnitInfo> ouInfos = outputUnitsParser.Parse();
 

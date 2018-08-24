@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+
+using VdfsSharp;
 
 namespace GMBT
 {
@@ -31,8 +34,6 @@ namespace GMBT
                     {
                         gothic.EndProcess();
                     }
-
-                    Console.WriteLine("Done".Translate(), ConsoleColor.Green);
                 }
             };
         }
@@ -52,11 +53,56 @@ namespace GMBT
             }
         }
 
+        public void DetectIfWorldIsNotExists()
+        {
+            if (File.Exists(gothic.GetGameFile(Gothic.GameFile.WorldsVdf)) == false)
+            {
+                Logger.Fatal("Test.Error.RequireReinstall".Translate("Worlds.vdf"));
+            }
+
+            var worlds = new VdfsReader(gothic.GetGameFile(Gothic.GameFile.WorldsVdf))
+                .ReadEntries(false)
+                .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))
+                .Select(x => x.Name).ToList();
+
+            if (gothic.Version == Gothic.GameVersion.Gothic2)
+            {
+                if (File.Exists(gothic.GetGameFile(Gothic.GameFile.WorldsAddonVdf)) == false)
+                {
+                    Logger.Fatal("Test.Error.RequireReinstall".Translate("Worlds_Addon.vdf"));
+                }
+
+                worlds.AddRange(new VdfsReader(gothic.GetGameFile(Gothic.GameFile.WorldsAddonVdf))
+                    .ReadEntries(false)
+                    .Where(x => x.Name.EndsWith(".ZEN", StringComparison.OrdinalIgnoreCase))
+                    .Select(x => x.Name).ToList());
+            }
+           
+            foreach (var dir in Program.Config.ModFiles.Assets)
+            {
+                var worldsDir = Path.Combine(dir, "Worlds");
+
+                if (Directory.Exists(worldsDir))
+                {
+                    worlds.AddRange(Directory.GetFiles(worldsDir, "*.ZEN", SearchOption.AllDirectories).ToList());
+                }              
+            }
+
+            var world = Program.Options.TestVerb.World ?? Program.Config.ModFiles.DefaultWorld;
+
+            if (worlds.Where(x => Path.GetFileName(x) == Path.GetFileName(world)).Count() < 1)
+            {
+                Logger.Fatal("Config.Error.FileDidNotFound".Translate(world));
+            }
+        }
+
         /// <summary>
         /// Starts test.
         /// </summary>
         public override void Start()
         {
+            DetectIfWorldIsNotExists();
+
             if (Program.Options.TestVerb.Merge != Merge.MergeOptions.None)
             {
                 runHooks(HookType.Pre, HookEvent.AssetsMerge);
@@ -66,34 +112,32 @@ namespace GMBT
                 runHooks(HookType.Post, HookEvent.AssetsMerge);
             }
 
-            if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
+            if ((Program.Options.TestVerb.Merge == Merge.MergeOptions.Scripts)
+            || (Program.Options.TestVerb.Merge == Merge.MergeOptions.All))
             {
-                runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
-
-                var message = "ConvertingSubtitles".Translate();
-
-                Program.Logger.Trace(message);
-
-                using (ProgressBar bar = new ProgressBar(message, 1))
+                if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
                 {
-                    OutputUnitsUpdater.OutputUnitsUpdater.Update(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent),
-                                                                 gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene) + "OU.csl");
-                }
+                    runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
 
-                runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
+                    UpdateDialogs();
+
+                    runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
+                }
             }
+
+            Logger.SetOnFatalEvent(() =>
+            {
+                gothic.Dispose();
+            });
 
             if (Mode == TestMode.Full)
             {
-                runHooks(HookType.Pre, HookEvent.TexturesCompile);
-
-                Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
-                                         gothic.GetGameDirectory(Gothic.GameDirectory.TexturesCompiled));
-
-                runHooks(HookType.Post, HookEvent.TexturesCompile);
-            }        
+                gothic.DisableVdfs();
+            }
 
             compilingAssetsWatcher.Start();
+
+            ZSpy.Run();
 
             gothic.Start(GetGothicArguments()).WaitForExit();
 
@@ -101,8 +145,12 @@ namespace GMBT
 
             if (Mode == TestMode.Full)
             {
+                gothic.EnableVdfs();
+
                 gothic.Start(GetGothicArguments()).WaitForExit();             
             }
+
+            ZSpy.Abort();
 
             compilingAssetsWatcher.Stop();
         }
@@ -126,12 +174,21 @@ namespace GMBT
             {
                 parameters.Add("time", Program.Options.TestVerb.InGameTime);
             }
+       
+            parameters.Add("vdfs", "physicalfirst");
 
+            if (Program.Options.TestVerb.DevMode)
+            {
+                parameters.Add("devmode");
+            }
+          
             if (Mode == TestMode.Full && assetsCompiled == false)
             {
                 parameters.Add("3d", "none");
                 parameters.Add("zconvertall");
+                parameters.Add("ztexconvert");              
                 parameters.Add("nomenu");
+                parameters.Add("zautoconvertdata");
             }
             else
             {
@@ -140,12 +197,12 @@ namespace GMBT
 
             if (Program.Options.TestVerb.NoAudio)
             {
-                if (File.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCompiled) + "MUSIC.DAT"))
+                if (File.Exists(gothic.GetGameFile(Gothic.GameFile.MusicDat)))
                 {
                     parameters.Add("znomusic");
                 }
 
-                if (File.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCompiled) + "SFX.DAT"))
+                if (File.Exists(gothic.GetGameFile(Gothic.GameFile.SfxDat)))
                 {
                     parameters.Add("znosound");
                 }

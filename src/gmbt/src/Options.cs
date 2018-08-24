@@ -1,4 +1,4 @@
-﻿using CommandLine;
+using CommandLine;
 using CommandLine.Text;
 
 namespace GMBT
@@ -14,10 +14,15 @@ namespace GMBT
 
         public CommonOptions Common { get; set; }
         public CommonTestBuildOptions CommonTestBuild { get; set; }
+        public CommonTestSpacerBuildOptions CommonTestSpacerBuild { get; set; }     
 
         [VerbOption("test",
         HelpText = "Starts a test.")]
         public TestSubOption TestVerb { get; set; }
+
+        [VerbOption("spacer",
+        HelpText = "Starts Spacer.")]
+        public SpacerSubOption SpacerVerb { get; set; }
 
         [VerbOption("build",
         HelpText = "Starts a VDF build.")]
@@ -31,8 +36,10 @@ namespace GMBT
         {
             Common = new CommonOptions();
             CommonTestBuild = new CommonTestBuildOptions();
+            CommonTestSpacerBuild = new CommonTestSpacerBuildOptions();
 
             TestVerb = new TestSubOption();
+            SpacerVerb = new SpacerSubOption();
             BuildVerb = new BuildSubOptions();
             UpdateVerb = new UpdateSubOption();
         }
@@ -40,19 +47,27 @@ namespace GMBT
         [HelpVerbOption]
         public string GetUsage(string verb)
         {
+            if (verb?.ToLower() == "help")
+            {
+                if (Arguments?.Length > 1)
+                {
+                    verb = Arguments[1];
+                }
+            }         
+
             var helpText = HelpText.AutoBuild(this, verb).ToString();
 
             return helpText.Remove(helpText.Length - 1)
                 .Replace(HeadingInfo.Default, string.Empty)
                 .Replace(CopyrightInfo.Default, string.Empty)
-                .Remove(0, 6);    
+                .Remove(0, 6) + (verb == null ? "\nSee 'gmbt help <command>' or 'gmbt <command> --help' to read about a specific subcommand.\n" : string.Empty);    
         }
     }
 
     /// <summary> 
-    /// Represents common arguments that can be used with both "test" and 'build" commands. 
+    /// Represents common arguments that can be used with both "test", "spacer" and 'build" commands. 
     /// </summary>
-    internal class CommonTestBuildOptions : CommonOptions
+    internal class CommonTestSpacerBuildOptions : CommonOptions
     {
         [Option('C', "config",
         MetaValue = "<path>",
@@ -60,25 +75,25 @@ namespace GMBT
         HelpText = "Path to config file. More information in ReadMe.html")]
         public string ConfigFile { get; set; }
 
-        [Option("texturecompile",
-        MetaValue = "<normal|quick>",
-        DefaultValue = Textures.CompileMode.Normal,
-        HelpText = "Method of textures compiling. More information in ReadMe.html.")]
-        public Textures.CompileMode TextureCompile { get; set; }
-
-        [Option("noupdatesubtitles",
-        HelpText = "Do not update dialogs subtitles.")]
-        public bool NoUpdateSubtitles { get; set; }
-
-        [Option("show-compiling-assets",
-        HelpText = "Print all compiling by game assets in the console.")]
-        public bool ShowCompilingAssets { get; set; }
-
         [Option("zspy",
         DefaultValue = ZSpy.Mode.None,
         MetaValue = "<none|low|medium|high>",
         HelpText = "Logging level if zSpy.")]
         public ZSpy.Mode ZSpyLevel { get; set; }
+    }
+
+    /// <summary> 
+    /// Represents common arguments that can be used with both "test" and 'build" commands. 
+    /// </summary>
+    internal class CommonTestBuildOptions : CommonTestSpacerBuildOptions
+    {      
+        [Option("noupdatesubtitles",
+        HelpText = "Do not update dialogs subtitles.")]
+        public bool NoUpdateSubtitles { get; set; }
+
+        [Option("show-duplicated-subtitles",
+        HelpText = "Show duplicated subtitles.")]
+        public bool ShowDuplicatedSubtitles { get; set; }    
     }
 
     /// <summary> 
@@ -90,6 +105,12 @@ namespace GMBT
         MetaValue = "<en|pl>",
         HelpText = "Set language of console output.")]
         public string Language { get; set; }
+
+        [Option('V', "verbosity",
+        DefaultValue = VerbosityLevel.Normal,
+        MetaValue = "<level>",
+        HelpText = "Set verbosity level of console output. Levels: quiet|minimal|normal|detailed|diagnostic.")]
+        public VerbosityLevel Verbosity { get; set; }
 
         [Option("help",
         HelpText = "Show this screen.")]
@@ -120,6 +141,20 @@ namespace GMBT
         public string Comment { get; set; }
     }
 
+    /// <summary> 
+    /// Reperesent arguments that can be used with "spacer" command. 
+    /// </summary>
+    internal class SpacerSubOption : CommonTestSpacerBuildOptions
+    {
+        [Option("noaudio",
+        HelpText = "Run Spacer with no sounds and music.")]
+        public bool NoAudio { get; set; }
+
+        [Option("maxfps",
+        HelpText = "Maximum framerate.")]
+        public int MaxFps { get; set; }
+    }
+    
     /// <summary> 
     /// Reperesent arguments that can be used with "test" command. 
     /// </summary>
@@ -164,6 +199,10 @@ namespace GMBT
         [Option('R', "reinstall",
         HelpText = "Reinstall before test.")]
         public bool ReInstall { get; set; }
+
+        [Option('D', "devmode",
+        HelpText = "Dev mode of game (marvin mode).")]
+        public bool DevMode { get; set; }
     }
 
     /// <summary> 

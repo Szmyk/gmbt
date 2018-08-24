@@ -1,9 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
-
-using Szmyk.Utils.Directory;
 
 namespace GMBT
 {
@@ -15,77 +12,16 @@ namespace GMBT
         private readonly Gothic gothic;
 
         private readonly List<string> directoriesToPack = new List<string>();
+        private readonly List<string> directoriesToInclude = new List<string>();
 
         public VDF (Gothic gothic)
         {
             this.gothic = gothic;        
         }
-
-        public void PreparePathsForMakingVDF()
-        {
-            new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataToVDF)).Delete();
-
-            Console.Write("VDF.PreparingFiles".Translate() + " ");
-            Program.Logger.Trace("VDF.PreparingFiles".Translate());
-
-            foreach (string dir in Directory.EnumerateDirectories(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData), "*", SearchOption.AllDirectories))
-            {
-                Directory.CreateDirectory(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataToVDF) + dir.Replace(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData), ""));
-
-                directoriesToPack.Add((gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataToVDF) + dir.Replace(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData), "")).Replace(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataToVDF), "_work\\Data\\") + "\\*");
-            }
-
-            List<string> extensions = new List<string>
-            {
-                ".asc", ".mds",
-                ".mdl",".mdh", ".msb", ".man", ".mms", ".mrm", ".mmb",
-                ".tex", ".fnt",
-                ".dat", ".bin",
-                ".zen"
-            };
-
-            if (Program.Options.BuildVerb.NoPackSounds == false)
-            {
-                extensions.Add(".wav");
-            }
-
-            foreach (var file in DirectoryUtils.GetFilesByExtensions(new DirectoryInfo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)), extensions.ToArray()))
-            {
-                if (file.LastWriteTime != Install.OriginalAssetsDateTime)
-                {
-                    file.CopyTo(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataToVDF) + file.FullName.Replace(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData), ""), true);
-                }
-            }
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Done".Translate());
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
-      
-        public void ClearDirectoriesBeforeMakingVDF()
-        {
-            new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataBak)).Delete();
-
-            Directory.Move(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData),
-                           gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataBak));
-
-            Directory.Move(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataToVDF),
-                           gothic.GetGameDirectory(Gothic.GameDirectory.WorkData));
-        }
-
-        public void ClearDirectoriesAfterMakingVDF()
-        {
-            Directory.Move(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData),
-                           gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataToVDF));
-
-            Directory.Move(gothic.GetGameDirectory(Gothic.GameDirectory.WorkDataBak),
-                           gothic.GetGameDirectory(Gothic.GameDirectory.WorkData));
-        }
-          
+         
         public void RunBuilder()
         {
-            Console.Write("VDF.Building".Translate() + " ");
-            Program.Logger.Trace("VDF.Building".Translate());
+            Logger.Normal("VDF.Building".Translate());
 
             if (Directory.Exists(Path.GetDirectoryName(Program.Config.ModVdf.Output)) == false)
             {
@@ -99,17 +35,37 @@ namespace GMBT
                 CreateNoWindow = true
             };
 
+            directoriesToPack.Add(@"_work\Data\Anims\_compiled");
+            directoriesToPack.Add(@"_work\Data\Meshes\_compiled");
+            directoriesToPack.Add(@"_work\Data\Textures\_compiled"); 
+            directoriesToPack.Add(@"_work\Data\Scripts\_compiled");
+            directoriesToPack.Add(@"_work\Data\Scripts\Content\Cutscene");
+            directoriesToPack.Add(@"_work\Data\Worlds");
+
+            directoriesToInclude.Add(@"_work\Data\Anims\*.mds -r");
+            directoriesToInclude.Add(@"_work\Data\Textures\Desktop\*.tga -r");
+           
+            if (Program.Options.BuildVerb.NoPackSounds == false)
+            {
+                directoriesToPack.Add(@"_work\Data\Sound");
+            }
+
             string vdfOutput = Program.Options.BuildVerb.Output ?? Program.Config.ModVdf.Output;
 
-            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root, false), vdfOutput, Program.Options.BuildVerb.Comment ?? Program.Config.ModVdf.Comment, directoriesToPack, Program.Config.ModVdf.Include, Program.Config.ModVdf.Exclude);
+            var include = new List<string>();
+
+            include.AddRange(directoriesToInclude);
+
+            if (Program.Config.ModVdf.Include != null)
+            {
+                include.AddRange(Program.Config.ModVdf.Include);
+            }
+
+            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root), vdfOutput, Program.Options.BuildVerb.Comment ?? Program.Config.ModVdf.Comment ?? Program.Config.ProjectName ?? string.Empty, directoriesToPack, include, Program.Config.ModVdf.Exclude);
 
             builder.Arguments = "/B " + script.GenerateAndGetPath();
 
             Process.Start(builder).WaitForExit();
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Done".Translate());
-            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }

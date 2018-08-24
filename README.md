@@ -14,12 +14,20 @@
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
   </a>
   
+  <a href="https://stats.uptimerobot.com/Lv8jVs0kK">
+    <img src="https://img.shields.io/uptimerobot/status/m780841486-c4045132dc369debb14a3cbd.svg" alt="Status">
+  </a>
+  
+  <a href="https://stats.uptimerobot.com/Lv8jVs0kK">
+    <img src="https://img.shields.io/uptimerobot/ratio/7/m780841486-c4045132dc369debb14a3cbd.svg" alt="Uptime">
+  </a>
+  
   <a href="https://github.com/Szmyk/gmbt/releases/latest">
     <img src="https://img.shields.io/github/downloads/szmyk/gmbt/total.svg" alt="Downloads of Github Releases">
   </a>
   
-  <a href="https://www.codacy.com/app/Szmyk/gmbt">
-    <img src="https://api.codacy.com/project/badge/Grade/12d93d0465b14dc284444a78062b5688" alt="Codacy Badge">
+  <a href="https://discord.gg/N4eGsJj">
+    <img src="https://discordapp.com/api/guilds/472863935943409665/embed.png" alt="Join the Discord chat">
   </a>
   
   <a href="https://gitter.im/gothic-mod-build-tool">
@@ -41,14 +49,18 @@ This project was developed primarily for the purpose of assisting the SoulFire t
     * [Example](#example)
 * [Usage](#usage)
     *  [Common parameters](#common-parameters)
-    *  [Common parameters](#common-parameters-test--build)
+    *  [Common parameters (`test` & `spacer` & `build`)](#common-parameters-test--spacer--build)
+    *  [Common parameters (`test` & `build`)](#common-parameters-test--build)
+    *  [Common parameters (`test` & `spacer`)](#common-parameters-test--spacer)
     *  [Verb commands](#verb-commands)
         * [`test`](#test)
         * [`build`](#build)
+		* [`spacer`](#spacer)
         * [`update`](#update)
     *  [Examples](#examples)
 * [Advanced usage](#advanced-usage)
 	*  [Hooks](#hooks)
+	*  [Predefined options](#predefined-options)
 * [Example project](#example-project)
 * [License](#license)
 * [Built with](#built-with)
@@ -60,7 +72,7 @@ This project was developed primarily for the purpose of assisting the SoulFire t
 
 Let's start with some background: the Gothic Mod Build Tool is kind of a breakthrough in Gothic modding, because it is one of the few successful attempts to create a build system which fully automates the process that was previously done manually, every modder had to manually compile assets like textures, meshes and animations and send them to their co-modders. Now, working with version control systems is possible, because each modder has the same version of assets at the same time and at any time can launch the game without need to build a *.mod* and not run into errors or discrepancies due to a lack of or mismatching assets.
 
-This tool serves two very important purposes, to merge and to compile everything. It uses external tools for compiling textures, updating dialogs subtitles but also launches the Gothic game executable and compiles assets like 3D models and animations ingame.
+This tool serves two very important purposes, to merge and to compile everything. It uses external tool for updating dialogs subtitles but also launches the Gothic game executable and compiles assets like 3D models and animations ingame with appropriate game settings.
 
 ## Modes
 
@@ -68,11 +80,11 @@ There are 3 modes of use:
 
 * **Quick test** - merges assets directories, compiles the necessary assets to run the game, and launches the game. Not everything is compiled, so lag/stuttering can occur because of compiling textures, animations and 3D models "on the fly", in game. Used mainly to check if scripts are parsing when you are not using IDE/syntax checker. It could also be used if a full test is completed.
 * **Full test** - compiles everything. This takes more time, but then you can play without problems like lag and stuttering.
-* **Make VDF** - compiles everything and builds a *.mod*.
+* **Build** - compiles everything and builds a *.mod* volume.
 
 ## Speed
 
-On a mid-range PC with an HDD, a no sounds VDF build of a huge addon [The Chronicles of Myrtana] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
+On a mid-range PC with an HDD, a no sounds build of a huge addon [The Chronicles of Myrtana] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
 
 # Status
 
@@ -80,9 +92,9 @@ The most important features of the tool are finalized, but of course you use it 
 
 # Download
 
-| Latest stable release | Unstable development ([dev](https://github.com/Szmyk/gmbt/tree/dev) branch)
-|:-------------:| :-------------:
-[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) |[![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
+| Latest stable release | Latest unstable release | Unstable development ([dev](https://github.com/Szmyk/gmbt/tree/dev) branch)
+|:---------------------:| :----------------------:|:------------------------------------------------------------------------------:
+[![GitHub release](https://img.shields.io/github/release/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/releases/latest) | [![GitHub (pre-)release](https://img.shields.io/github/release/Szmyk/gmbt/all.svg)](https://github.com/Szmyk/gmbt/releases) | [![Build status (dev)](https://ci.appveyor.com/api/projects/status/0h4avwoh684c3tg2/branch/dev?svg=true)](https://ci.appveyor.com/project/Szmyk/gmbt/branch/dev/artifacts) 
 
 # Installation & Requirements
 
@@ -92,31 +104,35 @@ The most important features of the tool are finalized, but of course you use it 
 
 * A clean installation of vanilla *Gothic* or *Gothic 2 Night of the Raven* on your PC. You must have a **COMPLETELY** clean copy of game, with no mods, textures packs and other such.
 
-* [Gothic Patch 1.08k](http://www.worldofgothic.de/dl/download_6.htm) or [Gothic II Report-Version 2.6f-rev2](https://www.worldofgothic.de/dl/download_278.htm) 
+* [Gothic Patch 1.08k](http://www.worldofgothic.de/dl/download_6.htm) or [Gothic II Report-Version 2.6-rev2](https://www.worldofgothic.de/dl/download_278.htm) 
 
 * [Gothic Player Kit v1.08k](http://www.worldofgothic.de/dl/download_34.htm) or [Gothic 2 Player Kit 2.6f](https://www.worldofgothic.de/dl/download_168.htm).
 
-* Of course, you can also install [SystemPack](https://forum.worldofplayers.de/forum/threads/1340357-Release-Gothic-Ă‚Ëť-Ă‚â€”-SystemPack-%28ENG-DEU%29) if you have problems with the game on your PC.
+* Of course, you can also install [SystemPack](https://forum.worldofplayers.de/forum/threads/1340357-Release-Gothic-Ă‚Ëť-Ă‚â€”-SystemPack-%28ENG-DEU%29) if you have problems with the game.
 
 After installation, you can run the Gothic copy **ONLY** via GMBT. Of course, you can use eg. Spacer, but you have to complete a full test before (the scripts have to be compiled because Spacer needs eg. `GOTHIC.DAT` and `CAMERA.DAT`).
 
-Next you have to [configure paths](#configuration) and run the tool with the command you want ([usage guide](#usage)).
+Next you have to do [configuration](#configuration) and run the tool with the command you want ([usage guide](#usage)).
 
 # Configuration
 
 You have to configure a [YAML] config:
 
-* **gothicRoot** - _string_
+* **projectName** - _string_ (**required**)
+    > Title of modification using for example as default VDF volume comment.
+* **gothicRoot** - _string_ (**required**)
     > Path to game root directory, eg. relative path (`..\..`) or absolute (`C:\Program Files\JoWood\Gothic 2 Gold Edition`)
+* **minimalVersion** - _string_
+    > Minimal version of GMBT required to run the project. Eg. _v0.14.1_
 * **modFiles**  - _structure_
-    * **assets**  - _strings list_
+    * **assets**  - _strings list_ (**required**)
         > Paths to assets directories which have to be placed in `_work/Data` directories. You have to prepare right structure inside these directories (same as in `_work/Data`: _\<dir\>\Anims_, _\<dir\>\Scripts_ and so on).
     * **exclude** - _strings list_
         > Exclude files from merging. Only files paths, not directories and wildcarts.
-    * **defaultWorld**  - _string_
+    * **defaultWorld**  - _string_ (**required**)
         > Name (not path) of ZEN, eg. _NEWWORLD.ZEN_
 * **modVdf**  - _structure_
-    *   **output**  - _string_
+    *   **output**  - _string_ (**required**)
         > Path to save *.mod* file.
     *   **comment**  - _string_
         > VDF volume comment.
@@ -132,7 +148,6 @@ You have to configure a [YAML] config:
     > Keys of GOTHIC.INI you want to override when running test or build.
     >
     > Syntax: _['section.key', 'value']_ or _'section.key': 'target'_, eg. '`GAME.playLogoVideos' : '0'`
-
 *  **install**  - _dictionary_
     > Optional files you want to install.
     >
@@ -151,6 +166,8 @@ Our developers have to clone modification repository to `_Work` directory, so th
 We have got this config in root of the local repository (`_Work/TheChroniclesOfMyrtana/.gmbt.yml`).
 
 ```
+projectName: The Chronicles of Myrtana
+
 gothicRoot: ..\..
 
 modFiles:
@@ -186,16 +203,27 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `-L <en\|pl>, --lang=<en\|pl>`			| Set language of console output.																											| Control Panel -> Regional Settings
 | `--help`								    | Print short descriptions of parameters.																									| N/A
+| `-V <level>, --verbosity=<level>`		    | Set verbosity level of console output. Levels: quiet\|minimal\|normal\|detailed\|diagnostic.												| _normal_
+
+## Common parameters (`test` & `spacer` & `build`)
+
+| Parameter 								| Description 																																| Default value
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+| `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
+| `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
 
 ## Common parameters (`test` & `build`)
 
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
-| `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
-| `--texturecompile=<normal\|quick>`		| Mode of textures compile.																													| _normal_
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
-| `--show-compiling-assets`					| Print all compiling by game assets in the console.																						| N/A
-| `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
+| `--show-duplicated-subtitles` 			| Print duplicated subtitles.																												| N/A
+
+## Common parameters (`test` & `spacer`)
+
+| Parameter 								| Description 																																| Default value
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+| `--noaudio` 					     		| Run game/Spacer without any audio. 																										| N/A
 
 ## Verb commands
 
@@ -209,11 +237,11 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--merge=<none\|all\|scripts\|worlds\|sounds>`| Merge option. <br/> Enter eg. `scripts` if you just want to debug scripts and do not want to copy all assets every time. Also, nice option to use is `scripts,worlds` if you want to debug some changes only related to scripts and worlds. | _all_
 | `-W <zen>, --world=<zen>` 					| Run game in a specific world. 																									| Set in [config file](#configuration)
 | `--windowed` 						 			| Run game in window. 																												| N/A
-| `--noaudio` 					     			| Run game without any audio. 																										| N/A
 | `--ingametime=<hh:mm>`						| Ingame time. <br/>Syntax: **hour:minute**, eg. _15:59_. 																			| N/A
 | `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allows you to temporarily disable this wrapper. 						| N/A
 | `--nomenu` 									| Run game without menu showing (starts a new game immediately). 																	| N/A
 | `-R, --reinstall`								| Reinstall before start.																											| N/A
+| `-D, --devmode`								| Dev mode of game (marvin mode).																									| N/A
 
 ### `build`
 
@@ -224,6 +252,14 @@ At this moment the only way to use the tool is command line interface. GUI appli
 |`-O <file>, --output=<file>`  	| Path of VDF volume (`.mod`) output. 			| Set in [config file](#configuration)
 |`--nopacksounds`  				| Do not to pack sounds (WAVs) to mod package.  | N/A
 |`--comment`  					| Set or override comment of VDF.  				| Set in [config file](#configuration)
+
+### `spacer`
+
+> Starts Spacer.
+
+| Parameter 					| Description								    | Default value
+| ---------------------------- 	| --------------------------------------------- | ------------------------------------
+|`--maxfps`  					| Maximum framerate. 							| N/A
 
 ### `update`
 
@@ -270,7 +306,7 @@ Below are some examples used developing [The Chronicles of Myrtana] project:
 
 # Example project
 
-There is an [example project] which uses this tool. There are some assets from [World of Gothic DE Modderdatenbank] — just for the test. This repository is very nice sandbox which allows you to get acquainted with the tool. The repository has the same structure of files as in [example configuration](#example).
+There is an [example project] which uses this tool. There are some assets from [World of Gothic DE Modderdatenbank] — just for the test. That repository is very nice sandbox which allows you to get acquainted with the tool. The repository has the same structure of files as in [example configuration](#example).
 
 # Advanced usage
 
@@ -295,7 +331,6 @@ Hooks are actions can be set in [config file](#configuration) to trigger actions
 
 * `assetsMerge`
 * `subtitlesUpdate`
-* `texturesCompile`
 
 Hooks have to be set in config file. Example:
 
@@ -303,18 +338,32 @@ Hooks have to be set in config file. Example:
 hooks: 
     common: 
         post:
-            - assetsMerge: "tools/script.bat"
-        pre:
-            - texturesCompile: "tools/tool.exe"
-            - texturesCompile: "tools/tool2.exe"
+            assetsMerge: 
+                - "tools/script.bat"
+                - "tools/script1.bat"
     test: 
         post:
-            - subtitlesUpdate: "tools/script2.bat"
+            subtitlesUpdate: 
+                - "tools/script2.bat"
 ```
 
 To better understand the entire process of tool execution, you should look at the diagram:
 
-![](https://i.imgur.com/NvOwLlM.png)
+![](https://i.imgur.com/FMfMoOF.png)
+
+## Predefined options
+
+Predefined options is something like templates for command line parameters.
+
+You can set predefined options sets in config file:
+
+```yaml
+predefined:
+  - "world": "--world=WORLD.ZEN"
+  - "anotherworld": "--world=WORLD2.ZEN"
+```
+
+and then, instead of calling `gmbt test --world=WORLD2.ZEN`, you can type `gmbt test anotherworld`.
 
 # License
 
@@ -345,7 +394,6 @@ SOFTWARE.
 # Built with
 
 * [**YamlDotNet**](https://github.com/aaubry/YamlDotNet) Copyright (c) 2008, 2009, 2010, 2011, 2012, 2013, 2014 Antoine Aubry and contributors
-* [**NLog**](https://github.com/NLog/NLog) Copyright (c) 2004-2017 Jaroslaw Kowalski, Kim Christensen, Julian Verdurmen
 * [**CommandLineParser**](https://github.com/commandlineparser/commandline) Copyright (c) 2005 - 2015 Giacomo Stelluti Scala & Contributors
 * [**Newtonsoft.Json**](https://github.com/JamesNK/Newtonsoft.Json) Copyright (c) 2007 James Newton-King
 
@@ -355,9 +403,6 @@ Licenses and disclaimers are in the [ThirdPartyNotices.md](https://github.com/Sz
 
 * **GothicVDFS 2.6** Copyright (c) 2001-2003, Nico Bendlin
 * **Virtual Disk File System (VDFS)** Copyright (c) 1994-2002, Peter Sabath / TRIACOM Software GmbH
-* **DDS2ZTEX Converter 1.0** Copyright (c) 2005 Nico Bendlin
-* **NVIDIA Legacy Texture Tools** Copyright 2007 NVIDIA Corporation
-* **zSpy 2.05** Copyright (c) 1997-2000 Bert Speckels, Mad Scientists 1997
 * **NSIS (Nullsoft Scriptable Install System)** Copyright (C) 1999-2018 Nullsoft and Contributors
 
 Licenses and disclaimers are in the [tools](https://github.com/Szmyk/gmbt/tree/master/tools) directory.
@@ -366,15 +411,16 @@ Licenses and disclaimers are in the [tools](https://github.com/Szmyk/gmbt/tree/m
 
 Big thanks to:
 
-* the whole SoulFire team, especially ['oGon'](https://github.com/oGon991), ['Xardas49'](https://github.com/Xardas49), ['Komuch'](https://github.com/miwisniewski) and [Radoslaw 'Revo' Rak](https://github.com/revo16pl) for testing on the very early stage of production
+* the whole SoulFire team, especially ['oGon'](https://github.com/ogoooon), ['Xardas49'](https://github.com/Xardas49), ['Komuch'](https://github.com/miwisniewski) and ['Revo'](https://github.com/revo16pl) for testing on the very early stage of production
+* [Nico Bendlin](https://github.com/nicodex) for huge help with understanding ZenGin engine intricacy
 * [Adam 'Avallach' Golebiowski](https://github.com/Avallach7) for idea of this tool and help on the very early stage of production
-* [Mikolaj 'Miko' Sitarek](mailto:Nikolajek@hotmail.com) for proofreading
+* [Mikolaj 'Miko' Sitarek](mailto:themiko19@gmail.com) for proofreading
 
 # Contributing / issues / contact
 
 * [![Contributing](https://img.shields.io/badge/contributing-guidelines-blue.svg)](https://github.com/Szmyk/gmbt/tree/master/.github/CONTRIBUTING.md)
 * [![GitHub issues](https://img.shields.io/github/issues/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues) [![GitHub closed issues](https://img.shields.io/github/issues-closed/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues)
-* [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gothic-mod-build-tool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+* [![Join the Discord chat](https://discordapp.com/api/guilds/472863935943409665/embed.png)](https://discord.gg/N4eGsJj)  [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gothic-mod-build-tool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
 [The Chronicles of Myrtana]: https://kronikimyrtany.pl/en
 [D3D11-Renderer for Gothic]: https://forum.worldofplayers.de/forum/threads/1441897-D3D11-Renderer-fÄ‚Ä˝r-Gothic-2-(alpha)-15

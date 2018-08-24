@@ -2,11 +2,17 @@
 	"Done": "Ukończono.",
 	"UnknownError": "Nieznany błąd",
 	"ConvertingSubtitles": "Konwertowanie napisów...",
+	"SearchingDuplicatedSubtitles": "Wyszukiwanie duplikatów dialogów...",
+	"FoundDuplicatedDialogs": "Znaleziono duplikaty dialogów:",
 	"CompilingTextures": "Kompilowanie tekstur...",
 	"CompletedIn": "Ukończono w {0} min. {1} sek.",
 	"Compiled": "Skompilowano",
 	"Gothic2NotR": "Gothic 2 Noc Kruka",
 
+	"MinimalVersionRequired": "Wymagana przynajmniej wersja {0} do uruchomienia tego projektu!",
+	
+	"Options.UsingPredefined": "Użyto predefiniowanego zestawu parametrów ({0}): {1}",
+		
 	"Hooks.Run": "Uruchamianie skryptu: {0}",
 	"Hooks.Run.WaitingForEnd": "Oczekiwanie na zakończenie...",
 	"Hooks.Run.Error": "Błąd uruchamiania skryptu: {0}",
@@ -29,19 +35,42 @@
 	"Config.Error.AssetsDirDidNotFound":" Folder ({0}) nie istnieje!",
 	"Config.Error.FileDidNotFound": "Plik ({0}) nie istnieje!",
 
+	"Config.Error.RootDirNotConfigured": "Ścieżka katalogu głównego gry nie została ustawiona w pliku konfiguracyjnym!",
+	"Config.Error.AssetsNotConfigured": "Ścieżka zasobów projektu nie została ustawiona w pliku konfiguracyjnym!",
+	"Config.Error.DefaultWorldNotConfigured": "Domyślny świat (ZEN) nie został ustawiony w pliku konfiguracyjnym!",
+	"Config.Error.ModVdfOutputNotConfigured": "Ścieżka zapisu paczki z modyfikacją nie została ustawiona w pliku konfiguracyjnym!",
+
+	"Config.Error.ProjectNameNotConfigured": "Nazwa projektu nie została ustawiona w pliku konfiguracyjnym!",
+		
 	"GetTool.Error": "Nie znaleziono {0}. Zainstaluj aplikację ponownie.",
 
 	"Gothic.Error.DidNotFoundExe": "Nie znaleziono pliku wykonywalnego gry Gothic lub Gothic 2 Noc Kruka!",
-	"Gothic.Error.WrongExeVersion": "Zła wersja pliku wykonywalnego gry {0}!",
 	"Gothic.Error.AlreadyRunning": "Gra {0} jest już uruchomiona!",
 	"Gothic.RunningWithParameters": "Uruchamianie gry {0} z parametrami: {1}",
 	"Gothic.Running": "Uruchamianie gry {0}...",
 	"Gothic.CompilingAssets": "Kompilowanie zasobów...",
 
+	"Spacer.Running": "Uruchamianie programu Spacer...",
+	"Spacer.RunningWithParameters": "Uruchamianie programu Spacer z parametrami: {0}",
+	"Spacer.Error.AlreadyRunning": "Spacer jest już uruchomiony!",
+	
 	"Install.UnpackingOriginalAssets": "Rozpakowywanie oryginalnych zasobów...",
 	"Install.CopyingFiles": "Kopiowanie plików wskazanych w pliku konfiguracyjnym...",
 	"Install.PreparingOriginalAssets":" Przygotowywanie oryginalnych zasobów...",
 
+	"Install.Error.Reinstall.RequireFullTest": "Przy reinstalacji wymagany jest pełny test!",
+	"Install.Error.RequireFullTest": "Przy pierwszym uruchomieniu aplikacji lub przy zmianie pliku konfiguracyjnego wymagany jest pełny test!",
+	"Install.Error.Reinstall.RequireMergeAll": "Przy reinstalacji należy wybrać opcję połączenia wszystkich zasobów, aby uniknąc błedów związanych z ich brakiem!",
+	"Install.Error.RequireMergeAll": "Przy pierwszym uruchomieniu aplikacji lub przy zmianie pliku konfiguracyjnego należy wybrać opcję połączenia wszystkich zasobów, aby uniknąc błedów związanych z ich brakiem.",
+
+	"Install.Error.RunFullTest": "Uruchom program z parametrem `--full`.",
+	"Install.Error.RunMergeAll": "Uruchom program z opcją `--merge=all`.",
+	
+	"Install.LastConfigPathChanged.FirstRun": "Pierwsze uruchomienie aplikacji.",
+	"Install.LastConfigPathChanged.ConfigChanged": "Wykryto zmianę pliku konfiguracyjnego.",
+	
+	"Test.Error.RequireReinstall": "Oryginalne zasoby gry ({0}) nie zostały znalezione. Wymagana reinstalacja. Uruchom program z parametrem `--reinstall`.",
+	
 	"Merge.Merging": "Łączenie",
 
 	"VDF.PreparingFiles": "Przygotowywanie plików...",

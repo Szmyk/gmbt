@@ -2,11 +2,17 @@
 	"Done": "Done.",
 	"UnknownError": "Unknown error",
 	"ConvertingSubtitles": "Converting subtitles...",
+	"SearchingDuplicatedSubtitles": "Searching duplicated subtitles...",
+	"FoundDuplicatedDialogs": "Found duplicated dialogs:",
 	"CompilingTextures": "Compiling textures...",
 	"CompletedIn": "Completed in {0} min. {1} sec.",
 	"Compiled": "Compiled",
 	"Gothic2NotR": "Gothic 2 Night of the Raven",
 
+	"MinimalVersionRequired": "At least version {0} is required to run this project!",
+		
+	"Options.UsingPredefined": "Using predefined options ({0}): {1}",
+	
 	"Hooks.Run": "Running hook: {0}",
 	"Hooks.Run.WaitingForEnd": "Waiting for the end...",
 	"Hooks.Run.Error": "Running hook error: {0}",
@@ -29,19 +35,42 @@
 	"Config.Error.AssetsDirDidNotFound": "Assets directory ({0}) does not exist!",
 	"Config.Error.FileDidNotFound": "File ({0}) does not exist!",
 
+	"Config.Error.RootDirNotConfigured": "Path of root directory is not set in the configuration file!",
+	"Config.Error.AssetsNotConfigured": "Path of project's assets is not set in the configuration file!",
+	"Config.Error.DefaultWorldNotConfigured": "Default world (ZEN) is not set in the configuration file!",
+	"Config.Error.ModVdfOutputNotConfigured": "Path to save mod VDF is not set in the configuration file!",
+	
+	"Config.Error.ProjectNameNotConfigured": "Project's name is not set in the configuration file!",
+	
 	"GetTool.Error": "Did not find {0}. Reinstall application and try again.",
 
 	"Gothic.Error.DidNotFoundExe": "Did not found Gothic or Gothic 2 Night of the Raven EXE file!",
-	"Gothic.Error.WrongExeVersion": "Wrong {0} EXE version!",
 	"Gothic.Error.AlreadyRunning": "{0} is already running!",
 	"Gothic.RunningWithParameters": "Running {0} with parameters: {1}",
 	"Gothic.Running": "Running {0}...",
 	"Gothic.CompilingAssets": "Compiling assets... ",
 
+	"Spacer.Running": "Running Spacer...",
+	"Spacer.RunningWithParameters": "Running Spacer with parameters: {0}",
+	"Spacer.Error.AlreadyRunning": "Spacer is already running!",
+	
 	"Install.UnpackingOriginalAssets": "Unpacking original assets...",
 	"Install.CopyingFiles": "Copying files listed in config...",
 	"Install.PreparingOriginalAssets": "Preparing original assets...",
+	
+	"Install.Error.Reinstall.RequireFullTest": "Reinstallation requires full test!",
+	"Install.Error.RequireFullTest": "First run of application or changing config file requires full test!",
+	"Install.Error.Reinstall.RequireMergeAll": "Reinstallation requires merging all assets!",
+	"Install.Error.RequireMergeAll": "First run of application or changing config file requires merging all assets!",
 
+	"Install.Error.RunFullTest": "Run program with `--full` option.",
+	"Install.Error.RunMergeAll": "Run program with `--merge=all` option.",
+	
+	"Install.LastConfigPathChanged.FirstRun": "First run of tool.",
+	"Install.LastConfigPathChanged.ConfigChanged": "Config file change detected.",
+
+	"Test.Error.RequireReinstall": "Game resources ({0}) not found. Requires reinstallation. Run program with `--reinstall` option.",
+	
 	"Merge.Merging": "Merging",
 
 	"VDF.PreparingFiles": "Preparing files...",

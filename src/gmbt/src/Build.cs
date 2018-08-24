@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Szmyk.Utils.Time;
 
@@ -43,39 +43,24 @@ namespace GMBT
             {
                 runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
 
-                var message = "ConvertingSubtitles".Translate();
-
-                Program.Logger.Trace(message);
-
-                using (ProgressBar bar = new ProgressBar(message, 1))
-                {
-                    OutputUnitsUpdater.OutputUnitsUpdater.Update(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsContent),
-                                                                 gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene) + "OU.csl");
-                }
+                UpdateDialogs();
 
                 runHooks(HookType.Post, HookEvent.SubtitlesUpdate);
             }
 
-            runHooks(HookType.Pre, HookEvent.TexturesCompile);
-
-            Textures.CompileTextures(gothic.GetGameDirectory(Gothic.GameDirectory.Textures),
-                                     gothic.GetGameDirectory(Gothic.GameDirectory.TexturesCompiled));
-
-            runHooks(HookType.Post, HookEvent.TexturesCompile);
-
             compilingAssetsWatcher.Start();
+
+            ZSpy.Run();
 
             gothic.Start(GetGothicArguments()).WaitForExit();
 
+            ZSpy.Abort();
+
             compilingAssetsWatcher.Stop();
 
-            VDF vdf = new VDF(gothic);
-            vdf.PreparePathsForMakingVDF();
-            vdf.ClearDirectoriesBeforeMakingVDF();
-            vdf.RunBuilder();
-            vdf.ClearDirectoriesAfterMakingVDF();
+            new VDF(gothic).RunBuilder();
 
-            Program.Logger.Info("CompletedIn".Translate((TimeHelper.Now - startTime).Minutes, (TimeHelper.Now - startTime).Seconds));
+            Logger.Minimal("CompletedIn".Translate((TimeHelper.Now - startTime).Minutes, (TimeHelper.Now - startTime).Seconds));
         }
 
         /// <summary>
@@ -88,8 +73,10 @@ namespace GMBT
             arguments.Add("zwindow");
             arguments.Add("zreparse");
             arguments.Add("zconvertall");
+            arguments.Add("ztexconvert");
             arguments.Add("nomenu");
             arguments.Add("3d", "none");
+            arguments.Add("zautoconvertdata");
 
             return arguments;
         }

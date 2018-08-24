@@ -1,10 +1,10 @@
 hooks: 
     common: 
         post:
-            - assetsMerge: "a"
-        pre:
-            - texturesCompile: "b"
-            - texturesCompile: "c"
+            assetsMerge: 
+                - "a"
+                - "b"
     test: 
         post:
-            - subtitlesUpdate: "d"
+            subtitlesUpdate: 
+                - "d"

@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 using System.Collections.Generic;
 
 using YamlDotNet.Serialization;
@@ -8,7 +10,7 @@ namespace GMBT
 {
     using HooksTree = Dictionary<HookMode,
                       Dictionary<HookType,
-                      List<Dictionary<HookEvent, string>>>>;
+                      Dictionary<HookEvent, List<string>>>>;
 
     /// <summary>
     /// Implements deserializing of config file.
@@ -33,11 +35,46 @@ namespace GMBT
     /// </summary>
     internal static class ConfigParser
     {
-        public static void Parse(Config config)
+        public static void Parse (Config config)
         {
+            if (config.MinimalVersion != null)
+            {
+                string localVersion = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion;
+
+                if (Updater.IsVersionGreater(localVersion, config.MinimalVersion) == false)
+                {
+                    Logger.Fatal("MinimalVersionRequired".Translate(config.MinimalVersion));
+                }
+            }
+
+            if (config.ProjectName == null)
+            {
+                Logger.Fatal("Config.Error.ProjectNameNotConfigured".Translate());
+            }
+
+            if (config.GothicRoot == null)
+            {
+                Logger.Fatal("Config.Error.RootDirNotConfigured".Translate());
+            }
+
             if (Directory.Exists(config.GothicRoot) == false)
             {
                 throw new DirectoryNotFoundException("Config.Error.RootDirDidNotFound".Translate(config.GothicRoot));
+            }
+
+            if (config.ModFiles.Assets == null)
+            {
+                Logger.Fatal("Config.Error.AssetsNotConfigured".Translate());
+            }
+
+            if (config.ModFiles.DefaultWorld == null)
+            {
+                Logger.Fatal("Config.Error.DefaultWorldNotConfigured".Translate());
+            }
+
+            if (config.ModVdf.Output == null)
+            {
+                Logger.Fatal("Config.Error.ModVdfOutputNotConfigured".Translate());
             }
 
             foreach (var directory in config.ModFiles.Assets)
@@ -68,7 +105,11 @@ namespace GMBT
     /// Represents the structure of YAML config.
     /// </summary>
     internal class Config
-    {    
+    {
+        public string ProjectName { get; set; }
+
+        public string MinimalVersion { get; set; }
+
         public string GothicRoot { get; set; }
 
         public ModFiles ModFiles { get; set; }       
@@ -78,6 +119,8 @@ namespace GMBT
         public List<Dictionary<string, string>> GothicIniOverrides { get; set; }
 
         public HooksTree Hooks { get; set; }
+
+        public List<Dictionary<string, string>> Predefined { get; set; }
     }
 
     internal class ModFiles

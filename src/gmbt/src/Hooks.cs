@@ -7,7 +7,7 @@ namespace GMBT
 {
     using HooksTree = Dictionary<HookMode,
                       Dictionary<HookType,
-                      List<Dictionary<HookEvent, string>>>>;
+                      Dictionary<HookEvent, List<string>>>>;
 
     internal enum HookType
     {
@@ -22,8 +22,7 @@ namespace GMBT
     internal enum HookEvent
     {
         AssetsMerge,
-        SubtitlesUpdate,
-        TexturesCompile
+        SubtitlesUpdate
     }
 
     internal class Hook
@@ -35,19 +34,19 @@ namespace GMBT
 
         public void Run()
         {
-            Program.Logger.Info("Hooks.Run".Translate(this));
+            Logger.Normal("Hooks.Run".Translate(this));
 
             try
             {
                 var process = Process.Start(Command);
 
-                Program.Logger.Info("Hooks.Run.WaitingForEnd".Translate());
+                Logger.Normal("Hooks.Run.WaitingForEnd".Translate());
 
                 process.WaitForExit();           
             }
             catch (Exception ex)
             {
-                Program.Logger.Warn("Hooks.Run.Error".Translate(ex.Message));
+                Logger.Warn("Hooks.Run.Error".Translate(ex.Message));
             }
         }
 
@@ -90,14 +89,14 @@ namespace GMBT
                 {
                     foreach (var events in types.Value)
                     {
-                        foreach (var evt in events)
+                        foreach (var command in events.Value)
                         {
-                            Hooks.Add(new Hook()
+                            Hooks.Add(new Hook
                             {
                                 Mode = modes.Key,
                                 Type = types.Key,
-                                Event = evt.Key,
-                                Command = evt.Value
+                                Event = events.Key,
+                                Command = command
                             });
                         }
                     }

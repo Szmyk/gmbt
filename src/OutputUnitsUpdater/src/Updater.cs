@@ -3,85 +3,94 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-using Szmyk.Utils.Directory;
 using Szmyk.Utils.StringHelper;
+using System.Linq;
 
 namespace OutputUnitsUpdater
 {
-    public static class OutputUnitsUpdater
+    public class OutputUnitsUpdater
     {
-        public static List<OutputUnitInfo> ParseMany(string scriptsPath)
+        string _srcFile;
+        string _cslFile;
+
+        List<OutputUnitInfo> _ouList = new List<OutputUnitInfo>();
+
+        public OutputUnitsUpdater (string srcFile, string cslFile)
         {
-            List<OutputUnitInfo> ouInfos = new List<OutputUnitInfo>();
-
-            DirectoryHelper dialogs = new DirectoryHelper(scriptsPath);
-
-            foreach (string file in dialogs.GetFiles(new[] { "*.d" }))
-            {
-                OutputUnitsParser outputUnitsParser = new OutputUnitsParser(file, GetDialogFileType(file));
-
-                ouInfos.AddRange(outputUnitsParser.Parse());
-            }
-
-            return ouInfos;
+            _srcFile = srcFile;
+            _cslFile = cslFile;
         }
 
-        public static void Update (string scriptsPath, string cslFile)
+        public void Update()
         {
-            string ouDirectory = Path.GetDirectoryName(cslFile);
+            parse();
+
+            clearCompiledCutscenes();
+
+            writeCsl();
+        }
+
+        public List<OutputUnitInfo> GetDuplicates()
+        {
+            return OutputUnitsUpdaterHelper.GetDuplicates(_ouList);
+        }
+
+        List<OutputUnitInfo> parse ()
+        {
+            var src = new SrcFile(_srcFile);
+
+            foreach (var script in src.GetScripts())
+            {
+                var output = new OutputUnitsParser(script, getFileType(script)).Parse();
+
+                _ouList.AddRange(output);
+            }
+
+            return _ouList;
+        }
+
+        private void clearCompiledCutscenes ()
+        {
+            string ouDirectory = Path.GetDirectoryName(_cslFile);
 
             if (Directory.Exists(ouDirectory) == false)
             {
                 Directory.CreateDirectory(ouDirectory);
-            }      
-
-            if (File.Exists(ouDirectory + "\\OU.BIN"))
-            {
-                File.Delete(ouDirectory + "\\OU.BIN");
             }
 
-            List<OutputUnitInfo> ouList = ParseMany(scriptsPath);
+            var ouBin = Path.Combine(ouDirectory, "OU.BIN");
 
-            using (StreamWriter sw = new StreamWriter(new FileStream(cslFile, FileMode.OpenOrCreate), Encoding.Default))
+            if (File.Exists(ouBin))
             {
-                sw.Write(@"ZenGin Archive" + Environment.NewLine +
-                    "ver 1" + Environment.NewLine +
-                    "zCArchiverGeneric" + Environment.NewLine +
-                    "ASCII" + Environment.NewLine +
-                    "saveGame 0" + Environment.NewLine +
-                    "date " + DateTime.Now.ToString() + Environment.NewLine +
-                    "user " + Environment.UserName + Environment.NewLine +
-                    "END" + Environment.NewLine +
-                    "objects " + (ouList.Count * 3 + 1).ToString() + Environment.NewLine +
-                    "END" + Environment.NewLine + Environment.NewLine +
-
-                    "[% zCCSLib 0 0]" + Environment.NewLine +
-                    "\t" + "NumOfItems=int:" + ouList.Count + Environment.NewLine);
-
-                for (int i = 0; i < ouList.Count; i++)
-                {
-                    int j = i * 3;
-                   
-                    sw.Write(@"" +
-                        "\t" + "[% zCCSBlock 0 " + (j + 1).ToString() + "]" + Environment.NewLine +
-                        "\t\t" + "blockName=string:" + ouList[i].Name + Environment.NewLine +
-                        "\t\t" + "numOfBlocks=int:1" + Environment.NewLine +
-                        "\t\t" + "subBlock0=float:0" + Environment.NewLine +
-                        "\t\t" + "[% zCCSAtomicBlock 0 " + (j + 2).ToString() + "]" + Environment.NewLine +
-                        "\t\t\t" + "[% oCMsgConversation:oCNpcMessage:zCEventMessage 0 " + (j + 3).ToString() + "]" + Environment.NewLine +
-                        "\t\t\t\t" + "subType=enum:0" + Environment.NewLine +
-                        "\t\t\t\t" + "text=string:" + ouList[i].Text + Environment.NewLine +
-                        "\t\t\t\t" + "name=string:" + ouList[i].Name.ToUpper().RemoveSpaces() + ".WAV" + Environment.NewLine +
-                        "\t\t\t" + "[]" + Environment.NewLine +
-                        "\t\t" + "[]" + Environment.NewLine +
-                        "\t" + "[]" + Environment.NewLine);
-                }
-
-                sw.WriteLine("[]");
+                File.Delete(ouBin);
             }
         }
 
-        public static OutputUnitsParser.ScriptType GetDialogFileType(string scriptPath)
+        void writeCsl ()
+        {
+            var writer = new ZenArchiveWriter(_cslFile);
+
+            var mainObject = writer.AddMainObject("zCCSLib");
+            mainObject.AddProperty("NumOfItems", "int", _ouList.Count);
+
+            for (int i = 0; i < _ouList.Count; i++)
+            {
+                var block = mainObject.AddChild("zCCSBlock");
+                block.AddProperty("blockName", "string", _ouList[i].Name);
+                block.AddProperty("numOfBlocks", "int", 1);
+                block.AddProperty("subBlock0", "float", 0);
+
+                var atomicBlock = block.AddChild("zCCSAtomicBlock");
+                var eventMessage = atomicBlock.AddChild("oCMsgConversation:oCNpcMessage:zCEventMessage");
+                eventMessage.AddProperty("subType", "enum", 0);
+                eventMessage.AddProperty("text", "string", _ouList[i].Text);
+                eventMessage.AddProperty("name", "string", _ouList[i].Name.ToUpper().RemoveSpaces() + ".WAV");   
+            }
+
+            writer.Save();
+        }
+
+        OutputUnitsParser.ScriptType getFileType(string scriptPath)
         {
             return scriptPath.ToLower().Contains("svm")
                  ? OutputUnitsParser.ScriptType.Svm

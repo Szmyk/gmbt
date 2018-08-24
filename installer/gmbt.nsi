@@ -8,6 +8,11 @@ XPStyle on
 
 RequestExecutionLevel user
 
+PageEx license
+  LicenseData "..\EULA"
+  LicenseForceSelection checkbox
+PageExEnd
+
 Page license
 Page instfiles
 
@@ -73,15 +78,8 @@ Section ""
   File "..\src\gmbt\bin\Release\*.dll"
   
   SetOutPath "$INSTDIR\tools"
-  File "..\tools\DDS2ZTEX Converter\dds2ztex.exe"
-  File "..\tools\DDS2ZTEX Converter\dds2ztex.txt"
   File "..\tools\GothicVDFS 2.6\GothicVDFS.exe"
   File  /oname=GothicVDFS_ReadMe.txt "..\tools\GothicVDFS 2.6\ReadMe.txt"
-  File "..\tools\nvDXT\nvdxt.exe"
-  File "..\tools\nvDXT\nvdxtLicense.pdf"
-  File "..\tools\zSpy 2.05\zSpy.exe"
-  File "..\tools\zSpy 2.05\zSPYdefault.cfg"
-  File /oname=zSpy_ReadMe.txt "..\tools\zSpy 2.05\ReadMe.txt" 
   
   WriteRegStr HKCU SOFTWARE\GMBT "Install_Dir" "$INSTDIR"
    
