@@ -1,3 +1,30 @@
+## [0.15] - 2018-08-24
+
+### New features
+- Add [Rollbar](https://rollbar.com) integration
+- Options: Add `devmode` parameter
+- OU: Displaying dialogues duplicates (`--show-duplicated-subtitles` parameter)
+- Config: Add `projectName` and `minimalVersion` keys
+- Receiving zSpy messages in-app
+
+### Improved
+- Compiling textures by Gothic instead of external tools
+- Replace extracting original assets with `vdfs:physicalfirst`
+- Replace GothicVDFS with [VdfsSharp](https://github.com/Szmyk/VdfsSharp) library
+- Detecting if ZEN selected to run is not exists (#10)
+- Detecting wrong options combinations (#11)
+- Gothic: Remove checking EXE header checksum
+- Allow to declare many commands for each hook
+- Replace NLog with own logger
+
+### Fixed
+- OU: Ignore empty comments
+
+### Migration guide from v0.x to v0.15
+
+- Add `projectName` string key in config file
+- If you use hooks, you have to fix syntax. More information at hooks section in [ReadMe](https://github.com/Szmyk/gmbt/blob/master/README.md#hooks).
+
 ## [0.14.1] - 2018-08-12
 
 ### Fixed
@@ -86,7 +113,9 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.14...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.15...HEAD
+[0.15]: https://github.com/szmyk/gmbt/compare/v0.14.1...v0.15
+[0.14.1]: https://github.com/szmyk/gmbt/compare/v0.14...v0.14.1
 [0.14]: https://github.com/szmyk/gmbt/compare/v0.13...v0.14
 [0.13]: https://github.com/szmyk/gmbt/compare/v0.12...v0.13
 [0.12]: https://github.com/szmyk/gmbt/compare/v0.11.1...v0.12
