@@ -63,12 +63,6 @@ namespace GMBT
             }
 
             GothicINI = new IniFile(GetGameFile(GameFile.GothicIni));
-
-            Logger.SetOnFatalEvent(() =>
-            {
-                EnableVdfs();
-                gothicProcess?.Kill();
-            });
         }
 
         List<string> disabledVdfs = new List<string>();

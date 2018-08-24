@@ -125,6 +125,11 @@ namespace GMBT
                 }
             }
 
+            Logger.SetOnFatalEvent(() =>
+            {
+                gothic.Dispose();
+            });
+
             if (Mode == TestMode.Full)
             {
                 gothic.DisableVdfs();
