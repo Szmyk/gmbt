@@ -13,6 +13,8 @@ namespace GMBT
 {
     internal static class Rollbar
     {
+        public static string LastUuid;
+
         public static void InitRollbar()
         {
             RollbarLocator.RollbarInstance.Configure(new RollbarConfig("8086308d42f6445bbc44aeab7be68e99")
@@ -28,7 +30,12 @@ namespace GMBT
                     Id = getUniqueId() ?? Environment.MachineName ?? "unknown",
                     Email = getGitUserEmail() ?? "unknown",
                     UserName = getGitUserName() ?? Environment.UserName ?? "unknown"
-                }
+                },
+
+                Transform = new Action<Payload>((s) => 
+                {               
+                    LastUuid = s.Data.Uuid;
+                })
             });
         }
 
@@ -38,6 +45,7 @@ namespace GMBT
             {
                 { "version", FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion },
                 { "cmd",  Program.Options.Arguments ?? null },
+                { "log",  Logger.IsFileTargetInit ? Logger.ReadStreamToEnd() : null },
                 { "config", Program.Config ?? null },
                 { "lang", Program.Options.Common.Language ?? null },
                 { "lang_cc", Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName ?? null  },
@@ -47,14 +55,23 @@ namespace GMBT
             };
         }
 
-        public static void Critical(System.Exception ex)
+        public static bool Critical(System.Exception ex)
         {
             if (RollbarLocator.RollbarInstance.Config.AccessToken == null)
             {
                 InitRollbar();
             }
 
-            RollbarLocator.RollbarInstance.AsBlockingLogger(TimeSpan.FromSeconds(5)).Critical(ex, getCustomData());
+            try
+            {
+                RollbarLocator.RollbarInstance.AsBlockingLogger(TimeSpan.FromSeconds(5)).Critical(ex, getCustomData());
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public static void Info(string message)

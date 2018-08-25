@@ -71,6 +71,9 @@
 
 	"Test.Error.RequireReinstall": "Game resources ({0}) not found. Requires reinstallation. Run program with `--reinstall` option.",
 	
+	"ErrorSendToDeveloper": "Information about error has been sent to developer of the tool.\nIf you want to help in fixing the error, please report: https://github.com/Szmyk/gmbt/issues/new/choose.\nError ID: {0}",	
+	"CannotSendErrorToDeveloper": "Could not send information about error to developer of the tool.\nIf you want to help in fixing the error, please report: https://github.com/Szmyk/gmbt/issues/new/choose.\n",	
+	
 	"Merge.Merging": "Merging",
 
 	"VDF.PreparingFiles": "Preparing files...",

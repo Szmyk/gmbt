@@ -17,12 +17,14 @@ namespace GMBT
 
         static void Main(string[] args)
         {
+            Rollbar.InitRollbar();
+
+            Console.WriteLine(CommandLine.Text.HeadingInfo.Default + Environment.NewLine + CommandLine.Text.CopyrightInfo.Default + Environment.NewLine);
+
+            Internationalization.Init();
+   
             try
             {
-                Console.WriteLine(CommandLine.Text.HeadingInfo.Default + Environment.NewLine + CommandLine.Text.CopyrightInfo.Default + Environment.NewLine);
-
-                Internationalization.Init();
-
                 Options.Arguments = args;
 
                 ParseCommandLine(args);
@@ -34,9 +36,9 @@ namespace GMBT
             }
             catch (Exception e)
             {
-                Rollbar.Critical(e);
+                bool sentToRollbar = Rollbar.Critical(e);
 
-                Logger.Fatal("UnknownError".Translate() + e.ToString());
+                Logger.UnknownFatal(e, sentToRollbar);
             }         
         }
 
@@ -111,126 +113,116 @@ namespace GMBT
 
                     ConfigParser.Parse(Config);
 
-                    if (Config.Predefined != null)
-                    {
-                        if (args.Length > 1)
-                        {
-                            var options = Config.Predefined.Where(x => x.ContainsKey(args[1]));
-
-                            if (options.Count() > 0)
-                            {
-                                var arguments = options.First().First().Value.Split(' ');
-
-                                Logger.Minimal("Options.UsingPredefined".Translate(args[1], string.Join(" ", arguments)));
-
-                                var argsWithoutPredefinedOptionName = args.ToList();
-
-                                argsWithoutPredefinedOptionName.RemoveAt(1);
-
-                                ParseCommandLine(argsWithoutPredefinedOptionName.Concat(arguments).ToArray());
-
-                                return;
-                            }
-                        }
-                    }                
-
-                    if (Config.Hooks != null)
-                    {
-                        HooksManager.RegisterHooks(Config.Hooks);
-                    }
                 }
                 catch (YamlException e)
                 {
                     Logger.Fatal("Config.Error.ParsingError".Translate(e.Message));
                     return;
+                }              
+
+                if (Config.Predefined != null)
+                {
+                    if (args.Length > 1)
+                    {
+                        var options = Config.Predefined.Where(x => x.ContainsKey(args[1]));
+
+                        if (options.Count() > 0)
+                        {
+                            var arguments = options.First().First().Value.Split(' ');
+
+                            Logger.Minimal("Options.UsingPredefined".Translate(args[1], string.Join(" ", arguments)));
+
+                            var argsWithoutPredefinedOptionName = args.ToList();
+
+                            argsWithoutPredefinedOptionName.RemoveAt(1);
+
+                            ParseCommandLine(argsWithoutPredefinedOptionName.Concat(arguments).ToArray());
+
+                            return;
+                        }
+                    }
                 }
-               
+
+                if (Config.Hooks != null)
+                {
+                    HooksManager.RegisterHooks(Config.Hooks);
+                }
+
                 using (Gothic gothic = new Gothic(Config.GothicRoot))
                 {
                     Logger.InitFileTarget();
+                   
+                    var install = new Install(gothic);
 
-                    try
+                    install.DetectLastConfigChanges();
+
+                    install.CheckRollbarTelemetry();
+
+                    if (Options.InvokedVerb == "test")
                     {
-                        var install = new Install(gothic);
-
-                        install.DetectLastConfigChanges();
-
-                        install.CheckRollbarTelemetry();
-
-                        if (Options.InvokedVerb == "test")
+                        if (install.LastConfigPathChanged()
+                        || ( Options.TestVerb.ReInstall ))
                         {
-                            if (install.LastConfigPathChanged()
-                            || ( Options.TestVerb.ReInstall ))
+                            if (Options.TestVerb.Full == false)
                             {
-                                if (Options.TestVerb.Full == false)
+                                if (Options.TestVerb.ReInstall)
                                 {
-                                    if (Options.TestVerb.ReInstall)
-                                    {
-                                        Logger.Fatal("Install.Error.Reinstall.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
-                                    }
-                                    else
-                                    {
-                                        Logger.Fatal("Install.Error.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
-                                    }
-                                }
-                                else if (Options.TestVerb.Merge != Merge.MergeOptions.All)
-                                {
-                                    if (Options.TestVerb.ReInstall)
-                                    {
-                                        Logger.Fatal("Install.Error.Reinstall.RequireMergeAll".Translate() + " " + "Install.Error.RunMergeAll".Translate());
-                                    }
-                                    else
-                                    {
-                                        Logger.Fatal("Install.Error.RequireMergeAll".Translate() + " " + "Install.Error.RunMergeAll".Translate());
-                                    }
+                                    Logger.Fatal("Install.Error.Reinstall.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
                                 }
                                 else
                                 {
-                                    install.Start();
+                                    Logger.Fatal("Install.Error.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
                                 }
                             }
-                            else
+                            else if (Options.TestVerb.Merge != Merge.MergeOptions.All)
                             {
-                                if (Directory.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)) == false)
+                                if (Options.TestVerb.ReInstall)
                                 {
-                                    Logger.Fatal("Test.Error.RequireReinstall");
+                                    Logger.Fatal("Install.Error.Reinstall.RequireMergeAll".Translate() + " " + "Install.Error.RunMergeAll".Translate());
+                                }
+                                else
+                                {
+                                    Logger.Fatal("Install.Error.RequireMergeAll".Translate() + " " + "Install.Error.RunMergeAll".Translate());
                                 }
                             }
+                            else
+                            {
+                                install.Start();
+                            }
+                        }
+                        else
+                        {
+                            if (Directory.Exists(gothic.GetGameDirectory(Gothic.GameDirectory.WorkData)) == false)
+                            {
+                                Logger.Fatal("Test.Error.RequireReinstall");
+                            }
+                        }
 
-                            if (Options.TestVerb.Full)
-                            {
-                                new Test(gothic, TestMode.Full).Start();
-                            }
-                            else
-                            {
-                                new Test(gothic, TestMode.Quick).Start();
-                            }
-                        }
-                        else if (Options.InvokedVerb == "spacer")
+                        if (Options.TestVerb.Full)
                         {
-                            if (install.LastConfigPathChanged())
-                            {
-                                Logger.Fatal("Install.Error.Reinstall.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
-                            }
-                            else
-                            {
-                                new Spacer(gothic).Start();
-                            }                          
+                            new Test(gothic, TestMode.Full).Start();
                         }
-                        else if (Options.InvokedVerb == "build")
+                        else
                         {
-                            install.Start();
-                            new Build(gothic).Start();
+                            new Test(gothic, TestMode.Quick).Start();
                         }
                     }
-                    catch (Exception e)
+                    else if (Options.InvokedVerb == "spacer")
                     {
-                        gothic.EndProcess();
-
-                        Rollbar.Critical(e);
-
-                        Logger.Fatal("UnknownError".Translate() + ": {0} {1}\n\n{2}", e.GetType(), e.Message, e.StackTrace);
+                        if (install.LastConfigPathChanged())
+                        {
+                            Logger.Fatal("Install.Error.Reinstall.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
+                        }
+                        else
+                        {
+                            new Spacer(gothic).Start();
+                        }                          
                     }
+                    else if (Options.InvokedVerb == "build")
+                    {
+                        install.Start();
+                        new Build(gothic).Start();
+                    }                  
                 }
             }
         }

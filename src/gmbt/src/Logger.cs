@@ -18,7 +18,9 @@ namespace GMBT
     {
         public static VerbosityLevel Verbosity;
 
-        private static string logFilePath;
+        public static bool IsFileTargetInit { get => writer != null; }
+
+        public static string LogFilePath;
 
         private static StreamWriter writer;
 
@@ -29,13 +31,18 @@ namespace GMBT
 
         public static void WriteLineToFile(string msg)
         {
-            if (fileTargetInited)
+            if (IsFileTargetInit)
             {
                 writer.WriteLine("{0}: {1}", DateTime.Now.ToString("HH:mm:ss.ffff"), msg);
             }
         }
 
-        private static bool fileTargetInited;
+        public static string ReadStreamToEnd ()
+        {
+            writer.BaseStream.Position = 0;
+
+            return new StreamReader(writer.BaseStream).ReadToEnd();
+        }
 
         public static void InitFileTarget()
         {
@@ -57,22 +64,23 @@ namespace GMBT
 
             var fileName = Path.Combine(now.ToString("yyyy-MM-dd"), now.ToString("HH-mm-ss")) + ".log";
 
-            logFilePath = Path.Combine(Program.AppData.Logs, fileName);
+            LogFilePath = Path.Combine(Program.AppData.Logs, fileName);
 
-            Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(LogFilePath));
 
-            writer = File.AppendText(logFilePath);
-
-            writer.AutoFlush = true;
+            writer = new StreamWriter(File.Open(LogFilePath, FileMode.Create, FileAccess.ReadWrite))
+            {
+                AutoFlush = true
+                
+            };
 
             writer.Write(
                 HeadingInfo.Default + Environment.NewLine + CopyrightInfo.Default + Environment.NewLine + Environment.NewLine +
                 "AppData: " + Program.AppData.Path + Environment.NewLine +
                 "Working directory: " + Directory.GetCurrentDirectory() + Environment.NewLine +
                 "Console arguments: " + String.Join(" ", Program.Options.Arguments) + Environment.NewLine +
-                "Config: " + Environment.NewLine + Environment.NewLine + File.ReadAllText(Program.Options.CommonTestSpacerBuild.ConfigFile) + Environment.NewLine);
-
-            fileTargetInited = true;
+                "Config: " + Environment.NewLine + Environment.NewLine + File.ReadAllText(Program.Options.CommonTestSpacerBuild.ConfigFile) + Environment.NewLine
+            );
         }
 
         public static void Init(VerbosityLevel level)
@@ -159,7 +167,7 @@ namespace GMBT
             Fatal(string.Format(msg, arg));
         }
 
-        public static void Fatal(string msg)
+        public static void Fatal(string msg, bool exitProgram)
         {
             onFatal?.Invoke();
 
@@ -167,6 +175,30 @@ namespace GMBT
 
             WriteLineToFile(msg);
 
+            if (exitProgram)
+            {
+                Environment.Exit(-1);
+            }
+        }
+
+        public static void Fatal(string msg)
+        {
+            Fatal(msg, true);
+        }
+
+        public static void UnknownFatal(Exception ex, bool sentToRollbar)
+        {
+            Fatal($"{"UnknownError".Translate()}: {ex.ToString()}", false);
+      
+            if (sentToRollbar)
+            {
+                Console.WriteLineDouble("ErrorSendToDeveloper".Translate(Rollbar.LastUuid), ConsoleColor.Cyan);
+            }
+            else
+            {
+                Console.WriteLineDouble("CannotSendErrorToDeveloper".Translate(), ConsoleColor.Cyan);
+            }
+           
             Environment.Exit(-1);
         }
     }
