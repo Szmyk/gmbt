@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 using CommandLine.Text;
@@ -40,7 +40,23 @@ namespace GMBT
 
         public static void InitFileTarget()
         {
-            var fileName = Path.Combine(DateTime.Now.ToString("yyyy-MM-dd"), DateTime.Now.ToString("HH-mm-ss")) + ".log";
+            var now = DateTime.Now;
+
+            var weekBefore = now.AddDays(-7);
+
+            foreach (var dir in Directory.GetDirectories(Program.AppData.Logs))
+            {
+                var dirName = Path.GetFileName(dir);
+
+                var dateOfLogDirectory = DateTime.FromFileTime(Directory.GetCreationTime(dir).ToFileTime());
+
+                if (dateOfLogDirectory.CompareTo(weekBefore) < 0)
+                {
+                    Directory.Delete(dir, true);
+                }           
+            }
+
+            var fileName = Path.Combine(now.ToString("yyyy-MM-dd"), now.ToString("HH-mm-ss")) + ".log";
 
             logFilePath = Path.Combine(Program.AppData.Logs, fileName);
 
