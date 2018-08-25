@@ -1,3 +1,8 @@
+## [0.15.1] - 2018-08-25
+
+### Fixed
+- Updater: Fix version comparing
+
 ## [0.15] - 2018-08-24
 
 ### New features
@@ -113,7 +118,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.15...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.15.1...HEAD
+[0.15.1]: https://github.com/szmyk/gmbt/compare/v0.15...v0.15.1
 [0.15]: https://github.com/szmyk/gmbt/compare/v0.14.1...v0.15
 [0.14.1]: https://github.com/szmyk/gmbt/compare/v0.14...v0.14.1
 [0.14]: https://github.com/szmyk/gmbt/compare/v0.13...v0.14
