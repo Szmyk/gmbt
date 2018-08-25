@@ -1,4 +1,4 @@
-SetCompressor lzma
+SetCompressor /solid lzma 
 
 !include utils.nsi
 
