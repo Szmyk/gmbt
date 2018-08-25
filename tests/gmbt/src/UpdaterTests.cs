@@ -8,6 +8,7 @@ namespace GMBT.Tests
         [TestMethod]
         public void IsVersionGreaterTest()
         {
+            Assert.AreEqual(false, Updater.IsVersionGreater("v0.15", "v0.15"));
             Assert.AreEqual(false, Updater.IsVersionGreater("v0.12", "v0.13"));
             Assert.AreEqual(true,  Updater.IsVersionGreater("v0.13", "v0.12"));
             Assert.AreEqual(true,  Updater.IsVersionGreater("v0.12", "v0.12-beta"));

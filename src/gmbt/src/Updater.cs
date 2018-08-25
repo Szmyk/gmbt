@@ -42,7 +42,11 @@ namespace GMBT
             Version versionA = new Version(version1);
             Version versionB = new Version(version2);
 
-            if (v2Splitted.Length == 2)
+            if (v1 == v2)
+            {
+                return false;
+            }
+            else if (v2Splitted.Length == 2)
             {
                 return false;
             }
