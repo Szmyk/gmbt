@@ -32,7 +32,6 @@ namespace GMBT
             if (fileTargetInited)
             {
                 writer.WriteLine("{0}: {1}", DateTime.Now.ToString("HH:mm:ss.ffff"), msg);
-                writer.Flush();
             }
         }
 
@@ -64,14 +63,14 @@ namespace GMBT
 
             writer = File.AppendText(logFilePath);
 
+            writer.AutoFlush = true;
+
             writer.Write(
                 HeadingInfo.Default + Environment.NewLine + CopyrightInfo.Default + Environment.NewLine + Environment.NewLine +
                 "AppData: " + Program.AppData.Path + Environment.NewLine +
                 "Working directory: " + Directory.GetCurrentDirectory() + Environment.NewLine +
                 "Console arguments: " + String.Join(" ", Program.Options.Arguments) + Environment.NewLine +
                 "Config: " + Environment.NewLine + Environment.NewLine + File.ReadAllText(Program.Options.CommonTestSpacerBuild.ConfigFile) + Environment.NewLine);
-
-            writer.Flush();
 
             fileTargetInited = true;
         }
