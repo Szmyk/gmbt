@@ -86,6 +86,8 @@ Section ""
   Push "$INSTDIR\bin"
   Call AddToPath
 
+  DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\GMBT"
+  
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\GMBT" "DisplayName" "Gothic Mod Build Tool"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\GMBT" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\GMBT" "NoModify" 1
