@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace OutputUnitsUpdater
 
             content = stripComments(content);
 
-            foreach (string line in content.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (string line in content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None))
             {
                 if (pattern.IsMatch(line))
                 {
@@ -50,7 +50,7 @@ namespace OutputUnitsUpdater
                     if (text != string.Empty)
                     {
                         ouList.Add(new OutputUnitInfo(splitted[2], text));
-                    }                 
+                    }
                 }
             }
 
