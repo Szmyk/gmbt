@@ -29,7 +29,9 @@ namespace OutputUnitsUpdater
 
             List<string> toReturn = new List<string>();
 
-            var lines = File.ReadAllLines(srcFilePath)
+            var allLines = File.ReadAllLines(srcFilePath);
+
+            var lines = allLines
                        .Select(x => StringHelper.RemoveComments(x))                                                   
                        .Where(x => String.IsNullOrWhiteSpace(x) == false);
 
@@ -43,11 +45,27 @@ namespace OutputUnitsUpdater
                 {
                     if (fullPath.Contains("*"))
                     {
-                        toReturn.AddRange(resolveWildcard(fullPath));
+                        var scripts = resolveWildcard(fullPath);
+
+                        if (scripts.Count > 0)
+                        {
+                            toReturn.AddRange(scripts);
+                        }
+                        else
+                        {
+                            throw new MatchingFilesNotFoundException(line, Array.IndexOf(allLines, line) + 1);
+                        }                    
                     }
                     else
                     {
-                        toReturn.Add(fullPath);
+                        if (File.Exists(fullPath))
+                        {
+                            toReturn.Add(fullPath);
+                        }
+                        else
+                        {
+                            throw new MatchingFilesNotFoundException(line, Array.IndexOf(allLines, line) + 1);
+                        }                       
                     }
                 }
                 else if (extension == ".src")

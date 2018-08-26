@@ -11,6 +11,8 @@
 
 	"MinimalVersionRequired": "Wymagana przynajmniej wersja {0} do uruchomienia tego projektu!",
 	
+	"FoundNoMatchingFiles": "Nie znaleziono plików: {0} (linia {1})",
+	
 	"Options.UsingPredefined": "Użyto predefiniowanego zestawu parametrów ({0}): {1}",
 		
 	"Hooks.Run": "Uruchamianie skryptu: {0}",

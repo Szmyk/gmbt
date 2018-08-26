@@ -41,8 +41,15 @@ namespace GMBT
                 Path.Combine(gothic.GetGameDirectory(Gothic.GameDirectory.ScriptsCutscene), "OU.csl")
             );
 
-            updater.Update();
-
+            try
+            {
+                updater.Update();
+            }
+            catch (OutputUnitsUpdater.MatchingFilesNotFoundException ex)
+            {
+                Logger.Fatal("FoundNoMatchingFiles".Translate(ex.Line, ex.LineNumber));
+            }
+           
             if (Program.Options.CommonTestBuild.ShowDuplicatedSubtitles)
             {
                 Logger.Normal("SearchingDuplicatedSubtitles".Translate());

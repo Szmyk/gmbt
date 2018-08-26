@@ -11,6 +11,8 @@
 
 	"MinimalVersionRequired": "At least version {0} is required to run this project!",
 		
+	"FoundNoMatchingFiles": "Found no matching files: {0} (line {1})",
+			
 	"Options.UsingPredefined": "Using predefined options ({0}): {1}",
 	
 	"Hooks.Run": "Running hook: {0}",
