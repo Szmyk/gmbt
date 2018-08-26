@@ -1,3 +1,16 @@
+## [0.16] - 2018-08-26
+
+### Fixed
+- OU: Fix line endings
+- OU: Handle SRC files errors
+
+### Improved
+- Logger: Add removing old logs
+- Logger: Add auto flushing of stream
+- Logger: Enhance logging exceptions
+- Installer: Change compression to solid LZMA
+- Installer: Deleting uninstall registry key before installation
+
 ## [0.15.1] - 2018-08-25
 
 ### Fixed
@@ -118,7 +131,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.15.1...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16...HEAD
+[0.16]: https://github.com/szmyk/gmbt/compare/v0.15.1...v0.16
 [0.15.1]: https://github.com/szmyk/gmbt/compare/v0.15...v0.15.1
 [0.15]: https://github.com/szmyk/gmbt/compare/v0.14.1...v0.15
 [0.14.1]: https://github.com/szmyk/gmbt/compare/v0.14...v0.14.1
