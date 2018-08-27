@@ -50,6 +50,11 @@ namespace GMBT
 
             var weekBefore = now.AddDays(-7);
 
+            if (Directory.Exists(Program.AppData.Logs) == false)
+            {
+                Directory.CreateDirectory(Program.AppData.Logs);
+            }
+
             foreach (var dir in Directory.GetDirectories(Program.AppData.Logs))
             {
                 var dirName = Path.GetFileName(dir);
