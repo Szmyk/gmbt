@@ -1,3 +1,8 @@
+## [0.16.1] - 2018-08-27
+
+### Fixed
+- Logger: Creating `logs` directory if not exists
+
 ## [0.16] - 2018-08-26
 
 ### Fixed
@@ -131,7 +136,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16.1...HEAD
+[0.16.1]: https://github.com/szmyk/gmbt/compare/v0.16...v0.16.1
 [0.16]: https://github.com/szmyk/gmbt/compare/v0.15.1...v0.16
 [0.15.1]: https://github.com/szmyk/gmbt/compare/v0.15...v0.15.1
 [0.15]: https://github.com/szmyk/gmbt/compare/v0.14.1...v0.15
