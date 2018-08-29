@@ -26,7 +26,7 @@
     <img src="https://img.shields.io/github/downloads/szmyk/gmbt/total.svg" alt="Downloads of Github Releases">
   </a>
   
-  <a href="https://discord.gg/N4eGsJj">
+  <a href="https://discord.gg/C6xxQ7Z">
     <img src="https://discordapp.com/api/guilds/472863935943409665/embed.png" alt="Join the Discord chat">
   </a>
   
@@ -420,7 +420,7 @@ Big thanks to:
 
 * [![Contributing](https://img.shields.io/badge/contributing-guidelines-blue.svg)](https://github.com/Szmyk/gmbt/tree/master/.github/CONTRIBUTING.md)
 * [![GitHub issues](https://img.shields.io/github/issues/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues) [![GitHub closed issues](https://img.shields.io/github/issues-closed/szmyk/gmbt.svg)](https://github.com/Szmyk/gmbt/issues)
-* [![Join the Discord chat](https://discordapp.com/api/guilds/472863935943409665/embed.png)](https://discord.gg/N4eGsJj)  [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gothic-mod-build-tool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+* [![Join the Discord chat](https://discordapp.com/api/guilds/472863935943409665/embed.png)](https://discord.gg/C6xxQ7Z)  [![Join the chat](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gothic-mod-build-tool?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
 [The Chronicles of Myrtana]: https://kronikimyrtany.pl/en
 [D3D11-Renderer for Gothic]: https://forum.worldofplayers.de/forum/threads/1441897-D3D11-Renderer-fÄ‚Ä˝r-Gothic-2-(alpha)-15
