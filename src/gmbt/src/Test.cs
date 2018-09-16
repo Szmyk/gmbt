@@ -112,8 +112,8 @@ namespace GMBT
                 runHooks(HookType.Post, HookEvent.AssetsMerge);
             }
 
-            if ((Program.Options.TestVerb.Merge == Merge.MergeOptions.Scripts)
-            || (Program.Options.TestVerb.Merge == Merge.MergeOptions.All))
+            if ((Program.Options.TestVerb.Merge == Merge.MergeOptions.All)
+            || (Program.Options.TestVerb.Merge.HasFlag(Merge.MergeOptions.Scripts)))
             {
                 if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
                 {
