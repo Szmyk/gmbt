@@ -1,3 +1,8 @@
+## [0.16.2] - 2018-09-16
+
+### Fixed
+- Test: Fix subtitles updating condition
+
 ## [0.16.1] - 2018-08-27
 
 ### Fixed
@@ -136,7 +141,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16.1...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16.2...HEAD
+[0.16.2]: https://github.com/szmyk/gmbt/compare/v0.16.1...v0.16.2
 [0.16.1]: https://github.com/szmyk/gmbt/compare/v0.16...v0.16.1
 [0.16]: https://github.com/szmyk/gmbt/compare/v0.15.1...v0.16
 [0.15.1]: https://github.com/szmyk/gmbt/compare/v0.15...v0.15.1
