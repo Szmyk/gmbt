@@ -1,3 +1,8 @@
+## [0.16.3] - 2018-09-17
+
+### Fixed
+- Fix default internationalization
+
 ## [0.16.2] - 2018-09-16
 
 ### Fixed
@@ -141,7 +146,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16.2...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16.3...HEAD
+[0.16.3]: https://github.com/szmyk/gmbt/compare/v0.16.2...v0.16.3
 [0.16.2]: https://github.com/szmyk/gmbt/compare/v0.16.1...v0.16.2
 [0.16.1]: https://github.com/szmyk/gmbt/compare/v0.16...v0.16.1
 [0.16]: https://github.com/szmyk/gmbt/compare/v0.15.1...v0.16
