@@ -27,9 +27,16 @@ namespace GMBT
 
         static public void Init()
         {
-            var lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            var lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
 
-            Init(lang);
+            if (lang == "en" || lang == "pl")
+            {
+                Init(lang);
+            }
+            else
+            {
+                Init("en");
+            }          
         }
 
         static public void Init(string lang)
@@ -42,14 +49,7 @@ namespace GMBT
 
                 if (File.Exists(file) == false)
                 {
-                    if (lang == "pl" || lang == "en")
-                    {
-                        Logger.Fatal($"Not found language file ({file}). Please reinstall application.");
-                    }
-                    else
-                    {
-                        Logger.Fatal($"Not found language file ({file}).");
-                    }                   
+                    Logger.Fatal($"Not found language file ({file}).");
                 }
 
                 var json = File.ReadAllText(file);
