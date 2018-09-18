@@ -1,3 +1,8 @@
+## [0.17] - 2018-09-18
+
+### New features
+- Slovak localization
+
 ## [0.16.3] - 2018-09-17
 
 ### Fixed
@@ -146,7 +151,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.16.3...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.17...HEAD
+[0.17]: https://github.com/szmyk/gmbt/compare/v0.16.3...v0.17
 [0.16.3]: https://github.com/szmyk/gmbt/compare/v0.16.2...v0.16.3
 [0.16.2]: https://github.com/szmyk/gmbt/compare/v0.16.1...v0.16.2
 [0.16.1]: https://github.com/szmyk/gmbt/compare/v0.16...v0.16.1
