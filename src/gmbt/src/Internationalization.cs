@@ -29,7 +29,7 @@ namespace GMBT
         {
             var lang = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
 
-            if (lang == "en" || lang == "pl")
+            if (lang == "en" || lang == "pl" || lang == "sk")
             {
                 Init(lang);
             }
