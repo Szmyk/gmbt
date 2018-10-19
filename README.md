@@ -372,7 +372,7 @@ and then, instead of calling `gmbt test --world=WORLD2.ZEN`, you can type `gmbt 
 ```
 MIT License
 
-Copyright (c) 2018 Szymon 'Szmyk' Zak <szymonszmykzak@gmail.com>
+Copyright (c) 2018 Szymon 'Szmyk' Zak <szymonszmykzak@gmail.com> and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
