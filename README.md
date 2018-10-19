@@ -39,6 +39,8 @@
 
 This project was developed primarily for the purpose of assisting the SoulFire team with the development of [The Chronicles of Myrtana].
 
+Tool available in English <img src="https://www.crwflags.com/fotw/images/g/gb.gif" width = "25px">, Polish <img src="https://www.crwflags.com/fotw/images/p/pl.gif" width = "25px"> and Slovak <img src="https://www.crwflags.com/fotw/images/s/sk.gif" width = "25px">.
+
 ## Table of Contents
 
 * [How does it work?](#how-does-it-work)
@@ -201,7 +203,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
-| `-L <en\|pl>, --lang=<en\|pl>`			| Set language of console output.																											| Control Panel -> Regional Settings
+| `-L <en\|pl\|sk>, --lang=<en\|pl\|sk>`	| Set language of console output. Available: English (`en`), Polish (`pl`) and Slovak (`sk`).												| Control Panel -> Regional Settings
 | `--help`								    | Print short descriptions of parameters.																									| N/A
 | `-V <level>, --verbosity=<level>`		    | Set verbosity level of console output. Levels: quiet\|minimal\|normal\|detailed\|diagnostic.												| _normal_
 
@@ -415,6 +417,7 @@ Big thanks to:
 * [Nico Bendlin](https://github.com/nicodex) for huge help with understanding ZenGin engine intricacy
 * [Adam 'Avallach' Golebiowski](https://github.com/Avallach7) for idea of this tool and help on the very early stage of production
 * [Mikolaj 'Miko' Sitarek](mailto:themiko19@gmail.com) for proofreading
+* [Marek 'CarnageMarkus' Karas](https://github.com/CarnageMarkus) for translation into Slovak language
 
 # Contributing / issues / contact
 
