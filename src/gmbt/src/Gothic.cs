@@ -195,7 +195,9 @@ namespace GMBT
                 arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestSpacerBuild.ZSpyLevel) + ",s");
             }
 
-            arguments.Add("ini", Path.GetFileName(GetGameFile(GameFile.GothicIni)));         
+            arguments.Add("ini", Path.GetFileName(GetGameFile(GameFile.GothicIni)));
+
+            arguments.Add("game", "gmbt.ini");
 
             return arguments;
         }
