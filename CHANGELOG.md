@@ -1,3 +1,12 @@
+## [0.17.1] - 2019-01-02
+
+### Fixed
+- Fix problem with LeGo's saves system (#14)
+- Options: Add missing Slovak language info
+
+### Other
+- Update YamlDotNet to v5.0.0 (vulnerability founded)
+
 ## [0.17] - 2018-09-18
 
 ### New features
@@ -151,7 +160,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.17...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.17.1...HEAD
+[0.17.1]: https://github.com/szmyk/gmbt/compare/v0.17...v0.17.1
 [0.17]: https://github.com/szmyk/gmbt/compare/v0.16.3...v0.17
 [0.16.3]: https://github.com/szmyk/gmbt/compare/v0.16.2...v0.16.3
 [0.16.2]: https://github.com/szmyk/gmbt/compare/v0.16.1...v0.16.2
