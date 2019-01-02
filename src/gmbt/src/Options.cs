@@ -102,7 +102,7 @@ namespace GMBT
     internal class CommonOptions
     {
         [Option('L', "lang",
-        MetaValue = "<en|pl>",
+        MetaValue = "<en|pl|sk>",
         HelpText = "Set language of console output.")]
         public string Language { get; set; }
 
