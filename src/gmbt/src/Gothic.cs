@@ -189,7 +189,12 @@ namespace GMBT
                                  ? ".off" 
                                  : ".dll";
 
-                File.Move(dllPath, PathsUtils.ChangeExtension(dllPath, extension));
+                string path = PathsUtils.ChangeExtension(dllPath, extension);
+
+                if (File.Exists(path) == false)
+                {
+                    File.Move(dllPath, path);
+                }              
             }
         }
      
