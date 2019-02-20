@@ -129,7 +129,14 @@ namespace GMBT
                     {
                         var split = tuple.Key.Split('.');
 
-                        GothicINI.Write(split[1], tuple.Value, split[0]);
+                        if (split.Length != 2)
+                        {
+                            Logger.Warn("Gothic.IniOverrideWrongFormat".Translate(tuple.Key));
+                        }
+                        else
+                        {
+                            GothicINI.Write(split[1], tuple.Value, split[0]);
+                        }                       
                     }
                 }
             }

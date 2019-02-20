@@ -41,6 +41,7 @@
   "Gothic.RunningWithParameters": "Spúšťam {0} s parametrami: {1}",
   "Gothic.Running": "Spúšťam {0}...",
   "Gothic.CompilingAssets": "Kompilácia assetov... ",
+  "Gothic.IniOverrideWrongFormat": "Wrong format of game configuration override ({0})!",
   "Spacer.Running": "Spúštam Spacer...",
   "Spacer.RunningWithParameters": "Spúšťam Spacer s parametrami: {0}",
   "Spacer.Error.AlreadyRunning": "Spacer už je spustený!",

@@ -51,6 +51,7 @@
 	"Gothic.RunningWithParameters": "Uruchamianie gry {0} z parametrami: {1}",
 	"Gothic.Running": "Uruchamianie gry {0}...",
 	"Gothic.CompilingAssets": "Kompilowanie zasobów...",
+	"Gothic.IniOverrideWrongFormat": "Niewłaściwy format nadpisania wartości pliku konfiguracyjnego gry ({0})!",
 
 	"Spacer.Running": "Uruchamianie programu Spacer...",
 	"Spacer.RunningWithParameters": "Uruchamianie programu Spacer z parametrami: {0}",

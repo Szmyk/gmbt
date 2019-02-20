@@ -51,6 +51,7 @@
 	"Gothic.RunningWithParameters": "Running {0} with parameters: {1}",
 	"Gothic.Running": "Running {0}...",
 	"Gothic.CompilingAssets": "Compiling assets... ",
+	"Gothic.IniOverrideWrongFormat": "Wrong format of game configuration override ({0})!",
 
 	"Spacer.Running": "Running Spacer...",
 	"Spacer.RunningWithParameters": "Running Spacer with parameters: {0}",
