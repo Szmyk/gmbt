@@ -59,7 +59,7 @@ namespace GMBT
 
             if (Directory.Exists(config.GothicRoot) == false)
             {
-                throw new DirectoryNotFoundException("Config.Error.RootDirDidNotFound".Translate(config.GothicRoot));
+                Logger.Fatal("Config.Error.RootDirDidNotFound".Translate(config.GothicRoot));
             }
 
             if (config.ModFiles.Assets == null)
@@ -81,7 +81,7 @@ namespace GMBT
             {
                 if (Directory.Exists(directory) == false)
                 {
-                    throw new DirectoryNotFoundException("Config.Error.AssetsDirDidNotFound".Translate(directory));
+                    Logger.Fatal("Config.Error.AssetsDirDidNotFound".Translate(directory));
                 }
             }
 
@@ -93,7 +93,7 @@ namespace GMBT
                     {
                         if (File.Exists(file) == false)
                         {
-                            throw new FileNotFoundException("Config.Error.FileDidNotFound".Translate(file));
+                            Logger.Fatal("Config.Error.FileDidNotFound".Translate(file));
                         }
                     }
                 }
