@@ -37,6 +37,8 @@ namespace OutputUnitsUpdater
 
             foreach (var line in lines)
             {
+                var lineNumber = Array.IndexOf(allLines, line) + 1;
+
                 var fullPath = Path.Combine(baseDirectory, line).Trim();
 
                 var extension = getExtension(fullPath);
@@ -45,7 +47,7 @@ namespace OutputUnitsUpdater
                 {
                     if (fullPath.Contains("*"))
                     {
-                        var scripts = resolveWildcard(fullPath);
+                        var scripts = resolveWildcard(fullPath, lineNumber);
 
                         if (scripts.Count > 0)
                         {
@@ -53,7 +55,7 @@ namespace OutputUnitsUpdater
                         }
                         else
                         {
-                            throw new MatchingFilesNotFoundException(line, Array.IndexOf(allLines, line) + 1);
+                            throw new MatchingFilesNotFoundException(line, lineNumber);
                         }                    
                     }
                     else
@@ -64,7 +66,7 @@ namespace OutputUnitsUpdater
                         }
                         else
                         {
-                            throw new MatchingFilesNotFoundException(line, Array.IndexOf(allLines, line) + 1);
+                            throw new MatchingFilesNotFoundException(line, lineNumber);
                         }                       
                     }
                 }
@@ -82,11 +84,16 @@ namespace OutputUnitsUpdater
             return Path.GetExtension(path).ToLower();
         }
 
-        private List<string> resolveWildcard(string path)
+        private List<string> resolveWildcard(string path, int line)
         {
             var wildcard = path.Substring(0, path.Length - 3);
 
             var directoryPath = Path.GetDirectoryName(path);
+
+            if (Directory.Exists(directoryPath) == false)
+            {
+                throw new MatchingFilesNotFoundException(directoryPath, line);
+            }
 
             var directoryFiles = Directory.GetFiles(directoryPath);
           
