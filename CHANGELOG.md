@@ -1,3 +1,11 @@
+## [0.17.2] - 2019-04-07
+
+### Fixed
+- Fix enabling/disabling DX11 wrapper
+- OU: Throwing exception when directory doesn't exists
+- Config: Replace throwing exceptions with logging fatal errors
+- Fix throwing exception when format of Gothic.ini override is wrong
+
 ## [0.17.1] - 2019-01-02
 
 ### Fixed
@@ -160,7 +168,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.17.1...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.17.2...HEAD
+[0.17.2]: https://github.com/szmyk/gmbt/compare/v0.17.1...v0.17.2
 [0.17.1]: https://github.com/szmyk/gmbt/compare/v0.17...v0.17.1
 [0.17]: https://github.com/szmyk/gmbt/compare/v0.16.3...v0.17
 [0.16.3]: https://github.com/szmyk/gmbt/compare/v0.16.2...v0.16.3
