@@ -157,7 +157,7 @@ namespace GMBT
                 WorkingDirectory = GetGameDirectory(GameDirectory.System)
             };
 
-            gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString();
+            gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString() + Program.Options.CommonTestBuild.AdditionalGothicParameters;
 
             Logger.Detailed("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
 

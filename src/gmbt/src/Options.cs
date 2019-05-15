@@ -93,7 +93,11 @@ namespace GMBT
 
         [Option("show-duplicated-subtitles",
         HelpText = "Show duplicated subtitles.")]
-        public bool ShowDuplicatedSubtitles { get; set; }    
+        public bool ShowDuplicatedSubtitles { get; set; }
+
+        [Option("additional-gothic-parameters", 
+        HelpText = "Additional Gothic game parameters.")]
+        public string AdditionalGothicParameters { get; set; }
     }
 
     /// <summary> 
