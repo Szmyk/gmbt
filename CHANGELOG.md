@@ -1,3 +1,8 @@
+## [0.18] - 2019-05-15
+
+### New features
+- Options: Passing custom additional Gothic parameters
+
 ## [0.17.2] - 2019-04-07
 
 ### Fixed
@@ -168,7 +173,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.17.2...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.18...HEAD
+[0.18]: https://github.com/szmyk/gmbt/compare/v0.17.2...v0.18
 [0.17.2]: https://github.com/szmyk/gmbt/compare/v0.17.1...v0.17.2
 [0.17.1]: https://github.com/szmyk/gmbt/compare/v0.17...v0.17.1
 [0.17]: https://github.com/szmyk/gmbt/compare/v0.16.3...v0.17
