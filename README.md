@@ -220,6 +220,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `--noupdatesubtitles`						| Do not update (convert to OU.csl) of dialogues subtitles. 																				| N/A
 | `--show-duplicated-subtitles` 			| Print duplicated subtitles.																												| N/A
+| `--additional-gothic-parameters` 			| Additional Gothic parameters, eg. `--additional-gothic-parameters=-nomenu -zwindow`														| N/A
 
 ## Common parameters (`test` & `spacer`)
 
