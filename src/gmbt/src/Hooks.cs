@@ -16,7 +16,7 @@ namespace GMBT
 
     internal enum HookMode
     {
-        Common, Test, QuickTest, FullTest, Build
+        Common, Test, QuickTest, FullTest, Build, Pack
     }
 
     internal enum HookEvent

@@ -14,7 +14,8 @@ namespace GMBT
 
         public CommonOptions Common { get; set; }
         public CommonTestBuildOptions CommonTestBuild { get; set; }
-        public CommonTestSpacerBuildOptions CommonTestSpacerBuild { get; set; }     
+        public CommonTestSpacerBuildOptions CommonTestSpacerBuild { get; set; }
+        public CommonTestSpacerBuildPackOptions CommonTestSpacerBuildPack { get; set; }
 
         [VerbOption("test",
         HelpText = "Starts a test.")]
@@ -26,7 +27,11 @@ namespace GMBT
 
         [VerbOption("build",
         HelpText = "Starts a VDF build.")]
-        public BuildSubOptions BuildVerb { get; set; }
+        public BuildSubOption BuildVerb { get; set; }
+
+        [VerbOption("pack",
+        HelpText = "Packs a VDF volume.")]
+        public PackSubOption PackVerb { get; set; }
 
         [VerbOption("update",
         HelpText = "Updates the tool.")]
@@ -37,10 +42,12 @@ namespace GMBT
             Common = new CommonOptions();
             CommonTestBuild = new CommonTestBuildOptions();
             CommonTestSpacerBuild = new CommonTestSpacerBuildOptions();
+            CommonTestSpacerBuildPack = new CommonTestSpacerBuildPackOptions();
 
             TestVerb = new TestSubOption();
             SpacerVerb = new SpacerSubOption();
-            BuildVerb = new BuildSubOptions();
+            BuildVerb = new BuildSubOption();
+            PackVerb = new PackSubOption();
             UpdateVerb = new UpdateSubOption();
         }
 
@@ -53,28 +60,34 @@ namespace GMBT
                 {
                     verb = Arguments[1];
                 }
-            }         
+            }
 
             var helpText = HelpText.AutoBuild(this, verb).ToString();
 
             return helpText.Remove(helpText.Length - 1)
                 .Replace(HeadingInfo.Default, string.Empty)
                 .Replace(CopyrightInfo.Default, string.Empty)
-                .Remove(0, 6) + (verb == null ? "\nSee 'gmbt help <command>' or 'gmbt <command> --help' to read about a specific subcommand.\n" : string.Empty);    
+                .Remove(0, 6) + (verb == null ? "\nSee 'gmbt help <command>' or 'gmbt <command> --help' to read about a specific subcommand.\n" : string.Empty);
         }
     }
 
     /// <summary> 
-    /// Represents common arguments that can be used with both "test", "spacer" and 'build" commands. 
+    /// Represents common arguments that can be used with "test", "spacer", 'build" and "pack" commands. 
     /// </summary>
-    internal class CommonTestSpacerBuildOptions : CommonOptions
+    internal class CommonTestSpacerBuildPackOptions : CommonOptions
     {
         [Option('C', "config",
         MetaValue = "<path>",
         DefaultValue = ".gmbt.yml",
         HelpText = "Path to config file. More information in ReadMe.html")]
         public string ConfigFile { get; set; }
+    }
 
+    /// <summary> 
+    /// Represents common arguments that can be used with "test", "spacer" and 'build" commands. 
+    /// </summary>
+    internal class CommonTestSpacerBuildOptions : CommonTestSpacerBuildPackOptions
+    {
         [Option("zspy",
         DefaultValue = ZSpy.Mode.None,
         MetaValue = "<none|low|medium|high>",
@@ -86,7 +99,7 @@ namespace GMBT
     /// Represents common arguments that can be used with both "test" and 'build" commands. 
     /// </summary>
     internal class CommonTestBuildOptions : CommonTestSpacerBuildOptions
-    {      
+    {
         [Option("noupdatesubtitles",
         HelpText = "Do not update dialogs subtitles.")]
         public bool NoUpdateSubtitles { get; set; }
@@ -95,7 +108,7 @@ namespace GMBT
         HelpText = "Show duplicated subtitles.")]
         public bool ShowDuplicatedSubtitles { get; set; }
 
-        [Option("additional-gothic-parameters", 
+        [Option("additional-gothic-parameters",
         HelpText = "Additional Gothic game parameters.")]
         public string AdditionalGothicParameters { get; set; }
     }
@@ -126,21 +139,37 @@ namespace GMBT
     /// <summary> 
     /// Reperesent arguments that can be used with "build" command. 
     /// </summary>
-    internal class BuildSubOptions : CommonTestBuildOptions
+    internal class BuildSubOption : CommonTestBuildOptions
     {
         [Option('O', "output",
         MetaValue = "<file>",
-        MutuallyExclusiveSet = "build",
         HelpText = "Path to VDF output. Default is set in config.")]
         public string Output { get; set; }
 
         [Option("nopacksounds",
-        MutuallyExclusiveSet = "build",
         HelpText = "Do not pack any sounds (WAVs) to VDF.")]
         public bool NoPackSounds { get; set; }
 
         [Option("comment",
-        MutuallyExclusiveSet = "build",
+        HelpText = "Set or override comment of VDF. Default is set in config.")]
+        public string Comment { get; set; }
+    }
+
+    /// <summary> 
+    /// Reperesent arguments that can be used with "pack" command. 
+    /// </summary>
+    internal class PackSubOption : CommonTestSpacerBuildPackOptions
+    {
+        [Option('O', "output",
+        MetaValue = "<file>",
+        HelpText = "Path to VDF output. Default is set in config.")]
+        public string Output { get; set; }
+
+        [Option("nopacksounds",
+        HelpText = "Do not pack any sounds (WAVs) to VDF.")]
+        public bool NoPackSounds { get; set; }
+
+        [Option("comment",
         HelpText = "Set or override comment of VDF. Default is set in config.")]
         public string Comment { get; set; }
     }

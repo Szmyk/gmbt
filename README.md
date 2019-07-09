@@ -51,12 +51,14 @@ Tool available in English <img src="https://www.crwflags.com/fotw/images/g/gb.gi
     * [Example](#example)
 * [Usage](#usage)
     *  [Common parameters](#common-parameters)
-    *  [Common parameters (`test` & `spacer` & `build`)](#common-parameters-test--spacer--build)
+    *  [Common parameters (`test` & `spacer` & `build` & `pack`)](#common-parameters-test--spacer--build--pack)
     *  [Common parameters (`test` & `build`)](#common-parameters-test--build)
     *  [Common parameters (`test` & `spacer`)](#common-parameters-test--spacer)
+    *  [Common parameters (`build` & `pack`)](#common-parameters-build--pack)
     *  [Verb commands](#verb-commands)
         * [`test`](#test)
         * [`build`](#build)
+        * [`pack`](#pack)
 		* [`spacer`](#spacer)
         * [`update`](#update)
     *  [Examples](#examples)
@@ -207,7 +209,7 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--help`								    | Print short descriptions of parameters.																									| N/A
 | `-V <level>, --verbosity=<level>`		    | Set verbosity level of console output. Levels: quiet\|minimal\|normal\|detailed\|diagnostic.												| _normal_
 
-## Common parameters (`test` & `spacer` & `build`)
+## Common parameters (`test` & `spacer` & `build` & `pack`)
 
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
@@ -227,6 +229,14 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `--noaudio` 					     		| Run game/Spacer without any audio. 																										| N/A
+
+## Common parameters (`build` & `pack`)
+
+| Parameter 								| Description								    																							| Default value
+| ---------------------------------------- 	| ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+|`-O <file>, --output=<file>`  				| Path of VDF volume (`.mod`) output. 																										| Set in [config file](#configuration)
+|`--nopacksounds`  							| Do not to pack sounds (WAVs) to mod package.  																							| N/A
+|`--comment`  								| Set or override comment of VDF.  																											| Set in [config file](#configuration)
 
 ## Verb commands
 
@@ -250,11 +260,9 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 > Starts a *.mod* build.
 
-| Parameter 					| Description								    | Default value
-| ---------------------------- 	| --------------------------------------------- | ------------------------------------
-|`-O <file>, --output=<file>`  	| Path of VDF volume (`.mod`) output. 			| Set in [config file](#configuration)
-|`--nopacksounds`  				| Do not to pack sounds (WAVs) to mod package.  | N/A
-|`--comment`  					| Set or override comment of VDF.  				| Set in [config file](#configuration)
+### `pack`
+
+> Packs a *.mod* volume.
 
 ### `spacer`
 
@@ -324,6 +332,7 @@ Hooks are actions can be set in [config file](#configuration) to trigger actions
 * `quickTest` - executes when quick test is executing
 * `fullTest` - executes when full test is executing
 * `build` - executes when build is executing
+* `pack` - executes when pack mode is executing
 
 #### Types
 

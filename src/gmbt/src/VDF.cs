@@ -45,12 +45,12 @@ namespace GMBT
             directoriesToInclude.Add(@"_work\Data\Anims\*.mds -r");
             directoriesToInclude.Add(@"_work\Data\Textures\Desktop\*.tga -r");
            
-            if (Program.Options.BuildVerb.NoPackSounds == false)
+            if (Program.Options.BuildVerb.NoPackSounds == false && Program.Options.PackVerb.NoPackSounds == false)
             {
                 directoriesToPack.Add(@"_work\Data\Sound");
             }
 
-            string vdfOutput = Program.Options.BuildVerb.Output ?? Program.Config.ModVdf.Output;
+            string vdfOutput = Program.Options.BuildVerb.Output ?? Program.Options.PackVerb.Output ?? Program.Config.ModVdf.Output;
 
             var include = new List<string>();
 
@@ -61,7 +61,7 @@ namespace GMBT
                 include.AddRange(Program.Config.ModVdf.Include);
             }
 
-            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root), vdfOutput, Program.Options.BuildVerb.Comment ?? Program.Config.ModVdf.Comment ?? Program.Config.ProjectName ?? string.Empty, directoriesToPack, include, Program.Config.ModVdf.Exclude);
+            VDFScript script = new VDFScript(gothic.GetGameDirectory(Gothic.GameDirectory.Root), vdfOutput, Program.Options.BuildVerb.Comment ?? Program.Options.PackVerb.Comment ?? Program.Config.ModVdf.Comment ?? Program.Config.ProjectName ?? string.Empty, directoriesToPack, include, Program.Config.ModVdf.Exclude);
 
             builder.Arguments = "/B " + script.GenerateAndGetPath();
 

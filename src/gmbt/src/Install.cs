@@ -37,7 +37,7 @@ namespace GMBT
 
             RenameDisabledVdfs();
 
-            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuild.ConfigFile));
+            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuildPack.ConfigFile));
 
             gothic.GothicINI.Write("last_config_dir", configDir, "GMBT");
             gothic.GothicINI.Write("gmbtVersion", FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion, "GMBT");
@@ -58,7 +58,7 @@ namespace GMBT
         public bool LastConfigPathChanged ()
         {
             var lastConfigDir = gothic.GothicINI.Read("last_config_dir", "GMBT");
-            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuild.ConfigFile));
+            var configDir = Path.GetFullPath(Path.GetDirectoryName(Program.Options.CommonTestSpacerBuildPack.ConfigFile));
 
             var changed = configDir != lastConfigDir;
             

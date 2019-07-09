@@ -31,7 +31,10 @@ namespace GMBT
 
             if (options == MergeOptions.All)
             {
-                new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Scripts)).Delete();
+                if (Program.Options.InvokedVerb != "pack")
+                {
+                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Scripts)).Delete();
+                }                
 
                 mergingPatterns.Add("*");
                 logPattern = "Merge.Merging".Translate() + ": {1}";
@@ -42,8 +45,11 @@ namespace GMBT
 
                 if (options.HasFlag(MergeOptions.Scripts))
                 {
-                    new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Scripts)).Delete();
-
+                    if (Program.Options.InvokedVerb != "pack")
+                    {
+                        new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Scripts)).Delete();
+                    }
+                   
                     mergingPatterns.Add("*.d");
                     mergingPatterns.Add("*.src");
                     mergingOptions.Add("Scripts".Translate());                  

@@ -198,6 +198,7 @@
     <Compile Include="src\Merge.cs" />
     <Compile Include="src\Mode.cs" />
     <Compile Include="src\Options.cs" />
+    <Compile Include="src\Pack.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\ProgressBar.cs" />
     <Compile Include="src\Rollbar.cs" />
