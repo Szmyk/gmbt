@@ -103,19 +103,19 @@ namespace GMBT
         {
             DetectIfWorldIsNotExists();
 
-            if (Program.Options.TestVerb.Merge != Merge.MergeOptions.None)
+            if (Program.Options.CommonTestCompile.Merge != Merge.MergeOptions.None)
             {
                 runHooks(HookType.Pre, HookEvent.AssetsMerge);
 
-                Merge.MergeAssets(gothic, Program.Options.TestVerb.Merge);
+                Merge.MergeAssets(gothic, Program.Options.CommonTestCompile.Merge);
 
                 runHooks(HookType.Post, HookEvent.AssetsMerge);
             }
 
-            if ((Program.Options.TestVerb.Merge == Merge.MergeOptions.All)
-            || (Program.Options.TestVerb.Merge.HasFlag(Merge.MergeOptions.Scripts)))
+            if ((Program.Options.CommonTestCompile.Merge == Merge.MergeOptions.All)
+            || (Program.Options.CommonTestCompile.Merge.HasFlag(Merge.MergeOptions.Scripts)))
             {
-                if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
+                if (Program.Options.CommonTestBuildCompile.NoUpdateSubtitles == false)
                 {
                     runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
 

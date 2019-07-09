@@ -51,13 +51,16 @@ Tool available in English <img src="https://www.crwflags.com/fotw/images/g/gb.gi
     * [Example](#example)
 * [Usage](#usage)
     *  [Common parameters](#common-parameters)
-    *  [Common parameters (`test` & `spacer` & `build` & `pack`)](#common-parameters-test--spacer--build--pack)
+    *  [Common parameters (`test` & `spacer` & `build` & `compile` & `pack`)](#common-parameters-test--spacer--build--compile--pack)
+    *  [Common parameters (`test` & `spacer` & `build` & `compile`)](#common-parameters-test--spacer--build--compile)
     *  [Common parameters (`test` & `build`)](#common-parameters-test--build)
     *  [Common parameters (`test` & `spacer`)](#common-parameters-test--spacer)
+    *  [Common parameters (`test` & `compile`)](#common-parameters-test--compile)
     *  [Common parameters (`build` & `pack`)](#common-parameters-build--pack)
     *  [Verb commands](#verb-commands)
         * [`test`](#test)
         * [`build`](#build)
+		* [`compile`](#compile)
         * [`pack`](#pack)
 		* [`spacer`](#spacer)
         * [`update`](#update)
@@ -209,11 +212,16 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | `--help`								    | Print short descriptions of parameters.																									| N/A
 | `-V <level>, --verbosity=<level>`		    | Set verbosity level of console output. Levels: quiet\|minimal\|normal\|detailed\|diagnostic.												| _normal_
 
-## Common parameters (`test` & `spacer` & `build` & `pack`)
+## Common parameters (`test` & `spacer` & `build` & `compile` & `pack`)
 
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `-C <path>, --config=<path>`				| Path of a config file. </br> Guide how to configure this file is [here](#configuration). 													| `.gmbt.yml` in working directory
+
+## Common parameters (`test` & `spacer` & `build` & `compile`)
+
+| Parameter 								| Description 																																| Default value
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
 
 ## Common parameters (`test` & `build`)
@@ -229,6 +237,15 @@ At this moment the only way to use the tool is command line interface. GUI appli
 | Parameter 								| Description 																																| Default value
 | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
 | `--noaudio` 					     		| Run game/Spacer without any audio. 																										| N/A
+
+
+## Common parameters (`test` & `compile`)
+
+| Parameter 									| Description 																																| Default value
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+| `-F, --full`                           		| Full test/compilation mode. Information about modes is [here](#modes). 																	| N/A
+| `--merge=<none\|all\|scripts\|worlds\|sounds>`| Merge option. <br/> Enter eg. `scripts` if you just want to debug scripts and do not want to copy all assets every time. Also, nice option to use is `scripts,worlds` if you want to debug some changes only related to scripts and worlds. | _all_
+| `-R, --reinstall`								| Reinstall before start.																													| N/A
 
 ## Common parameters (`build` & `pack`)
 
@@ -246,19 +263,20 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 | Parameter 									| Description 																														| Default value
 | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------
-| `-F, --full`                           		| Full test mode. Information about modes is [here](#modes). 																		| N/A
-| `--merge=<none\|all\|scripts\|worlds\|sounds>`| Merge option. <br/> Enter eg. `scripts` if you just want to debug scripts and do not want to copy all assets every time. Also, nice option to use is `scripts,worlds` if you want to debug some changes only related to scripts and worlds. | _all_
 | `-W <zen>, --world=<zen>` 					| Run game in a specific world. 																									| Set in [config file](#configuration)
 | `--windowed` 						 			| Run game in window. 																												| N/A
 | `--ingametime=<hh:mm>`						| Ingame time. <br/>Syntax: **hour:minute**, eg. _15:59_. 																			| N/A
 | `--nodx11` 							 		| If [D3D11-Renderer for Gothic] is installed, this command allows you to temporarily disable this wrapper. 						| N/A
 | `--nomenu` 									| Run game without menu showing (starts a new game immediately). 																	| N/A
-| `-R, --reinstall`								| Reinstall before start.																											| N/A
 | `-D, --devmode`								| Dev mode of game (marvin mode).																									| N/A
 
 ### `build`
 
 > Starts a *.mod* build.
+
+### `compile`
+
+> Starts compilation.
 
 ### `pack`
 
@@ -323,15 +341,18 @@ There is an [example project] which uses this tool. There are some assets from [
 
 ## Hooks
 
-Hooks are actions can be set in [config file](#configuration) to trigger actions at certain points in the tool execution.
+Hooks are actions that can be set in [config file](#configuration) to trigger actions at certain points in the tool execution.
 
 #### Modes
 
 * `common` - executes in every instance
 * `test` - executes when test (quick or full) is executing.
-* `quickTest` - executes when quick test is executing
-* `fullTest` - executes when full test is executing
+	* `quickTest` - executes when quick test is executing
+	* `fullTest` - executes when full test is executing
 * `build` - executes when build is executing
+* `compile` - executes when compilation (quick or full) is executing
+	* `quickCompile` - executes when quick compilation is executing
+	* `fullCompile` - executes when full compilation is executing
 * `pack` - executes when pack mode is executing
 
 #### Types
@@ -357,6 +378,10 @@ hooks:
         post:
             subtitlesUpdate: 
                 - "tools/script2.bat"
+    quickTest: 
+        pre:
+            assetsMerge: 
+                - "tools/script3.bat"
 ```
 
 To better understand the entire process of tool execution, you should look at the diagram:

@@ -61,8 +61,8 @@
 	"Install.CopyingFiles": "Copying files listed in config...",
 	"Install.PreparingOriginalAssets": "Preparing original assets...",
 	
-	"Install.Error.Reinstall.RequireFullTest": "Reinstallation requires full test!",
-	"Install.Error.RequireFullTest": "First run of application or changing config file requires full test!",
+	"Install.Error.Reinstall.RequireFullTest": "Reinstallation requires full test or full compilation!",
+	"Install.Error.RequireFullTest": "First run of application or changing config file requires full test or full compilation!",
 	"Install.Error.Reinstall.RequireMergeAll": "Reinstallation requires merging all assets!",
 	"Install.Error.RequireMergeAll": "First run of application or changing config file requires merging all assets!",
 

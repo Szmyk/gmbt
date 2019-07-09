@@ -81,7 +81,7 @@ namespace GMBT
                     Logger.Fatal(msg);
                 }
 
-                if (Program.Options.CommonTestBuild.ZSpyLevel != ZSpy.Mode.None)
+                if (Program.Options.CommonTestBuildCompile.ZSpyLevel != ZSpy.Mode.None)
                 {
                     if (msg.StartsWith("Warn:"))
                     {

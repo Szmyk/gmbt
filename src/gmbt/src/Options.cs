@@ -13,9 +13,10 @@ namespace GMBT
         public string InvokedVerb { get; set; }
 
         public CommonOptions Common { get; set; }
-        public CommonTestBuildOptions CommonTestBuild { get; set; }
-        public CommonTestSpacerBuildOptions CommonTestSpacerBuild { get; set; }
-        public CommonTestSpacerBuildPackOptions CommonTestSpacerBuildPack { get; set; }
+        public CommonTestCompileOptions CommonTestCompile { get; set; }
+        public CommonTestBuildCompileOptions CommonTestBuildCompile { get; set; }
+        public CommonTestSpacerBuildCompileOptions CommonTestSpacerBuildCompile { get; set; }
+        public CommonTestSpacerBuildPackCompileOptions CommonTestSpacerBuildPackCompile { get; set; }
 
         [VerbOption("test",
         HelpText = "Starts a test.")]
@@ -33,6 +34,10 @@ namespace GMBT
         HelpText = "Packs a VDF volume.")]
         public PackSubOption PackVerb { get; set; }
 
+        [VerbOption("compile",
+        HelpText = "Starts compilation.")]
+        public CompileSubOption CompileVerb { get; set; }
+
         [VerbOption("update",
         HelpText = "Updates the tool.")]
         public UpdateSubOption UpdateVerb { get; set; }
@@ -40,14 +45,16 @@ namespace GMBT
         public Options()
         {
             Common = new CommonOptions();
-            CommonTestBuild = new CommonTestBuildOptions();
-            CommonTestSpacerBuild = new CommonTestSpacerBuildOptions();
-            CommonTestSpacerBuildPack = new CommonTestSpacerBuildPackOptions();
+            CommonTestCompile = new CommonTestCompileOptions();
+            CommonTestBuildCompile = new CommonTestBuildCompileOptions();
+            CommonTestSpacerBuildCompile = new CommonTestSpacerBuildCompileOptions();
+            CommonTestSpacerBuildPackCompile = new CommonTestSpacerBuildPackCompileOptions();
 
             TestVerb = new TestSubOption();
             SpacerVerb = new SpacerSubOption();
             BuildVerb = new BuildSubOption();
             PackVerb = new PackSubOption();
+            CompileVerb = new CompileSubOption();
             UpdateVerb = new UpdateSubOption();
         }
 
@@ -72,9 +79,9 @@ namespace GMBT
     }
 
     /// <summary> 
-    /// Represents common arguments that can be used with "test", "spacer", 'build" and "pack" commands. 
+    /// Represents common arguments that can be used with "test", "spacer", 'build", "pack" and "compile" commands. 
     /// </summary>
-    internal class CommonTestSpacerBuildPackOptions : CommonOptions
+    internal class CommonTestSpacerBuildPackCompileOptions : CommonOptions
     {
         [Option('C', "config",
         MetaValue = "<path>",
@@ -84,9 +91,9 @@ namespace GMBT
     }
 
     /// <summary> 
-    /// Represents common arguments that can be used with "test", "spacer" and 'build" commands. 
+    /// Represents common arguments that can be used with "test", "spacer", 'build" and "compile" commands. 
     /// </summary>
-    internal class CommonTestSpacerBuildOptions : CommonTestSpacerBuildPackOptions
+    internal class CommonTestSpacerBuildCompileOptions : CommonTestSpacerBuildPackCompileOptions
     {
         [Option("zspy",
         DefaultValue = ZSpy.Mode.None,
@@ -96,9 +103,9 @@ namespace GMBT
     }
 
     /// <summary> 
-    /// Represents common arguments that can be used with both "test" and 'build" commands. 
+    /// Represents common arguments that can be used with "test", 'build" and "compile" commands. 
     /// </summary>
-    internal class CommonTestBuildOptions : CommonTestSpacerBuildOptions
+    internal class CommonTestBuildCompileOptions : CommonTestSpacerBuildCompileOptions
     {
         [Option("noupdatesubtitles",
         HelpText = "Do not update dialogs subtitles.")]
@@ -139,7 +146,7 @@ namespace GMBT
     /// <summary> 
     /// Reperesent arguments that can be used with "build" command. 
     /// </summary>
-    internal class BuildSubOption : CommonTestBuildOptions
+    internal class BuildSubOption : CommonTestBuildCompileOptions
     {
         [Option('O', "output",
         MetaValue = "<file>",
@@ -158,7 +165,7 @@ namespace GMBT
     /// <summary> 
     /// Reperesent arguments that can be used with "pack" command. 
     /// </summary>
-    internal class PackSubOption : CommonTestSpacerBuildPackOptions
+    internal class PackSubOption : CommonTestSpacerBuildPackCompileOptions
     {
         [Option('O', "output",
         MetaValue = "<file>",
@@ -177,7 +184,7 @@ namespace GMBT
     /// <summary> 
     /// Reperesent arguments that can be used with "spacer" command. 
     /// </summary>
-    internal class SpacerSubOption : CommonTestSpacerBuildOptions
+    internal class SpacerSubOption : CommonTestSpacerBuildCompileOptions
     {
         [Option("noaudio",
         HelpText = "Run Spacer with no sounds and music.")]
@@ -187,26 +194,36 @@ namespace GMBT
         HelpText = "Maximum framerate.")]
         public int MaxFps { get; set; }
     }
-    
+
     /// <summary> 
-    /// Reperesent arguments that can be used with "test" command. 
+    /// Represents common arguments that can be used with both "test" and "compile" commands. 
     /// </summary>
-    internal class TestSubOption : CommonTestBuildOptions
+    internal class CommonTestCompileOptions : CommonTestBuildCompileOptions
     {
         [Option('F', "full",
-        HelpText = "Start full test.")]
+        HelpText = "Start full test/compilation.")]
         public bool Full { get; set; }
-
-        [Option('W', "world",
-        MetaValue = "<zen>",
-        HelpText = "Name of world to start a game.")]
-        public string World { get; set; }
 
         [Option("merge",
         MetaValue = "<none|all|scripts|worlds|sounds>",
         DefaultValue = GMBT.Merge.MergeOptions.All,
         HelpText = "Choose what do you want to merge.")]
         public Merge.MergeOptions Merge { get; set; }
+
+        [Option('R', "reinstall",
+        HelpText = "Reinstall before test/compilation.")]
+        public bool ReInstall { get; set; }
+    }
+
+    /// <summary> 
+    /// Reperesent arguments that can be used with "test" command. 
+    /// </summary>
+    internal class TestSubOption : CommonTestCompileOptions
+    {
+        [Option('W', "world",
+        MetaValue = "<zen>",
+        HelpText = "Name of world to start a game.")]
+        public string World { get; set; }
 
         [Option("windowed",
         HelpText = "Run Gothic game in window.")]
@@ -229,15 +246,19 @@ namespace GMBT
         HelpText = "Run game without menu showing (start new game immediately).")]
         public bool NoMenu { get; set; }
 
-        [Option('R', "reinstall",
-        HelpText = "Reinstall before test.")]
-        public bool ReInstall { get; set; }
-
         [Option('D', "devmode",
         HelpText = "Dev mode of game (marvin mode).")]
         public bool DevMode { get; set; }
     }
 
+    /// <summary> 
+    /// Reperesent arguments that can be used with "compile" command. 
+    /// </summary>
+    internal class CompileSubOption : CommonTestCompileOptions
+    {
+
+    }
+    
     /// <summary> 
     /// Reperesent arguments that can be used with "update" command. 
     /// </summary>

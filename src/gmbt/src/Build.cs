@@ -39,7 +39,7 @@ namespace GMBT
 
             runHooks(HookType.Post, HookEvent.AssetsMerge);
 
-            if (Program.Options.CommonTestBuild.NoUpdateSubtitles == false)
+            if (Program.Options.CommonTestBuildCompile.NoUpdateSubtitles == false)
             {
                 runHooks(HookType.Pre, HookEvent.SubtitlesUpdate);
 

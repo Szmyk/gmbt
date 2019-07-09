@@ -157,7 +157,7 @@ namespace GMBT
                 WorkingDirectory = GetGameDirectory(GameDirectory.System)
             };
 
-            gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString() + Program.Options.CommonTestBuild.AdditionalGothicParameters;
+            gothic.Arguments = GetCommonParameters().ToString() + arguments.ToString() + Program.Options.CommonTestBuildCompile.AdditionalGothicParameters;
 
             Logger.Detailed("Gothic.RunningWithParameters".Translate(GetGothicVersionName(), gothic.Arguments));
 
@@ -202,9 +202,9 @@ namespace GMBT
         {
             GothicArguments arguments = new GothicArguments();
 
-            if (Program.Options.CommonTestSpacerBuild.ZSpyLevel != ZSpy.Mode.None)
+            if (Program.Options.CommonTestSpacerBuildCompile.ZSpyLevel != ZSpy.Mode.None)
             {
-                arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestSpacerBuild.ZSpyLevel) + ",s");
+                arguments.Add("zlog", Convert.ToInt32(Program.Options.CommonTestSpacerBuildCompile.ZSpyLevel) + ",s");
             }
 
             arguments.Add("ini", Path.GetFileName(GetGameFile(GameFile.GothicIni)));

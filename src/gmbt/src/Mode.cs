@@ -50,7 +50,7 @@ namespace GMBT
                 Logger.Fatal("FoundNoMatchingFiles".Translate(ex.Line, ex.LineNumber));
             }
            
-            if (Program.Options.CommonTestBuild.ShowDuplicatedSubtitles)
+            if (Program.Options.CommonTestBuildCompile.ShowDuplicatedSubtitles)
             {
                 Logger.Normal("SearchingDuplicatedSubtitles".Translate());
 

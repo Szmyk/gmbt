@@ -84,7 +84,7 @@ namespace GMBT
                 "AppData: " + Program.AppData.Path + Environment.NewLine +
                 "Working directory: " + Directory.GetCurrentDirectory() + Environment.NewLine +
                 "Console arguments: " + String.Join(" ", Program.Options.Arguments) + Environment.NewLine +
-                "Config: " + Environment.NewLine + Environment.NewLine + File.ReadAllText(Program.Options.CommonTestSpacerBuildPack.ConfigFile) + Environment.NewLine
+                "Config: " + Environment.NewLine + Environment.NewLine + File.ReadAllText(Program.Options.CommonTestSpacerBuildPackCompile.ConfigFile) + Environment.NewLine
             );
         }
 

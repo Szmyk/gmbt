@@ -70,9 +70,9 @@ namespace GMBT
 
             parameters.Add("vdfs", "physicalfirst");
 
-            if (Program.Options.CommonTestSpacerBuild.ZSpyLevel != ZSpy.Mode.None)
+            if (Program.Options.CommonTestSpacerBuildCompile.ZSpyLevel != ZSpy.Mode.None)
             {
-                parameters.Add("zlog", Convert.ToInt32(Program.Options.CommonTestSpacerBuild.ZSpyLevel) + ",s");
+                parameters.Add("zlog", Convert.ToInt32(Program.Options.CommonTestSpacerBuildCompile.ZSpyLevel) + ",s");
             }
 
             if (Program.Options.SpacerVerb.MaxFps > 0)

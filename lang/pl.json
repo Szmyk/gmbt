@@ -61,8 +61,8 @@
 	"Install.CopyingFiles": "Kopiowanie plików wskazanych w pliku konfiguracyjnym...",
 	"Install.PreparingOriginalAssets":" Przygotowywanie oryginalnych zasobów...",
 
-	"Install.Error.Reinstall.RequireFullTest": "Przy reinstalacji wymagany jest pełny test!",
-	"Install.Error.RequireFullTest": "Przy pierwszym uruchomieniu aplikacji lub przy zmianie pliku konfiguracyjnego wymagany jest pełny test!",
+	"Install.Error.Reinstall.RequireFullTest": "Przy reinstalacji wymagany jest pełny test lub pełna kompilacja!",
+	"Install.Error.RequireFullTest": "Przy pierwszym uruchomieniu aplikacji lub przy zmianie pliku konfiguracyjnego wymagany jest pełny test lub pełna kompilacja!",
 	"Install.Error.Reinstall.RequireMergeAll": "Przy reinstalacji należy wybrać opcję połączenia wszystkich zasobów, aby uniknąc błedów związanych z ich brakiem!",
 	"Install.Error.RequireMergeAll": "Przy pierwszym uruchomieniu aplikacji lub przy zmianie pliku konfiguracyjnego należy wybrać opcję połączenia wszystkich zasobów, aby uniknąc błedów związanych z ich brakiem.",
 

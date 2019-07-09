@@ -51,19 +51,24 @@ namespace GMBT
 
                 Options.Common = (CommonOptions)subOptions;
 
-                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build" || Options.InvokedVerb == "pack" || Options.InvokedVerb == "spacer")
+                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build" || Options.InvokedVerb == "pack" || Options.InvokedVerb == "spacer" || Options.InvokedVerb == "compile")
                 {
-                    Options.CommonTestSpacerBuildPack = (CommonTestSpacerBuildPackOptions)subOptions;
+                    Options.CommonTestSpacerBuildPackCompile = (CommonTestSpacerBuildPackCompileOptions)subOptions;
                 }
 
-                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build" || Options.InvokedVerb == "spacer")
+                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build" || Options.InvokedVerb == "spacer" || Options.InvokedVerb == "compile")
                 {
-                    Options.CommonTestSpacerBuild = (CommonTestSpacerBuildOptions)subOptions;
+                    Options.CommonTestSpacerBuildCompile = (CommonTestSpacerBuildCompileOptions)subOptions;
                 }
 
-                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build")
+                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "build" || Options.InvokedVerb == "compile")
                 {
-                    Options.CommonTestBuild = (CommonTestBuildOptions)subOptions;
+                    Options.CommonTestBuildCompile = (CommonTestBuildCompileOptions)subOptions;
+                }
+
+                if (Options.InvokedVerb == "test" || Options.InvokedVerb == "compile")
+                {
+                    Options.CommonTestCompile = (CommonTestCompileOptions)subOptions;
                 }
             }))
             {
@@ -102,9 +107,9 @@ namespace GMBT
                     return;
                 }
 
-                Options.CommonTestSpacerBuildPack.ConfigFile = Path.GetFullPath(Options.CommonTestSpacerBuildPack.ConfigFile);
+                Options.CommonTestSpacerBuildPackCompile.ConfigFile = Path.GetFullPath(Options.CommonTestSpacerBuildPackCompile.ConfigFile);
 
-                if (File.Exists(Options.CommonTestSpacerBuildPack.ConfigFile) == false)
+                if (File.Exists(Options.CommonTestSpacerBuildPackCompile.ConfigFile) == false)
                 {
                     Logger.Fatal("Config.Error.DidNotFound".Translate());
                     return;
@@ -112,9 +117,9 @@ namespace GMBT
 
                 try
                 {
-                    Config = ConfigDeserializer.Deserialize(Options.CommonTestSpacerBuildPack.ConfigFile);
+                    Config = ConfigDeserializer.Deserialize(Options.CommonTestSpacerBuildPackCompile.ConfigFile);
 
-                    Directory.SetCurrentDirectory(Path.GetDirectoryName(Options.CommonTestSpacerBuildPack.ConfigFile));
+                    Directory.SetCurrentDirectory(Path.GetDirectoryName(Options.CommonTestSpacerBuildPackCompile.ConfigFile));
 
                     ConfigParser.Parse(Config);
 
@@ -163,14 +168,14 @@ namespace GMBT
 
                     install.CheckRollbarTelemetry();
 
-                    if (Options.InvokedVerb == "test")
+                    if (Options.InvokedVerb == "test" || Options.InvokedVerb == "compile")
                     {
                         if (install.LastConfigPathChanged()
-                        || ( Options.TestVerb.ReInstall ))
+                        || ( Options.CommonTestCompile.ReInstall ))
                         {
-                            if (Options.TestVerb.Full == false)
+                            if (Options.CommonTestCompile.Full == false)
                             {
-                                if (Options.TestVerb.ReInstall)
+                                if (Options.CommonTestCompile.ReInstall)
                                 {
                                     Logger.Fatal("Install.Error.Reinstall.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
                                 }
@@ -179,9 +184,9 @@ namespace GMBT
                                     Logger.Fatal("Install.Error.RequireFullTest".Translate() + " " + "Install.Error.RunFullTest".Translate());
                                 }
                             }
-                            else if (Options.TestVerb.Merge != Merge.MergeOptions.All)
+                            else if (Options.CommonTestCompile.Merge != Merge.MergeOptions.All)
                             {
-                                if (Options.TestVerb.ReInstall)
+                                if (Options.CommonTestCompile.ReInstall)
                                 {
                                     Logger.Fatal("Install.Error.Reinstall.RequireMergeAll".Translate() + " " + "Install.Error.RunMergeAll".Translate());
                                 }
@@ -203,13 +208,27 @@ namespace GMBT
                             }
                         }
 
-                        if (Options.TestVerb.Full)
+                        if (Options.InvokedVerb == "test")
                         {
-                            new Test(gothic, TestMode.Full).Start();
+                            if (Options.CommonTestCompile.Full)
+                            {
+                                new Test(gothic, TestMode.Full).Start();
+                            }
+                            else
+                            {
+                                new Test(gothic, TestMode.Quick).Start();
+                            }
                         }
-                        else
+                        else if (Options.InvokedVerb == "compile")
                         {
-                            new Test(gothic, TestMode.Quick).Start();
+                            if (Options.CommonTestCompile.Full)
+                            {
+                                new Compile(gothic, CompileMode.Full).Start();
+                            }
+                            else
+                            {
+                                new Compile(gothic, CompileMode.Quick).Start();
+                            }
                         }
                     }
                     else if (Options.InvokedVerb == "spacer")
