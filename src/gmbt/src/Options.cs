@@ -100,6 +100,12 @@ namespace GMBT
         MetaValue = "<none|low|medium|high>",
         HelpText = "Logging level if zSpy.")]
         public ZSpy.Mode ZSpyLevel { get; set; }
+
+        [Option("zspy-filter",
+        DefaultValue = ZSpy.FilterLevel.All,
+        MetaValue = "<all|fatal|fault|warning|information>",
+        HelpText = "Filter level of zSpy messages.")]
+        public ZSpy.FilterLevel ZSpyFilter { get; set; }
     }
 
     /// <summary> 

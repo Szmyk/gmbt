@@ -220,9 +220,10 @@ At this moment the only way to use the tool is command line interface. GUI appli
 
 ## Common parameters (`test` & `spacer` & `build` & `compile`)
 
-| Parameter 								| Description 																																| Default value
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
-| `--zspy=<none\|low\|medium\|high>` 		| Level of zSpy logging.																													| _none_
+| Parameter 												| Description 																																| Default value
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------
+| `--zspy=<none\|low\|medium\|high>` 						| Level of zSpy logging.																													| _none_
+| `--zspy-filter=<all\|fatal\|fault\|warning\|information>` | Filter level of zSpy messages																												| _all_
 
 ## Common parameters (`test` & `build`)
 

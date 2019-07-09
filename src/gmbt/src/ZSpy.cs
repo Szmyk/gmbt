@@ -19,6 +19,16 @@ namespace GMBT
             High = 10
         }
 
+        [Flags]
+        public enum FilterLevel : int
+        {
+            All = Fatal | Warning | Fault | Information,
+            Fatal = 1,
+            Warning = 2,
+            Fault = 4,
+            Information = 8
+        }
+
         static Thread thread;    
 
         public static void Run()
@@ -83,15 +93,15 @@ namespace GMBT
 
                 if (Program.Options.CommonTestBuildCompile.ZSpyLevel != ZSpy.Mode.None)
                 {
-                    if (msg.StartsWith("Warn:"))
+                    if (msg.StartsWith("Warn:") && Program.Options.CommonTestBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Warning))
                     {
                         Logger.Warn("\t" + msg);
                     }
-                    else if (msg.StartsWith("Fault:"))
+                    else if (msg.StartsWith("Fault:") && Program.Options.CommonTestBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Fault))
                     {
                         Logger.Error("\t" + msg);
                     }
-                    else
+                    else if (msg.StartsWith("Info:") && Program.Options.CommonTestBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Information))
                     {
                         Logger.Minimal("\t" + msg);
                     }
