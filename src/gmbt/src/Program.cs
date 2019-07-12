@@ -169,7 +169,7 @@ namespace GMBT
                     install.CheckRollbarTelemetry();
 
                     if (Options.InvokedVerb == "test" || Options.InvokedVerb == "compile")
-                    {
+                    {                      
                         if (install.LastConfigPathChanged()
                         || ( Options.CommonTestCompile.ReInstall ))
                         {
@@ -212,6 +212,11 @@ namespace GMBT
                         {
                             if (Options.CommonTestCompile.Full)
                             {
+                                if (Options.TestVerb.NoReparse)
+                                {
+                                    Logger.Fatal("Test.Error.RequireReparse".Translate());
+                                }
+
                                 new Test(gothic, TestMode.Full).Start();
                             }
                             else

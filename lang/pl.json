@@ -73,6 +73,7 @@
 	"Install.LastConfigPathChanged.ConfigChanged": "Wykryto zmianę pliku konfiguracyjnego.",
 	
 	"Test.Error.RequireReinstall": "Oryginalne zasoby gry ({0}) nie zostały znalezione. Wymagana reinstalacja. Uruchom program z parametrem `--reinstall`.",
+	"Test.Error.RequireReparse": "Przy pełnym teście wymagane jest parsowanie skryptów.",
 	
 	"ErrorSendToDeveloper": "Informacje o błędzie zostały wysłane do twórcy narzędzia.\nJeśli chcesz bardziej pomóc w naprawie błedu, zgłoś go na stronie: https://github.com/Szmyk/gmbt/issues/new/choose.\nNumer błędu: {0}",
 	"CannotSendErrorToDeveloper": "Nie udało się wysłać informacji o błędzie do twórcy narzędzia.\nJeśli chcesz pomóc w naprawie błedu, zgłoś go na stronie: https://github.com/Szmyk/gmbt/issues/new/choose.\n",	

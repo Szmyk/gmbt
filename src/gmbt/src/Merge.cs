@@ -31,7 +31,7 @@ namespace GMBT
 
             if (options == MergeOptions.All)
             {
-                if (Program.Options.InvokedVerb != "pack")
+                if (Program.Options.InvokedVerb != "pack" && Program.Options.TestVerb.NoReparse == false)
                 {
                     new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Scripts)).Delete();
                 }                
@@ -45,7 +45,7 @@ namespace GMBT
 
                 if (options.HasFlag(MergeOptions.Scripts))
                 {
-                    if (Program.Options.InvokedVerb != "pack")
+                    if (Program.Options.InvokedVerb != "pack" && Program.Options.TestVerb.NoReparse == false)
                     {
                         new DirectoryHelper(gothic.GetGameDirectory(Gothic.GameDirectory.Scripts)).Delete();
                     }

@@ -252,6 +252,10 @@ namespace GMBT
         HelpText = "Run game without menu showing (start new game immediately).")]
         public bool NoMenu { get; set; }
 
+        [Option("noreparse",
+        HelpText = "Do not reparse scripts.")]
+        public bool NoReparse { get; set; }
+
         [Option('D', "devmode",
         HelpText = "Dev mode of game (marvin mode).")]
         public bool DevMode { get; set; }

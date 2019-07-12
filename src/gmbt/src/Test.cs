@@ -162,7 +162,10 @@ namespace GMBT
         {
             GothicArguments parameters = new GothicArguments();
 
-            parameters.Add("zreparse");
+            if (Program.Options.TestVerb.NoReparse == false)
+            {
+                parameters.Add("zreparse");
+            }
 
             if (Program.Options.TestVerb.RunGothicWindowed
             || (Mode == TestMode.Full && assetsCompiled == false))

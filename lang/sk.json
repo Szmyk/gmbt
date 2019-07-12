@@ -73,7 +73,8 @@
   "Install.LastConfigPathChanged.ConfigChanged": "Konfiguračný súbor bol zmenený.",
   
   "Test.Error.RequireReinstall": "Zdroj hry ({0}) nebol nájdený. Nutné preinštalovanie. Spusti program s `--reinstall` možnosťou.",
-  
+  "Test.Error.RequireReparse": "Full test requires scripts reparse.",
+	
   "ErrorSendToDeveloper": "Informácia o chyba bola odoslaná vývojárovi nástroja.\nAk chceš pomôcť pri oprave chyby, prosím nahlás chybu na: https://github.com/Szmyk/gmbt/issues/new/choose.\nChyba s ID: {0}",
   "CannotSendErrorToDeveloper": "Nebolo možné odoslať informácie o chybe vývojárom.\nAk chceš pomôcť pri oprave chyby, prosím nahlás chybu na: https://github.com/Szmyk/gmbt/issues/new/choose.\n",
   
