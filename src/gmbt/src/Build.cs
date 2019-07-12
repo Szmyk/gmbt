@@ -35,7 +35,7 @@ namespace GMBT
 
             runHooks(HookType.Pre, HookEvent.AssetsMerge);
 
-            Merge.MergeAssets(gothic, Merge.MergeOptions.All);
+            new Merge(gothic, Merge.MergeOptions.All).MergeAssets();
 
             runHooks(HookType.Post, HookEvent.AssetsMerge);
 
