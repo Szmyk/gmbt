@@ -44,6 +44,9 @@ Tool available in English <img src="https://www.crwflags.com/fotw/images/g/gb.gi
 ## Table of Contents
 
 * [How does it work?](#how-does-it-work)
+  * [Idea](#idea)
+  * [Modes](#modes)
+  * [Speed](#speed)
 * [Status](#status)
 * [Download](#download)
 * [Installation & Requirements](#installation--requirements)
@@ -77,25 +80,34 @@ Tool available in English <img src="https://www.crwflags.com/fotw/images/g/gb.gi
 
 # How does it work?
 
+## Idea
+
 Let's start with some background: the Gothic Mod Build Tool is kind of a breakthrough in Gothic modding, because it is one of the few successful attempts to create a build system which fully automates the process that was previously done manually, every modder had to manually compile assets like textures, meshes and animations and send them to their co-modders. Now, working with version control systems is possible, because each modder has the same version of assets at the same time and at any time can launch the game without need to build a *.mod* and not run into errors or discrepancies due to a lack of or mismatching assets.
 
 This tool serves two very important purposes, to merge and to compile everything. It uses external tool for updating dialogs subtitles but also launches the Gothic game executable and compiles assets like 3D models and animations ingame with appropriate game settings.
 
 ## Modes
 
-There are 3 modes of use:
+There are 4 modes of use:
 
-* **Quick test** - merges assets directories, compiles the necessary assets to run the game, and launches the game. Not everything is compiled, so lag/stuttering can occur because of compiling textures, animations and 3D models "on the fly", in game. Used mainly to check if scripts are parsing when you are not using IDE/syntax checker. It could also be used if a full test is completed.
-* **Full test** - compiles everything. This takes more time, but then you can play without problems like lag and stuttering.
-* **Build** - compiles everything and builds a *.mod* volume.
+* **Compile** - merges assets directories, compiles assets and reparses scripts
+	* **Quick** - only reparses scripts and compiles other necessary assets
+	* **Full** - compiles, reparses and converts everything
+* **Test** - merges assets directories, compiles assets and reparses scripts and launches the game
+	* **Quick** - only reparses scripts and compiles other necessary assets. Not everything is compiled, so lag/stuttering can occur because of compiling textures, animations and 3D models "on the fly", in game.
+	* **Full** - compiles, reparses and converts everything. This takes more time, but you can play without problems like lag and stuttering.
+* **Build** - merges assets directories, compiles assets, reparses scripts and packs a *.mod* volume.
+* **Pack** - only packs a *.mod* volume with available assets
 
 ## Speed
 
-On a mid-range PC with an HDD, a no sounds build of a huge addon [The Chronicles of Myrtana] with around 70 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
+On a mid-range PC with an HDD, a no sounds build of a huge addon [The Chronicles of Myrtana] with around 300 MB of worlds, 800 MB of textures, 150 MB of animations and 3D models, takes about 9 - 10 minutes. Similar time with a full test (subtract about a half minute of packing the *.mod*).
 
 # Status
 
-The most important features of the tool are finalized, but of course you use it at your own risk. The tool has not yet been thoroughly tested.
+The most important features of the tool are finalized. Currently around 30 modders in SoulFire team are using this tool everyday and various problems are being reported and fixed on ongoing basis. 
+
+Milestone for 1.0 version is set to **January 1, 2020**.
 
 # Download
 
@@ -156,7 +168,7 @@ You have to configure a [YAML] config:
     >
     > Syntax: _['section.key', 'value']_ or _'section.key': 'target'_, eg. '`GAME.playLogoVideos' : '0'`
 *  **install**  - _dictionary_
-    > Optional files you want to install.
+    > Optional files and directories you want to install.
     >
     > Syntax: _[source, target]_ or _source: target_
 
