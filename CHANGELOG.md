@@ -1,3 +1,20 @@
+## [0.19] - 2019-08-07
+
+### New features
+- Options: Add `pack` mode ([#19](https://github.com/Szmyk/gmbt/issues/19))
+- Options: Add `compile` mode ([#20](https://github.com/Szmyk/gmbt/issues/20))
+- Options: Add `noreparse` parameter ([#22](https://github.com/Szmyk/gmbt/issues/22))
+- zSpy: Add filtering of messages ([#21](https://github.com/Szmyk/gmbt/issues/21))
+- Config: Add possibility to copy directories using `install` ([#15](https://github.com/Szmyk/gmbt/issues/15))
+
+### Fixed
+- Gothic: Fix InvalidOperationException unhandled exception
+- Options: Fix predefined options ([#18](https://github.com/Szmyk/gmbt/issues/18))
+- Test: Fix world existence detecting ([#17](https://github.com/Szmyk/gmbt/issues/17))
+
+### Improved
+- OU: Throwing exception when SRC file doesn't exists ([#16](https://github.com/Szmyk/gmbt/issues/16))
+
 ## [0.18] - 2019-05-15
 
 ### New features
@@ -173,7 +190,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.18...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.19...HEAD
+[0.19]: https://github.com/szmyk/gmbt/compare/v0.18...v0.19
 [0.18]: https://github.com/szmyk/gmbt/compare/v0.17.2...v0.18
 [0.17.2]: https://github.com/szmyk/gmbt/compare/v0.17.1...v0.17.2
 [0.17.1]: https://github.com/szmyk/gmbt/compare/v0.17...v0.17.1
