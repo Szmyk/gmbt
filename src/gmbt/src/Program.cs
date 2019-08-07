@@ -115,6 +115,8 @@ namespace GMBT
                     return;
                 }
 
+                string currentDirectoryBak = Directory.GetCurrentDirectory();
+
                 try
                 {
                     Config = ConfigDeserializer.Deserialize(Options.CommonTestSpacerBuildPackCompile.ConfigFile);
@@ -145,6 +147,8 @@ namespace GMBT
                             var argsWithoutPredefinedOptionName = args.ToList();
 
                             argsWithoutPredefinedOptionName.RemoveAt(1);
+          
+                            Directory.SetCurrentDirectory(currentDirectoryBak);
 
                             ParseCommandLine(argsWithoutPredefinedOptionName.Concat(arguments).ToArray());
 
