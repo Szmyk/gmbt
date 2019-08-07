@@ -88,7 +88,7 @@ namespace GMBT
                 }              
             }
 
-            var world = Program.Options.TestVerb.World ?? Program.Config.ModFiles.DefaultWorld;
+            var world = (Program.Options.TestVerb.World ?? Program.Config.ModFiles.DefaultWorld).ToUpper();
 
             if (worlds.Where(x => Path.GetFileName(x) == Path.GetFileName(world)).Count() < 1)
             {
