@@ -72,7 +72,14 @@ namespace OutputUnitsUpdater
                 }
                 else if (extension == ".src")
                 {
-                    toReturn.AddRange(getScripts(fullPath));
+                    if (File.Exists(fullPath))
+                    {
+                        toReturn.AddRange(getScripts(fullPath));
+                    }
+                    else
+                    {
+                        throw new MatchingFilesNotFoundException(line, lineNumber);
+                    }                
                 }             
             }
 
