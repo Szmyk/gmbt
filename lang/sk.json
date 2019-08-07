@@ -35,7 +35,7 @@
   "Config.Error.ParsingError": "Chyba prekladania konfigurácie: {0}",
   "Config.Error.RootDirDidNotFound": "Kmeňový priečinok Gothic/Gothic 2 NH ({0}) neexistuje!",
   "Config.Error.AssetsDirDidNotFound": "Assets priečinok ({0}) neexistuje!",
-  "Config.Error.FileDidNotFound": "Súbor ({0}) neexistuje!",
+  "Config.Error.PathDidNotFound": "Cesta ({0}) neexistuje!",
   
   "Config.Error.RootDirNotConfigured": "Cesta ku kmeňovému priečinku nebola nastavená v konfiguračnom súbore!",
   "Config.Error.AssetsNotConfigured": "Cesta k Assets priečinku nebola nastavená v konfiguračnom súbore!",

@@ -35,7 +35,7 @@
 	"Config.Error.ParsingError": "Błąd parsowania pliku konfiguracyjnego: {0}",
 	"Config.Error.RootDirDidNotFound": "Główny katalog gry Gothic/Gothic 2 NK ({0}) nie istnieje!",
 	"Config.Error.AssetsDirDidNotFound": "Folder ({0}) nie istnieje!",
-	"Config.Error.FileDidNotFound": "Plik ({0}) nie istnieje!",
+	"Config.Error.PathDidNotFound": "Ścieżka ({0}) nie istnieje!",
 
 	"Config.Error.RootDirNotConfigured": "Ścieżka katalogu głównego gry nie została ustawiona w pliku konfiguracyjnym!",
 	"Config.Error.AssetsNotConfigured": "Ścieżka zasobów projektu nie została ustawiona w pliku konfiguracyjnym!",

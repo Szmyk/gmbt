@@ -35,7 +35,7 @@
 	"Config.Error.ParsingError": "Config parsing error: {0}",
 	"Config.Error.RootDirDidNotFound": "Root directory of Gothic/Gothic 2 NotR ({0}) does not exist!",
 	"Config.Error.AssetsDirDidNotFound": "Assets directory ({0}) does not exist!",
-	"Config.Error.FileDidNotFound": "File ({0}) does not exist!",
+	"Config.Error.PathDidNotFound": "Path ({0}) does not exist!",
 
 	"Config.Error.RootDirNotConfigured": "Path of root directory is not set in the configuration file!",
 	"Config.Error.AssetsNotConfigured": "Path of project's assets is not set in the configuration file!",

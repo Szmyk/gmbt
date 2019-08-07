@@ -89,11 +89,11 @@ namespace GMBT
             {
                 foreach (var dictionary in config.Install)
                 {
-                    foreach (var file in dictionary.Keys)
+                    foreach (var entry in dictionary.Keys)
                     {
-                        if (File.Exists(file) == false)
+                        if (File.Exists(entry) == false && Directory.Exists(entry) == false)
                         {
-                            Logger.Fatal("Config.Error.FileDidNotFound".Translate(file));
+                            Logger.Fatal("Config.Error.PathDidNotFound".Translate(entry));
                         }
                     }
                 }

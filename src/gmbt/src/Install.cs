@@ -96,13 +96,19 @@ namespace GMBT
             {
                 foreach (var dictionary in Program.Config.Install)
                 {
-                    foreach (var file in dictionary)
+                    foreach (var entry in dictionary)
                     {
-                        if (File.Exists(file.Value) == false)
-                        {
-                            File.Copy(file.Key, file.Value, true);
+                        Logger.Detailed("\t" + entry);
 
-                            Logger.Detailed("\t" + file);                       
+                        FileAttributes attr = File.GetAttributes(entry.Key);
+
+                        if (File.GetAttributes(entry.Key).HasFlag(FileAttributes.Directory))
+                        {
+                            new DirectoryHelper(entry.Key).CopyTo(entry.Value);
+                        }
+                        else
+                        {
+                            File.Copy(entry.Key, entry.Value, true);
                         }
 
                         userFiles.Increase();
