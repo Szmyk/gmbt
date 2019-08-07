@@ -52,7 +52,8 @@
 	"Gothic.Running": "Running {0}...",
 	"Gothic.CompilingAssets": "Compiling assets... ",
 	"Gothic.IniOverrideWrongFormat": "Wrong format of game configuration override ({0})!",
-
+	"Gothic.AlreadyClosedWarning": "Gothic process has already been closed!",
+	
 	"Spacer.Running": "Running Spacer...",
 	"Spacer.RunningWithParameters": "Running Spacer with parameters: {0}",
 	"Spacer.Error.AlreadyRunning": "Spacer is already running!",

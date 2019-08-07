@@ -113,10 +113,17 @@ namespace GMBT
 
         public void EndProcess ()
         {
-            if (gothicProcess?.HasExited == false)
+            try
             {
-                gothicProcess.Kill();
-            }      
+                if (gothicProcess?.HasExited == false)
+                {
+                    gothicProcess.Kill();
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                Logger.Warn("Gothic.AlreadyClosedWarning".Translate());
+            }
         }
 
         private void overrideGothicIniKeys()

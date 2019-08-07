@@ -52,6 +52,7 @@
 	"Gothic.Running": "Uruchamianie gry {0}...",
 	"Gothic.CompilingAssets": "Kompilowanie zasobów...",
 	"Gothic.IniOverrideWrongFormat": "Niewłaściwy format nadpisania wartości pliku konfiguracyjnego gry ({0})!",
+	"Gothic.AlreadyClosedWarning": "Proces gry Gothic został już zamknięty!",
 
 	"Spacer.Running": "Uruchamianie programu Spacer...",
 	"Spacer.RunningWithParameters": "Uruchamianie programu Spacer z parametrami: {0}",
