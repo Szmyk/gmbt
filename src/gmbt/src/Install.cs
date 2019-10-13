@@ -100,15 +100,20 @@ namespace GMBT
                     {
                         Logger.Detailed("\t" + entry);
 
-                        FileAttributes attr = File.GetAttributes(entry.Key);
-
-                        if (File.GetAttributes(entry.Key).HasFlag(FileAttributes.Directory))
+                        try
                         {
-                            new DirectoryHelper(entry.Key).CopyTo(entry.Value);
+                            if (File.GetAttributes(entry.Key).HasFlag(FileAttributes.Directory))
+                            {
+                                new DirectoryHelper(entry.Key).CopyTo(entry.Value);
+                            }
+                            else
+                            {
+                                File.Copy(entry.Key, entry.Value, true);
+                            }
                         }
-                        else
+                        catch (IOException ex)
                         {
-                            File.Copy(entry.Key, entry.Value, true);
+                            Logger.Warn(ex.Message);
                         }
 
                         userFiles.Increase();
