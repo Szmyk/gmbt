@@ -203,6 +203,10 @@ namespace GMBT
         [Option("maxfps",
         HelpText = "Maximum framerate.")]
         public int MaxFps { get; set; }
+
+        [Option("additional-spacer-parameters",
+        HelpText = "Additional Spacer parameters.")]
+        public string AdditionalSpacerParameters { get; set; }
     }
 
     /// <summary> 

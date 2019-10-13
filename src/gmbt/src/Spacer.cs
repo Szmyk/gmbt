@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Diagnostics;
 using System;
 
@@ -38,7 +38,7 @@ namespace GMBT
                 WindowStyle = ProcessWindowStyle.Maximized,
             };
 
-            spacer.Arguments = GetGothicArguments().ToString();
+            spacer.Arguments = GetGothicArguments().ToString() + Program.Options.SpacerVerb.AdditionalSpacerParameters;
 
             Logger.Detailed("Spacer.RunningWithParameters".Translate(spacer.Arguments));
 
