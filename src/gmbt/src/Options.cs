@@ -88,6 +88,10 @@ namespace GMBT
         DefaultValue = ".gmbt.yml",
         HelpText = "Path to config file. More information in ReadMe.html")]
         public string ConfigFile { get; set; }
+
+        [Option("nohooks",
+        HelpText = "Do not run hooks.")]
+        public bool NoHooks { get; set; }
     }
 
     /// <summary> 

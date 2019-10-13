@@ -106,10 +106,13 @@ namespace GMBT
 
         public void RunHooks(HookMode hookMode, HookType hookType, HookEvent hookEvent)
         {
-            Hooks.Where(hook => hook.Mode == hookMode)
-                 .Where(hook => hook.Event == hookEvent)
-                 .Where(hook => hook.Type == hookType).ToList()
-                 .ForEach(hook => hook.Run());
+            if (Program.Options.CommonTestSpacerBuildPackCompile.NoHooks == false)
+            {
+                Hooks.Where(hook => hook.Mode == hookMode)
+                .Where(hook => hook.Event == hookEvent)
+                .Where(hook => hook.Type == hookType).ToList()
+                .ForEach(hook => hook.Run());
+            }         
         }
     }
 }
