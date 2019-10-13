@@ -1,3 +1,8 @@
+## [0.19] - 2019-10-13
+
+### New features
+- Options: Add `nohooks` parameter
+
 ## [0.19] - 2019-08-07
 
 ### New features
@@ -190,7 +195,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.19...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.20...HEAD
+[0.20]: https://github.com/szmyk/gmbt/compare/v0.19...v0.20
 [0.19]: https://github.com/szmyk/gmbt/compare/v0.18...v0.19
 [0.18]: https://github.com/szmyk/gmbt/compare/v0.17.2...v0.18
 [0.17.2]: https://github.com/szmyk/gmbt/compare/v0.17.1...v0.17.2
