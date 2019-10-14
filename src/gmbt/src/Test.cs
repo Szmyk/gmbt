@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -53,7 +53,7 @@ namespace GMBT
             }
         }
 
-        public void DetectIfWorldIsNotExists()
+        public void DetectIfWorldExists()
         {
             if (File.Exists(gothic.GetGameFile(Gothic.GameFile.WorldsVdf)) == false)
             {
@@ -92,7 +92,7 @@ namespace GMBT
 
             if (worlds.Where(x => Path.GetFileName(x) == Path.GetFileName(world)).Count() < 1)
             {
-                Logger.Fatal("Config.Error.FileDidNotFound".Translate(world));
+                Logger.Fatal("Test.Error.WorldDidNotFound".Translate(world));
             }
         }
 
@@ -101,7 +101,7 @@ namespace GMBT
         /// </summary>
         public override void Start()
         {
-            DetectIfWorldIsNotExists();
+            DetectIfWorldExists();
 
             if (Program.Options.CommonTestCompile.Merge != Merge.MergeOptions.None)
             {
