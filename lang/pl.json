@@ -57,6 +57,7 @@
 	"Spacer.Running": "Uruchamianie programu Spacer...",
 	"Spacer.RunningWithParameters": "Uruchamianie programu Spacer z parametrami: {0}",
 	"Spacer.Error.AlreadyRunning": "Spacer jest już uruchomiony!",
+	"Spacer.Error.DidNotFoundExe": "Nie znaleziono pliku wykonywalnego programu Spacer!",
 	
 	"Install.UnpackingOriginalAssets": "Rozpakowywanie oryginalnych zasobów...",
 	"Install.CopyingFiles": "Kopiowanie plików wskazanych w pliku konfiguracyjnym...",

@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Diagnostics;
 using System;
 
@@ -9,9 +9,25 @@ namespace GMBT
         private Gothic gothic;
         private Process spacerProcess;
 
+        private readonly string exeFile;
+
         public Spacer (Gothic gothic)
         {
             this.gothic = gothic;
+
+            exeFile = gothic.Version == Gothic.GameVersion.Gothic1
+                    ? gothic.GetGameFile(Gothic.GameFile.SpacerExe)
+                    : gothic.GetGameFile(Gothic.GameFile.Spacer2Exe);
+
+            if (File.Exists(exeFile) == false)
+            {
+                Logger.Fatal("Spacer.Error.DidNotFoundExe".Translate());
+            }
+
+            if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exeFile)).Length > 0)
+            {
+                Logger.Fatal("Spacer.Error.AlreadyRunning");
+            }
 
             Logger.SetOnFatalEvent(() =>
             {
@@ -21,15 +37,6 @@ namespace GMBT
 
         public Process RunSpacer ()
         {
-            var exeFile = gothic.Version == Gothic.GameVersion.Gothic1
-                        ? gothic.GetGameFile(Gothic.GameFile.SpacerExe)
-                        : gothic.GetGameFile(Gothic.GameFile.Spacer2Exe);
-
-            if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(exeFile)).Length > 0)
-            {
-                Logger.Fatal("Spacer.Error.AlreadyRunning");
-            }
-
             ZSpy.Run();
 
             ProcessStartInfo spacer = new ProcessStartInfo

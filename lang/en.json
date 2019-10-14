@@ -57,6 +57,7 @@
 	"Spacer.Running": "Running Spacer...",
 	"Spacer.RunningWithParameters": "Running Spacer with parameters: {0}",
 	"Spacer.Error.AlreadyRunning": "Spacer is already running!",
+	"Spacer.Error.DidNotFoundExe": "Did not found Spacer EXE file!",
 	
 	"Install.UnpackingOriginalAssets": "Unpacking original assets...",
 	"Install.CopyingFiles": "Copying files listed in config...",

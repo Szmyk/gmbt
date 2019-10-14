@@ -57,6 +57,7 @@
   "Spacer.Running": "Spúštam Spacer...",
   "Spacer.RunningWithParameters": "Spúšťam Spacer s parametrami: {0}",
   "Spacer.Error.AlreadyRunning": "Spacer už je spustený!",
+  "Spacer.Error.DidNotFoundExe": "Nepodarilo sa nájsť Spacer EXE súbor!",
   
   "Install.UnpackingOriginalAssets": "Rozbaľujem pôvodné assety...",
   "Install.CopyingFiles": "Kopírujem súbory vymenované v konfigurácii...",
