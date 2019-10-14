@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GMBT.Tests
 {
@@ -6,16 +7,17 @@ namespace GMBT.Tests
     public class UpdaterTests
     {
         [TestMethod]
-        public void IsVersionGreaterTest()
+        public void VersionTests()
         {
-            Assert.AreEqual(false, Updater.IsVersionGreater("v0.15", "v0.15"));
-            Assert.AreEqual(false, Updater.IsVersionGreater("v0.12", "v0.13"));
-            Assert.AreEqual(true,  Updater.IsVersionGreater("v0.13", "v0.12"));
-            Assert.AreEqual(true,  Updater.IsVersionGreater("v0.12", "v0.12-beta"));
-            Assert.AreEqual(false, Updater.IsVersionGreater("v0.14", "v0.15-beta"));
-            Assert.AreEqual(true,  Updater.IsVersionGreater("v0.12", "v0.11"));
-            Assert.AreEqual(true,  Updater.IsVersionGreater("v0.12-beta", "v0.11-beta"));
-            Assert.AreEqual(false, Updater.IsVersionGreater("v0.11-beta", "v0.12-beta"));
+            Assert.AreEqual(new Version(0, 15), Updater.GetVersion("v0.15"));
+            Assert.AreEqual(new Version(0, 12), Updater.GetVersion("v0.12-beta"));
+            Assert.AreEqual(new Version(1, 0),  Updater.GetVersion("v1.0"));
+
+            Assert.IsTrue(Updater.GetVersion("v0.12")      < Updater.GetVersion("v0.13"));
+            Assert.IsTrue(Updater.GetVersion("v0.14")      < Updater.GetVersion("v0.15-beta"));
+            Assert.IsTrue(Updater.GetVersion("v0.12")      > Updater.GetVersion("v0.11"));
+            Assert.IsTrue(Updater.GetVersion("v0.12-beta") > Updater.GetVersion("v0.11-beta"));
+            Assert.IsTrue(Updater.GetVersion("v0.11-beta") < Updater.GetVersion("v0.12-beta"));
         }
     }
 }

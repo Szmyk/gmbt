@@ -10,7 +10,8 @@
 	"Gothic2NotR": "Gothic 2 Night of the Raven",
 
 	"MinimalVersionRequired": "At least version {0} is required to run this project!",
-		
+	"WrongVersionStringFormat": "Wrong version format: {0}!",
+			
 	"FoundNoMatchingFiles": "Found no matching files: {0} (line {1})",
 			
 	"Options.UsingPredefined": "Using predefined options ({0}): {1}",
@@ -58,7 +59,7 @@
 	"Spacer.RunningWithParameters": "Running Spacer with parameters: {0}",
 	"Spacer.Error.AlreadyRunning": "Spacer is already running!",
 	"Spacer.Error.DidNotFoundExe": "Did not found Spacer EXE file!",
-	
+		
 	"Install.UnpackingOriginalAssets": "Unpacking original assets...",
 	"Install.CopyingFiles": "Copying files listed in config...",
 	"Install.PreparingOriginalAssets": "Preparing original assets...",

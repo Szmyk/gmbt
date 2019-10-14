@@ -39,12 +39,7 @@ namespace GMBT
         {
             if (config.MinimalVersion != null)
             {
-                string localVersion = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion;
-
-                if (Updater.IsVersionGreater(localVersion, config.MinimalVersion) == false)
-                {
-                    Logger.Fatal("MinimalVersionRequired".Translate(config.MinimalVersion));
-                }
+                ParseMinimalVersion(config.MinimalVersion);
             }
 
             if (config.ProjectName == null)
@@ -97,6 +92,33 @@ namespace GMBT
                         }
                     }
                 }
+            }
+        }
+
+        public static void ParseMinimalVersion(string minimalVersionString)
+        {
+            var localVersionString = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion;
+
+            var localVersion = Updater.GetVersion(localVersionString);
+            var minimalVersion = Updater.GetVersion(minimalVersionString);
+
+            if (localVersion == null)
+            {
+                Logger.Fatal("WrongVersionStringFormat".Translate(localVersionString));
+
+                return;
+            }
+
+            if (minimalVersion == null)
+            {
+                Logger.Fatal("WrongVersionStringFormat".Translate(minimalVersionString));
+
+                return;
+            }
+
+            if (localVersion <= minimalVersion)
+            {
+                Logger.Fatal("MinimalVersionRequired".Translate(minimalVersionString));
             }
         }
     }

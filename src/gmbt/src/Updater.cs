@@ -29,31 +29,20 @@ namespace GMBT
         public Release LatestRelease { get; set; }
         public Task CheckLatestReleaseTask { get; set; }
 
-        public static bool IsVersionGreater(string v1, string v2)
+        public static Version GetVersion(string version)
         {
             var rx = new Regex(@"v([\d.]+)([-\w]+)*");
 
-            var v1Splitted = rx.Split(v1);
-            var v2Splitted = rx.Split(v2);
-
-            var version1 = v1Splitted[1];
-            var version2 = v2Splitted[1];
-
-            Version versionA = new Version(version1);
-            Version versionB = new Version(version2);
-
-            if (v1 == v2)
+            if (rx.IsMatch(version))
             {
-                return false;
-            }
-            else if (v2Splitted.Length == 2)
-            {
-                return false;
+                var versionSplitted = rx.Split(version);
+
+                return new Version(versionSplitted[1]);
             }
             else
             {
-                return versionA.CompareTo(versionB) >= 0;
-            }
+                return null;
+            }       
         }
 
         public Updater ()
@@ -68,7 +57,7 @@ namespace GMBT
 
                     string localVersion = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion;
 
-                    IsUpdateAvailable = IsVersionGreater(LatestRelease.Version, localVersion);
+                    IsUpdateAvailable = GetVersion(LatestRelease.Version) > GetVersion(localVersion);
                 }
                 catch              
                 {
