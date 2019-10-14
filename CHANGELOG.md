@@ -1,4 +1,4 @@
-## [0.19] - 2019-10-13
+## [0.20] - 2019-10-13
 
 ### New features
 - Options: Add `nohooks` parameter
