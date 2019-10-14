@@ -91,17 +91,17 @@ namespace GMBT
                     Logger.Fatal(msg);
                 }
 
-                if (Program.Options.CommonTestBuildCompile.ZSpyLevel != ZSpy.Mode.None)
+                if (Program.Options.CommonTestSpacerBuildCompile.ZSpyLevel != ZSpy.Mode.None)
                 {
-                    if (msg.StartsWith("Warn:") && Program.Options.CommonTestBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Warning))
+                    if (msg.StartsWith("Warn:") && Program.Options.CommonTestSpacerBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Warning))
                     {
                         Logger.Warn("\t" + msg);
                     }
-                    else if (msg.StartsWith("Fault:") && Program.Options.CommonTestBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Fault))
+                    else if (msg.StartsWith("Fault:") && Program.Options.CommonTestSpacerBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Fault))
                     {
                         Logger.Error("\t" + msg);
                     }
-                    else if (msg.StartsWith("Info:") && Program.Options.CommonTestBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Information))
+                    else if (msg.StartsWith("Info:") && Program.Options.CommonTestSpacerBuildCompile.ZSpyFilter.HasFlag(ZSpy.FilterLevel.Information))
                     {
                         Logger.Minimal("\t" + msg);
                     }
