@@ -92,6 +92,11 @@ namespace GMBT
         [Option("nohooks",
         HelpText = "Do not run hooks.")]
         public bool NoHooks { get; set; }
+
+        [Option("log",
+        MetaValue = "<path>",
+        HelpText = "Path to log output file.")]
+        public string CustomLogFile { get; set; }
     }
 
     /// <summary> 

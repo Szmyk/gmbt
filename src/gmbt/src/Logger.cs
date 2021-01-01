@@ -67,9 +67,16 @@ namespace GMBT
                 }           
             }
 
-            var fileName = Path.Combine(now.ToString("yyyy-MM-dd"), now.ToString("HH-mm-ss")) + ".log";
+            if (Program.Options.CommonTestSpacerBuildPackCompile.CustomLogFile != null)
+            {
+                LogFilePath = Program.Options.CommonTestSpacerBuildPackCompile.CustomLogFile;
+            }
+            else
+            {
+                var fileName = Path.Combine(now.ToString("yyyy-MM-dd"), now.ToString("HH-mm-ss")) + ".log";
 
-            LogFilePath = Path.Combine(Program.AppData.Logs, fileName);
+                LogFilePath = Path.Combine(Program.AppData.Logs, fileName);
+            }
 
             Directory.CreateDirectory(Path.GetDirectoryName(LogFilePath));
 
