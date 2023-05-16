@@ -18,6 +18,7 @@
 	"Hooks.Run": "Uruchamianie skryptu: {0}",
 	"Hooks.Run.WaitingForEnd": "Oczekiwanie na zakończenie...",
 	"Hooks.Run.Error": "Błąd uruchamiania skryptu: {0}",
+	"Hooks.Run.ErrorCode": "Skrypt zakończył się kodem błędu: {0}",
 	
 	"Update.CheckingAvailableUpdate": "Sprawdzanie dostępności aktualizacji...",
 	"Update.FailedCheck": "Nie udało się sprawdzić dostępności aktualizacji. Sprawdź połączenie internetowe.",
