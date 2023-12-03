@@ -202,7 +202,6 @@
     <Compile Include="src\Pack.cs" />
     <Compile Include="src\Program.cs" />
     <Compile Include="src\ProgressBar.cs" />
-    <Compile Include="src\Rollbar.cs" />
     <Compile Include="src\Spacer.cs" />
     <Compile Include="src\Test.cs" />
     <Compile Include="src\Updater.cs" />

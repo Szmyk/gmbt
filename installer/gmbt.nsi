@@ -8,11 +8,6 @@ XPStyle on
 
 RequestExecutionLevel user
 
-PageEx license
-  LicenseData "..\EULA"
-  LicenseForceSelection checkbox
-PageExEnd
-
 Page license
 Page instfiles
 

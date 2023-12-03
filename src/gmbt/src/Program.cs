@@ -17,8 +17,6 @@ namespace GMBT
 
         static void Main(string[] args)
         {
-            Rollbar.InitRollbar();
-
             Console.WriteLine(CommandLine.Text.HeadingInfo.Default + Environment.NewLine + CommandLine.Text.CopyrightInfo.Default + Environment.NewLine);
 
             Internationalization.Init();
@@ -36,9 +34,7 @@ namespace GMBT
             }
             catch (Exception e)
             {
-                bool sentToRollbar = Rollbar.Critical(e);
-
-                Logger.UnknownFatal(e, sentToRollbar);
+                Logger.UnknownFatal(e);
             }         
         }
 
@@ -169,8 +165,6 @@ namespace GMBT
                     var install = new Install(gothic);
 
                     install.DetectLastConfigChanges();
-
-                    install.CheckRollbarTelemetry();
 
                     if (Options.InvokedVerb == "test" || Options.InvokedVerb == "compile")
                     {                      

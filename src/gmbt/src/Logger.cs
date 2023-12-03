@@ -191,19 +191,10 @@ namespace GMBT
             Fatal(msg, true);
         }
 
-        public static void UnknownFatal(Exception ex, bool sentToRollbar)
+        public static void UnknownFatal(Exception ex)
         {
             Fatal($"{"UnknownError".Translate()}: {ex.ToString()}", false);
-      
-            if (sentToRollbar)
-            {
-                Console.WriteLineDouble("ErrorSendToDeveloper".Translate(Rollbar.LastUuid), ConsoleColor.Cyan);
-            }
-            else
-            {
-                Console.WriteLineDouble("CannotSendErrorToDeveloper".Translate(), ConsoleColor.Cyan);
-            }
-           
+
             Environment.Exit(-1);
         }
     }
