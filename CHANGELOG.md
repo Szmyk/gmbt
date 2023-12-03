@@ -1,4 +1,9 @@
-## [0.19] - 2019-10-13
+## [0.21] - 2023-12-03
+
+### Improved
+- Removed Rollbar crash reporting
+
+## [0.20] - 2019-10-13
 
 ### New features
 - Options: Add `nohooks` parameter
@@ -195,7 +200,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.20...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.21...HEAD
+[0.21]: https://github.com/szmyk/gmbt/compare/v0.20...v0.21
 [0.20]: https://github.com/szmyk/gmbt/compare/v0.19...v0.20
 [0.19]: https://github.com/szmyk/gmbt/compare/v0.18...v0.19
 [0.18]: https://github.com/szmyk/gmbt/compare/v0.17.2...v0.18
