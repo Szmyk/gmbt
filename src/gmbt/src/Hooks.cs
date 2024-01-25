@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -38,10 +38,13 @@ namespace GMBT
 
             try
             {
+                var hookParameters = Program.Options.CommonTestSpacerBuildPackCompile.HooksForwardParameter ?? string.Empty;
+
                 var processStartInfo = new ProcessStartInfo(Command);
                 var process = new Process();
                 process.StartInfo = processStartInfo;
-                
+                process.StartInfo.Arguments = hookParameters;
+
                 Logger.Normal("Hooks.Run.WaitingForEnd".Translate());
 
                 if (Logger.Verbosity >= VerbosityLevel.Detailed)
@@ -88,7 +91,14 @@ namespace GMBT
 
         public override string ToString()
         {
-            return $"[{Mode}] [{Type}] [{Event}] [{Command}]";
+            if (Program.Options.CommonTestSpacerBuildPackCompile.HooksForwardParameter != null)
+            {
+                return $"[{Mode}] [{Type}] [{Event}] [{Command}] [{Program.Options.CommonTestSpacerBuildPackCompile.HooksForwardParameter}]";
+            }
+            else
+            {
+                return $"[{Mode}] [{Type}] [{Event}] [{Command}]";
+            }
         }
 
         public override bool Equals(Object obj)

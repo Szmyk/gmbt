@@ -90,5 +90,57 @@ namespace GMBT.Tests
             Assert.IsTrue(output.Contains("Message to stdout #2"));
             Assert.IsTrue(output.Contains("Message to stderr #1"));
         }
+
+        [TestMethod]
+        [DeploymentItem("SampleFiles\\parameters.bat")]
+        [DeploymentItem("SampleFiles\\hooks.parameters.yml")]
+        public void Hooks_ForwardParameters()
+        {
+            Internationalization.Init("en");
+            Logger.Verbosity = VerbosityLevel.Detailed;
+
+            var config = ConfigDeserializer.Deserialize("hooks.parameters.yml");
+
+            var manager = new HooksManager();
+
+            manager.RegisterHooks(config.Hooks);
+
+            var stringWriter = new StringWriter();
+            System.Console.SetOut(stringWriter);
+
+            Program.Options.CommonTestSpacerBuildPackCompile.HooksForwardParameter = "ForwardParameter";
+
+            manager.RunHooks(HookMode.Test, HookType.Post, HookEvent.AssetsMerge);
+
+            var output = stringWriter.ToString();
+
+            Assert.IsTrue(output.Contains("Parameter detected"));
+        }
+
+        [TestMethod]
+        [DeploymentItem("SampleFiles\\parameters.bat")]
+        [DeploymentItem("SampleFiles\\hooks.parameters.yml")]
+        public void Hooks_NoForwardParameters()
+        {
+            Internationalization.Init("en");
+            Logger.Verbosity = VerbosityLevel.Detailed;
+
+            var config = ConfigDeserializer.Deserialize("hooks.parameters.yml");
+
+            var manager = new HooksManager();
+
+            manager.RegisterHooks(config.Hooks);
+
+            var stringWriter = new StringWriter();
+            System.Console.SetOut(stringWriter);
+
+            Program.Options.CommonTestSpacerBuildPackCompile.HooksForwardParameter = null;
+
+            manager.RunHooks(HookMode.Test, HookType.Post, HookEvent.AssetsMerge);
+
+            var output = stringWriter.ToString();
+
+            Assert.IsTrue(output.Contains("No parameters"));
+        }
     }
 }

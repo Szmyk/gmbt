@@ -1,0 +1,5 @@
+hooks: 
+    test: 
+        post:
+            assetsMerge: 
+                - "parameters.bat"

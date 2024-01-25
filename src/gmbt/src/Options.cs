@@ -93,6 +93,10 @@ namespace GMBT
         HelpText = "Do not run hooks.")]
         public bool NoHooks { get; set; }
 
+        [Option("hooks-forward-parameter",
+        HelpText = "Specifies parameters that will be used when running hooks.")]
+        public string HooksForwardParameter { get; set; }
+
         [Option("log",
         MetaValue = "<path>",
         HelpText = "Path to log output file.")]
