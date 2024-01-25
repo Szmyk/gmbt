@@ -30,7 +30,11 @@ namespace GMBT
 
             runHooks(HookType.Post, HookEvent.AssetsMerge);
 
+            runHooks(HookType.Pre, HookEvent.VdfsPack);
+
             new VDF(gothic).RunBuilder();
+
+            runHooks(HookType.Post, HookEvent.VdfsPack);
 
             Logger.Minimal("CompletedIn".Translate((TimeHelper.Now - startTime).Minutes, (TimeHelper.Now - startTime).Seconds));
         }

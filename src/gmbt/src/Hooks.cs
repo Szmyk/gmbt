@@ -22,7 +22,8 @@ namespace GMBT
     internal enum HookEvent
     {
         AssetsMerge,
-        SubtitlesUpdate
+        SubtitlesUpdate,
+        VdfsPack
     }
 
     internal class Hook
