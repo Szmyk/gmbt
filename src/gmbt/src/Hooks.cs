@@ -38,11 +38,47 @@ namespace GMBT
 
             try
             {
-                var process = Process.Start(Command);
-
+                var processStartInfo = new ProcessStartInfo(Command);
+                var process = new Process();
+                process.StartInfo = processStartInfo;
+                
                 Logger.Normal("Hooks.Run.WaitingForEnd".Translate());
 
-                process.WaitForExit();           
+                if (Logger.Verbosity >= VerbosityLevel.Detailed)
+                {
+                    process.StartInfo.UseShellExecute = false;
+                    process.StartInfo.RedirectStandardOutput = true;
+                    process.StartInfo.RedirectStandardError = true;
+                    process.OutputDataReceived += (object sender, DataReceivedEventArgs args) =>
+                    {
+                        if (args.Data != null)
+                        {
+                            Logger.Detailed(args.Data);
+                        }
+                    };
+                    process.ErrorDataReceived += (object sender, DataReceivedEventArgs args) =>
+                    {
+                        if (args.Data != null)
+                        {
+                            Logger.Error(args.Data);
+                        }
+                    };
+                }
+
+                process.Start();
+
+                if (Logger.Verbosity >= VerbosityLevel.Detailed)
+                {
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+                }
+
+                process.WaitForExit();
+
+                if (process.ExitCode != 0)
+                {
+                    Logger.Warn("Hooks.Run.ErrorCode".Translate(process.ExitCode));
+                } 
             }
             catch (Exception ex)
             {

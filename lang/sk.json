@@ -18,6 +18,7 @@
   "Hooks.Run": "Vykonávam hook: {0}",
   "Hooks.Run.WaitingForEnd": "Čakám na dokončenie...",
   "Hooks.Run.Error": "Chyba pri vykonávaní hooku: {0}",
+  "Hooks.Run.ErrorCode": "Hook exited with error code: {0}",
   
   "Update.CheckingAvailableUpdate": "Kontrola aktualizácii...",
   "Update.FailedCheck": "Nepodarilo sa skontrolovať aktualizácie. Skontrolujte internetové pripojenie.",

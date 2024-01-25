@@ -18,6 +18,7 @@
 	"Hooks.Run": "Running hook: {0}",
 	"Hooks.Run.WaitingForEnd": "Waiting for the end...",
 	"Hooks.Run.Error": "Running hook error: {0}",
+	"Hooks.Run.ErrorCode": "Hook exited with error code: {0}",
 	
 	"Update.CheckingAvailableUpdate": "Checking for updates...",
 	"Update.FailedCheck": "Failed to check for updates.  Check your Internet connection.",
