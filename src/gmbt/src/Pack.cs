@@ -24,11 +24,14 @@ namespace GMBT
         {
             DateTime startTime = TimeHelper.Now;
 
-            runHooks(HookType.Pre, HookEvent.AssetsMerge);
+            if (!Program.Options.PackVerb.SkipMerge)
+            {
+                runHooks(HookType.Pre, HookEvent.AssetsMerge);
 
-            new Merge(gothic, Merge.MergeOptions.All).MergeAssets();
+                new Merge(gothic, Merge.MergeOptions.All).MergeAssets();
 
-            runHooks(HookType.Post, HookEvent.AssetsMerge);
+                runHooks(HookType.Post, HookEvent.AssetsMerge);
+            }
 
             runHooks(HookType.Pre, HookEvent.VdfsPack);
 

@@ -190,6 +190,10 @@ namespace GMBT
     /// </summary>
     internal class PackSubOption : CommonTestSpacerBuildPackCompileOptions
     {
+        [Option("skipmerge",
+        HelpText = "Do not merge assets, only run VDFS builder.")]
+        public bool SkipMerge { get; set; }
+
         [Option('O', "output",
         MetaValue = "<file>",
         HelpText = "Path to VDF output. Default is set in config.")]
