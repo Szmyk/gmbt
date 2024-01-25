@@ -93,6 +93,10 @@ namespace GMBT
         HelpText = "Do not run hooks.")]
         public bool NoHooks { get; set; }
 
+        [Option("hooks-ignore-failures",
+        HelpText = "Do not halt execution when a hook fails.")]
+        public bool HooksIgnoreFailures { get; set; }
+
         [Option("hooks-forward-parameter",
         HelpText = "Specifies parameters that will be used when running hooks.")]
         public string HooksForwardParameter { get; set; }

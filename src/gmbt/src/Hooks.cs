@@ -81,7 +81,14 @@ namespace GMBT
 
                 if (process.ExitCode != 0)
                 {
-                    Logger.Warn("Hooks.Run.ErrorCode".Translate(process.ExitCode));
+                    if (Program.Options.CommonTestSpacerBuildPackCompile.HooksIgnoreFailures)
+                    {
+                        Logger.Warn("Hooks.Run.ErrorCode".Translate(process.ExitCode));
+                    }
+                    else
+                    {
+                        Logger.Fatal("Hooks.Run.ErrorCode".Translate(process.ExitCode));
+                    }
                 } 
             }
             catch (Exception ex)
