@@ -28,7 +28,7 @@ InstallDir $APPDATA\GMBT
 InstallDirRegKey HKCU "Software\GMBT" "Install_Dir"
 
 !define APP_NAME "Gothic Mod Build Tool" 
-!define APP_COPY "Copyright © 2023 Szymon 'Szmyk' Zak" 
+!define APP_COPY "Copyright © 2018-2024 Szymon 'Szmyk' Zak" 
 !define APP_COMP "Szymon 'Szmyk' Zak"                 
 
 VIProductVersion ${GMBT_VERSION_FULL}

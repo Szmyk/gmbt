@@ -1,3 +1,13 @@
+## [0.22] - 2024-01-27
+
+### Improved
+- Hooks: Log when return code is not 0. Log stdout and stderr on Detailed verbosity ([#42](https://github.com/Szmyk/gmbt/pull/42))
+- Hooks: Halt execution when hook fails. Parameter to ignore failures
+- Hooks: Add `hooks-forward-parameter` parameter
+- Hooks: Add `VdfsPack` hook
+- Pack: Add `skipmerge` parameter
+- Options: Add `log` parameter
+
 ## [0.21] - 2023-12-03
 
 ### Improved
@@ -200,7 +210,8 @@
 
 - Unnecessary console output when merging of assets
 
-[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.21...HEAD
+[Unreleased]: https://github.com/szmyk/gmbt/compare/v0.22...HEAD
+[0.22]: https://github.com/szmyk/gmbt/compare/v0.21...v0.22
 [0.21]: https://github.com/szmyk/gmbt/compare/v0.20...v0.21
 [0.20]: https://github.com/szmyk/gmbt/compare/v0.19...v0.20
 [0.19]: https://github.com/szmyk/gmbt/compare/v0.18...v0.19
